@@ -3,15 +3,11 @@ package commands;
 public abstract class Command {
     private final String name;
     private final String description;
-    private int expectArgs = 0;
-
-    public Command(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
+    private final int expectArgs;
 
     public Command(String name, String description, int expectArgs) {
-        this(name, description);
+        this.name = name;
+        this.description = description;
         this.expectArgs = expectArgs;
     }
 

@@ -6,7 +6,7 @@ public class InfoCommand extends Command {
     private final ICollectionManager collectionManager;
 
     public InfoCommand(ICollectionManager collectionManager) {
-        super("info", "info - информация о коллекции");
+        super("info", "info - информация о коллекции", 0);
         this.collectionManager = collectionManager;
     }
 

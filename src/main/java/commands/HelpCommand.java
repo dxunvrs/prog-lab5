@@ -6,7 +6,7 @@ public class HelpCommand extends Command {
     private final ICommandManager commandManager;
 
     public HelpCommand(ICommandManager commandManager) {
-        super("help", "help - список доступных команд");
+        super("help", "help - список доступных команд", 0);
         this.commandManager = commandManager;
     }
 
