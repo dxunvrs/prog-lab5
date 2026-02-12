@@ -1,19 +1,24 @@
 package core;
 
-import models.Person;
+import models.Product;
 
 import java.util.LinkedList;
 
-public class CollectionManager {
-    private final LinkedList<Person> collection;
+public class CollectionManager implements ICollectionManager {
+    private final LinkedList<Product> collection;
 
-    public CollectionManager(LinkedList<Person> collection) {
+    public CollectionManager(LinkedList<Product> collection) {
         this.collection = collection;
     }
 
-    public void addElement(Person person) {
-        collection.add(person);
+    @Override
+    public LinkedList<Product> getCollection() {
+        return collection;
     }
+
+//    public void addElement(Person person) {
+//        collection.add(person);
+//    }
 
 //    public void removeElement(int id) {
 //        for (Person person : collection) {
