@@ -4,6 +4,6 @@ import models.Product;
 
 import java.util.LinkedList;
 
-public interface ICollectionManager {
+public interface CollectionRepository {
     LinkedList<Product> getCollection();
 }

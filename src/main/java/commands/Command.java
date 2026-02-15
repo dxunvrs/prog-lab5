@@ -1,9 +1,13 @@
 package commands;
 
+import io.UserInput;
+
 public abstract class Command {
     private final String name;
     private final String description;
     private final int expectArgs;
+    protected UserInput reader;
+    protected String[] tokens;
 
     public Command(String name, String description, int expectArgs) {
         this.name = name;
@@ -19,13 +23,18 @@ public abstract class Command {
         return description;
     }
 
+    public void setReader(UserInput reader) {
+        this.reader = reader;
+    }
+
     public void execute(String[] tokens) {
+        this.tokens = tokens;
         if (expectArgs == (tokens.length - 1)) {
-            process(tokens);
+            process();
         } else {
             System.out.println("Ожидалось " + expectArgs + " аргументов, получено " + (tokens.length-1));
         }
     }
 
-    protected abstract void process(String[] tokens);
+    protected abstract void process();
 }

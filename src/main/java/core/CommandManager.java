@@ -5,7 +5,7 @@ import commands.Command;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommandManager implements ICommandManager {
+public class CommandManager implements CommandRegistry {
     private final Map<String, Command> commands;
 
     public CommandManager(Map<String, Command> commands) {

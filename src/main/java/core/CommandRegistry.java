@@ -4,7 +4,7 @@ import commands.Command;
 
 import java.util.Map;
 
-public interface ICommandManager {
+public interface CommandRegistry {
     Map<String, Command> getCommandsMap();
     void addCommand(Command newCommand);
 }

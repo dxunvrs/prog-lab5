@@ -4,7 +4,7 @@ import models.Product;
 
 import java.util.LinkedList;
 
-public class CollectionManager implements ICollectionManager {
+public class CollectionManager implements CollectionRepository {
     private final LinkedList<Product> collection;
 
     public CollectionManager(LinkedList<Product> collection) {

@@ -1,17 +1,17 @@
 package commands;
 
-import core.ICollectionManager;
+import core.CollectionRepository;
 
 public class InfoCommand extends Command {
-    private final ICollectionManager collectionManager;
+    private final CollectionRepository collectionManager;
 
-    public InfoCommand(ICollectionManager collectionManager) {
+    public InfoCommand(CollectionRepository collectionManager) {
         super("info", "info - информация о коллекции", 0);
         this.collectionManager = collectionManager;
     }
 
     @Override
-    protected void process(String[] tokens) {
+    protected void process() {
         if (tokens.length == 1) {
             System.out.println("Количество элементов: " + collectionManager.getCollection().size());
         } else {
