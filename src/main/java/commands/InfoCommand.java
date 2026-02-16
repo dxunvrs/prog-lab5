@@ -13,7 +13,9 @@ public class InfoCommand extends Command {
     @Override
     protected void process() {
         if (tokens.length == 1) {
-            System.out.println("Количество элементов: " + collectionManager.getCollection().size());
+            System.out.println("Тип: LinkedList");
+            System.out.println("Дата инициализации: " + collectionManager.getDateOfInit());
+            System.out.println("Количество элементов: " + collectionManager.getCollectionSize());
         } else {
             System.out.println("Команду info стоит писать без аргументов");
         }

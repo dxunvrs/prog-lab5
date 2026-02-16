@@ -20,14 +20,14 @@ public class ConsoleReader implements UserInput {
                 System.out.println("Конец ввода. Завершение программы...");
                 System.exit(0);
             }
-            String line = scanner.nextLine();
+            String line = scanner.nextLine().trim().replaceAll("\\s+", " ");
             String[] tokens = line.split(" ");
             Command command = commandManager.getCommandsMap().get(tokens[0]);
             if (command != null) {
                 command.setReader(this);
                 command.execute(tokens);
             } else {
-                System.out.println("Нет такой команды " + tokens[0]); // пока sout, потом надо exception сделать CommandNotFound
+                System.out.println("Нет такой команды " + tokens[0]);
             }
         }
     }
@@ -35,6 +35,6 @@ public class ConsoleReader implements UserInput {
     @Override
     public String readNextLine(String prompt) {
         System.out.print(prompt);
-        return scanner.nextLine();
+        return scanner.nextLine().trim().replaceAll("\\s+", " ");
     }
 }
