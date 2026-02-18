@@ -24,8 +24,8 @@ public class ConsoleReader implements UserInput {
             String[] tokens = line.split(" ");
             Command command = commandManager.getCommandsMap().get(tokens[0]);
             if (command != null) {
-                command.setReader(this);
                 command.execute(tokens);
+                commandManager.addCommandToHistory(command.getName());
             } else {
                 System.out.println("Нет такой команды " + tokens[0]);
             }

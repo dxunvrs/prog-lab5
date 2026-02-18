@@ -5,19 +5,22 @@ import models.Product;
 
 import java.util.Iterator;
 
-public class ShowCommand extends Command {
-    private final CollectionRepository collectionManger;
+public class FilterStartsWithNameCommand extends Command {
+    private final CollectionRepository collectionManager;
 
-    public ShowCommand(CollectionRepository collectionManger) {
-        super("show", "show - вывод элементов коллекции", 0);
-        this.collectionManger = collectionManger;
+    public FilterStartsWithNameCommand(CollectionRepository collectionManager) {
+        super("filter_starts_with_name", "filter_starts_with_name - вывести элементы, имя которых начинается с заданной подстроки", 1);
+        this.collectionManager = collectionManager;
     }
 
     @Override
     protected void process() {
-        Iterator<Product> iterator = collectionManger.getIterator();
+        Iterator<Product> iterator = collectionManager.getIterator();
         while (iterator.hasNext()) {
             Product product = iterator.next();
+            if (!(product.getName().startsWith(tokens[1]))) {
+                continue;
+            }
             System.out.println("Продукт №" + product.getId());
             System.out.println("  Название: " + product.getName());
             System.out.println("  Координаты: (" + product.getCoordinates().getX() + ", " + product.getCoordinates().getY() + ")");

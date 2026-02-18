@@ -1,12 +1,9 @@
 package commands;
 
-import io.UserInput;
-
 public abstract class Command {
     private final String name;
     private final String description;
     private final int expectArgs;
-    protected UserInput reader;
     protected String[] tokens;
 
     public Command(String name, String description, int expectArgs) {
@@ -21,10 +18,6 @@ public abstract class Command {
 
     public String getDescription() {
         return description;
-    }
-
-    public void setReader(UserInput reader) {
-        this.reader = reader;
     }
 
     public void execute(String[] tokens) {

@@ -2,34 +2,24 @@ package commands;
 
 import core.CollectionRepository;
 import exceptions.IdNotFoundException;
-import models.Product;
+import io.UserInput;
 import utility.ProductForm;
-
-import java.util.LinkedList;
 
 public class UpdateCommand extends Command {
     private final CollectionRepository collectionManager;
+    private final UserInput reader;
 
-    public UpdateCommand(CollectionRepository collectionManager) {
+    public UpdateCommand(CollectionRepository collectionManager, UserInput reader) {
         super("update", "update id - обновить значение элемента по заданному id", 1);
         this.collectionManager = collectionManager;
-    }
-
-    private int findIndex(int id) throws IdNotFoundException {
-        LinkedList<Product> collection = collectionManager.getCollection();
-        for (Product product: collection) {
-            if (id == product.getId()) {
-                return collection.indexOf(product);
-            }
-        }
-        throw new IdNotFoundException("Такого id нет");
+        this.reader = reader;
     }
 
     @Override
     protected void process() {
         int index;
         try {
-            index = findIndex(Integer.parseInt(tokens[1]));
+            index = collectionManager.findIndexById(Integer.parseInt(tokens[1]));
         } catch (NumberFormatException e) {
             System.out.println("Неверный формат id");
             return;

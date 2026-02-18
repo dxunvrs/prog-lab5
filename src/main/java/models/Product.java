@@ -2,7 +2,7 @@ package models;
 
 import java.util.Date;
 
-public class Product {
+public class Product implements Comparable<Product> {
     private Integer id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
@@ -59,4 +59,8 @@ public class Product {
         owner = product.getOwner();
     }
 
+    @Override
+    public int compareTo(Product other) {
+        return Integer.compare(this.id, other.getId());
+    }
 }

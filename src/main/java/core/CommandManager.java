@@ -2,18 +2,28 @@ package core;
 
 import commands.Command;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class CommandManager implements CommandRegistry {
     private final Map<String, Command> commands;
-
-    public CommandManager(Map<String, Command> commands) {
-        this.commands = commands;
-    }
+    private final List<String> commandsHistory;
 
     public CommandManager() {
         commands = new HashMap<>();
+        commandsHistory = new LinkedList<String>();
+    }
+
+    @Override
+    public Iterator<String> getCommandsHistory() {
+        return Collections.unmodifiableCollection(commandsHistory).iterator();
+    }
+
+    @Override
+    public void addCommandToHistory(String commandName) {
+        commandsHistory.add(commandName);
+        if (commandsHistory.size() > 15) {
+            commandsHistory.remove(0);
+        }
     }
 
     @Override

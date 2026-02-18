@@ -15,7 +15,7 @@ public class Form {
         this.reader = reader;
     }
 
-    public <T> T ask(Class<T> type, String name, Validator<T> validator) {
+    protected <T> T ask(Class<T> type, String name, Validator<T> validator) {
         T result;
         while (true) {
             try {

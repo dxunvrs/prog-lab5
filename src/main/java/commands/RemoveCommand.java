@@ -2,9 +2,6 @@ package commands;
 
 import core.CollectionRepository;
 import exceptions.IdNotFoundException;
-import models.Product;
-
-import java.util.LinkedList;
 
 public class RemoveCommand extends Command {
     private final CollectionRepository collectionManager;
@@ -14,21 +11,11 @@ public class RemoveCommand extends Command {
         this.collectionManager = collectionManager;
     }
 
-    private int findIndex(int id) throws IdNotFoundException {
-        LinkedList<Product> collection = collectionManager.getCollection();
-        for (Product product: collection) {
-            if (id == product.getId()) {
-                return collection.indexOf(product);
-            }
-        }
-        throw new IdNotFoundException("Такого id нет");
-    }
-
     @Override
     protected void process() {
         int index;
         try {
-            index = findIndex(Integer.parseInt(tokens[1]));
+            index = collectionManager.findIndexById(Integer.parseInt(tokens[1]));
         } catch (NumberFormatException e) {
             System.out.println("Неверный формат id");
             return;

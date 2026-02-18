@@ -1,12 +1,16 @@
 package core;
 
+import exceptions.IdNotFoundException;
 import models.Product;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 public class CollectionManager implements CollectionRepository {
-    private final LinkedList<Product> collection;
+    private final List<Product> collection;
     private final LocalDate dateOfInit;
 
     public CollectionManager(LinkedList<Product> collection, LocalDate dateOfInit) {
@@ -20,13 +24,35 @@ public class CollectionManager implements CollectionRepository {
     }
 
     @Override
-    public LocalDate getDateOfInit() {
-        return dateOfInit;
+    public Iterator<Product> getIterator() {
+        return Collections.unmodifiableCollection(collection).iterator();
     }
 
     @Override
-    public LinkedList<Product> getCollection() {
-        return collection;
+    public int findIndexById(int id) throws IdNotFoundException {
+        int index = 0;
+        for (Product product: collection) {
+            if (id == product.getId()) {
+                return index;
+            }
+            index++;
+        }
+        throw new IdNotFoundException("Такого id нет");
+    }
+
+    @Override
+    public void sort() {
+        Collections.sort(collection);
+    }
+
+    @Override
+    public void randomSort() {
+        Collections.shuffle(collection);
+    }
+
+    @Override
+    public LocalDate getDateOfInit() {
+        return dateOfInit;
     }
 
     @Override
