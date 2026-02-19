@@ -30,7 +30,14 @@ public class Main {
         commandManager.addCommand(new FilterStartsWithNameCommand(collectionManager));
         commandManager.addCommand(new SaveCommand(collectionManager, fileManager));
 
-        fileManager.load(collectionManager, "test.csv");
+        if (args.length == 0) {
+            System.out.println("Имя файла с коллекцией не указано, создана новая коллекция");
+        } else {
+            if (args.length > 1) System.out.println("Указано больше одного аргумента, в качестве имени файла взят первый полученный аргумент");
+            fileManager.setFileName(args[0]);
+            fileManager.load(collectionManager);
+        }
+
         System.out.println("Ожидание ввода команды, для списка доступных команд - help");
         consoleReader.interactive();
     }

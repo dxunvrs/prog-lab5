@@ -24,7 +24,7 @@ public class RemoveCommand extends Command {
             return;
         }
 
-        collectionManager.removeById(index);
+        collectionManager.removeProduct(index);
         System.out.println("Продукт удален");
     }
 }

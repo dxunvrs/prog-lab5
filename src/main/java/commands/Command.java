@@ -12,14 +12,6 @@ public abstract class Command {
         this.expectArgs = expectArgs;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
     public void execute(String[] tokens) {
         this.tokens = tokens;
         if (expectArgs == (tokens.length - 1)) {
@@ -30,4 +22,12 @@ public abstract class Command {
     }
 
     protected abstract void process();
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

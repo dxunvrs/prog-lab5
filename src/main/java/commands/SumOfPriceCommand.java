@@ -13,6 +13,11 @@ public class SumOfPriceCommand extends Command {
         this.collectionManager = collectionManager;
     }
 
+    @Override
+    protected void process() {
+        System.out.println("Сумма цен всех элементов коллекции: " + sum());
+    }
+
     private int sum() {
         int sum = 0;
         Iterator<Product> iterator = collectionManager.getIterator();
@@ -20,10 +25,5 @@ public class SumOfPriceCommand extends Command {
             sum += iterator.next().getPrice();
         }
         return sum;
-    }
-
-    @Override
-    protected void process() {
-        System.out.println("Сумма цен всех элементов коллекции: " + sum());
     }
 }

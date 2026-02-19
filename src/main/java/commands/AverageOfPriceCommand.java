@@ -13,6 +13,11 @@ public class AverageOfPriceCommand extends Command {
         this.collectionManager = collectionManager;
     }
 
+    @Override
+    protected void process() {
+        System.out.printf("Среднее значение цены для всех элементов коллекции: %.2f" + "\n", avg());
+    }
+
     private float avg() {
         int sum = 0;
         Iterator<Product> iterator = collectionManager.getIterator();
@@ -24,10 +29,5 @@ public class AverageOfPriceCommand extends Command {
             return 0f;
         }
         return (float) sum / collectionManager.getCollectionSize();
-    }
-
-    @Override
-    protected void process() {
-        System.out.printf("Среднее значение цены для всех элементов коллекции: %.2f" + "\n", avg());
     }
 }

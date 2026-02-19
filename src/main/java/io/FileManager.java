@@ -1,18 +1,17 @@
 package io;
 
-import com.fasterxml.jackson.databind.MappingIterator;
-import com.fasterxml.jackson.databind.SequenceWriter;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvReadException;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import core.CollectionRepository;
 import models.Product;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Iterator;
@@ -20,7 +19,8 @@ import java.util.Scanner;
 
 public class FileManager implements FileStorage {
     private final CsvMapper mapper = new CsvMapper();
-    private final CsvSchema schema = mapper.schemaFor(Product.class).withHeader();
+    private final CsvSchema schema = mapper.schemaFor(Product.class);
+    private String fileName = "collection.csv";
 
     public FileManager() {
         mapper.registerModule(new JavaTimeModule());
@@ -28,25 +28,36 @@ public class FileManager implements FileStorage {
     }
 
     @Override
-    public void load(CollectionRepository collectionManager, String fileName) {
-        StringBuilder sb = new StringBuilder();
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 
+    @Override
+    public void load(CollectionRepository collectionManager) {
         try (Scanner scanner = new Scanner(new File(fileName))) {
+            LocalDateTime dateOfInit = null;
             if (scanner.hasNextLine()) {
-                collectionManager.setDateOfInit(LocalDateTime.parse(scanner.nextLine()));
+                dateOfInit = LocalDateTime.parse(scanner.nextLine());
             }
+//            if (scanner.hasNextLine()) {
+//                scanner.nextLine();
+//            }
             while (scanner.hasNextLine()) {
-                sb.append(scanner.nextLine()).append("\n");
+                String dateLine = scanner.nextLine();
+                if (dateLine.trim().isEmpty()) continue;
+                Product product = mapper.readerFor(Product.class).with(schema).readValue(dateLine);
+                collectionManager.addProduct(product);
             }
-
-            MappingIterator<Product> iterator = mapper.readerFor(Product.class).with(schema).readValues(sb.toString());
-
-            while (iterator.hasNext()) {
-                collectionManager.addElement(iterator.next());
-            }
+            collectionManager.setDateOfInit(dateOfInit);
             System.out.println("Коллекция загружена");
         } catch (DateTimeParseException e) {
-            System.out.println("Неверный формат даты в файле, загрузка не удалась, создана новая коллекция");
+            System.out.println("Неверный формат даты инициализации коллекции в файле, загрузка не удалась, создана новая коллекция");
+        } catch (CsvReadException | JsonParseException e) {
+            System.out.println("Структура CSV не распознана, загрузка не удалась, создана новая коллекция");
+        } catch (InvalidFormatException e) {
+            System.out.println("Неверный формат данных, загрузка не удалась, создана новая коллекция");
+        } catch (DatabindException e) {
+            System.out.println("Ошибка маппинга полей, загрузка не удалась, создана новая коллекция");
         } catch (FileNotFoundException e) {
             System.out.println("Файл не найден, загрузка не удалась, создана новая коллекция");
         } catch (SecurityException e) {
@@ -58,15 +69,17 @@ public class FileManager implements FileStorage {
     }
 
     @Override
-    public void save(Iterator<Product> iterator, LocalDateTime dateOfInit, String fileName) {
-        try (BufferedWriter writer = new BufferedWriter(new java.io.FileWriter(fileName));
-        SequenceWriter sequenceWriter = mapper.writer(schema).writeValues(writer)) {
+    public void save(Iterator<Product> iterator, LocalDateTime dateOfInit) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             writer.write(dateOfInit.toString());
             writer.newLine();
+//            writer.write(mapper.writer(schema.withHeader()).writeValueAsString(null).trim());
+//            writer.newLine();
             while (iterator.hasNext()) {
-                sequenceWriter.write(iterator.next());
+                String line = mapper.writer(schema.withoutHeader()).writeValueAsString(iterator.next()).trim();
+                writer.write(line);
+                writer.newLine();
             }
-            System.out.println("Успешно сохранено");
         } catch (FileNotFoundException e) {
             System.out.println("Файл не найден, сохранение не удалось");
         } catch (SecurityException e) {

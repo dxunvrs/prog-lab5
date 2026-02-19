@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Iterator;
 
 public interface FileStorage {
-    void save(Iterator<Product> iterator, LocalDateTime dateOfInit, String fileName);
-    void load(CollectionRepository collectionManager, String fileName);
+    void save(Iterator<Product> iterator, LocalDateTime dateOfInit);
+    void load(CollectionRepository collectionManager);
+    void setFileName(String fileName);
 }

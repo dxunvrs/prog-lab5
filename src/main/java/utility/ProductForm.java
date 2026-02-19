@@ -8,6 +8,7 @@ import models.UnitOfMeasure;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 public class ProductForm extends Form {
     private final Integer id;
@@ -17,7 +18,7 @@ public class ProductForm extends Form {
         this.id = id;
     }
 
-    public Product getProduct() {
+    public Product getProduct(Date creationDate) {
         String name = ask(String.class, "название", value -> {
             if (value == null) {
                 System.out.println("Имя не может быть пустым");
@@ -44,8 +45,6 @@ public class ProductForm extends Form {
             }
             return true;
         });
-
-        Date creationDate = new Date();
 
         int price = ask(Integer.class, "цену", value -> {
             if (value == null) {
@@ -94,7 +93,7 @@ public class ProductForm extends Form {
         });
 
         return new Product(
-                id, name, new Coordinates(x, y), creationDate, price,
+                id, name, new Coordinates(x, y), Objects.requireNonNullElseGet(creationDate, Date::new), price,
                 unitOfMeasure, new Person(ownerName, birthday, height)
         );
     }

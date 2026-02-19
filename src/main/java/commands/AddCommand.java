@@ -17,6 +17,13 @@ public class AddCommand extends Command {
         this.reader = reader;
     }
 
+    @Override
+    protected void process() {
+        ProductForm form = new ProductForm(reader, getMaxId()+1);
+        collectionManager.addProduct(form.getProduct(null));
+        System.out.println("Продукт добавлен");
+    }
+
     private int getMaxId() {
         int id = 0;
         Iterator<Product> iterator = collectionManager.getIterator();
@@ -24,12 +31,5 @@ public class AddCommand extends Command {
             id = Math.max(id, iterator.next().getId());
         }
         return id;
-    }
-
-    @Override
-    protected void process() {
-        ProductForm form = new ProductForm(reader, getMaxId()+1);
-        collectionManager.addElement(form.getProduct());
-        System.out.println("Продукт добавлен");
     }
 }

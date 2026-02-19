@@ -7,15 +7,16 @@ import java.time.LocalDateTime;
 import java.util.Iterator;
 
 public interface CollectionRepository {
-    Iterator<Product> getIterator();
-    int getCollectionSize();
-    void addElement(Product product);
-    LocalDateTime getDateOfInit();
-    void setDateOfInit(LocalDateTime dateOfInit);
-    void clearCollection();
-    void updateProduct(int index, Product product);
-    void removeById(int index);
-    int findIndexById(int id) throws IdNotFoundException;
     void sort();
     void randomSort();
+    void addProduct(Product product);
+    void removeProduct(int index);
+    void updateProduct(int index, Product product);
+    void clearCollection();
+    int findIndexById(int id) throws IdNotFoundException;
+    Product getProduct(int index);
+    Iterator<Product> getIterator();
+    int getCollectionSize();
+    LocalDateTime getDateOfInit();
+    void setDateOfInit(LocalDateTime dateOfInit);
 }

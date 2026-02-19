@@ -1,7 +1,10 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.time.LocalDate;
 
+@JsonPropertyOrder({"name", "birthday", "height"})
 public class Person {
     private String name; //Поле не может быть null, Строка не может быть пустой
     private LocalDate birthday; //Поле не может быть null

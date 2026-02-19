@@ -29,7 +29,7 @@ public class UpdateCommand extends Command {
         }
 
         ProductForm form = new ProductForm(reader, Integer.parseInt(tokens[1]));
-        collectionManager.updateProduct(index, form.getProduct());
+        collectionManager.updateProduct(index, form.getProduct(collectionManager.getProduct(index).getCreationDate()));
         System.out.println("Продукт обновлен");
     }
 }

@@ -15,6 +15,6 @@ public class SaveCommand extends Command {
 
     @Override
     protected void process() {
-        fileManager.save(collectionManager.getIterator(), collectionManager.getDateOfInit(), "test.csv");
+        fileManager.save(collectionManager.getIterator(), collectionManager.getDateOfInit());
     }
 }

@@ -1,5 +1,6 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
@@ -13,7 +14,9 @@ public class Product implements Comparable<Product> {
     @JsonUnwrapped(prefix = "coordinates_")
     private Coordinates coordinates; //Поле не может быть null
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy HH:mm:ss")
     private Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+
     private int price; //Значение поля должно быть больше 0
     private UnitOfMeasure unitOfMeasure; //Поле не может быть null
 
