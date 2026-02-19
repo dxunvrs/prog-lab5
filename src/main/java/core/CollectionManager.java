@@ -3,24 +3,21 @@ package core;
 import exceptions.IdNotFoundException;
 import models.Product;
 
-import java.time.LocalDate;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class CollectionManager implements CollectionRepository {
     private final List<Product> collection;
-    private final LocalDate dateOfInit;
-
-    public CollectionManager(LinkedList<Product> collection, LocalDate dateOfInit) {
-        this.collection = collection;
-        this.dateOfInit = dateOfInit;
-    }
+    private LocalDateTime dateOfInit;
 
     public CollectionManager() {
         collection = new LinkedList<Product>();
-        dateOfInit = LocalDate.now();
+        dateOfInit = LocalDateTime.now();
+    }
+
+    @Override
+    public void setDateOfInit(LocalDateTime dateOfInit) {
+        this.dateOfInit = dateOfInit;
     }
 
     @Override
@@ -51,7 +48,7 @@ public class CollectionManager implements CollectionRepository {
     }
 
     @Override
-    public LocalDate getDateOfInit() {
+    public LocalDateTime getDateOfInit() {
         return dateOfInit;
     }
 

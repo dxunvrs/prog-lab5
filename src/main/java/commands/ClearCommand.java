@@ -13,5 +13,6 @@ public class ClearCommand extends Command {
     @Override
     protected void process() {
         collectionManager.clearCollection();
+        System.out.println("Коллекция очищена");
     }
 }

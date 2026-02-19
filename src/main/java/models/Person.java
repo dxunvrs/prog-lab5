@@ -7,6 +7,10 @@ public class Person {
     private LocalDate birthday; //Поле не может быть null
     private Long height; //Поле не может быть null, Значение поля должно быть больше 0
 
+    public Person() {
+
+    }
+
     public Person(String name, LocalDate birthday, Long height) {
         this.name = name;
         this.birthday = birthday;

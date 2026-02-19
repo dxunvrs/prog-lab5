@@ -3,14 +3,15 @@ package core;
 import exceptions.IdNotFoundException;
 import models.Product;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Iterator;
 
 public interface CollectionRepository {
     Iterator<Product> getIterator();
     int getCollectionSize();
     void addElement(Product product);
-    LocalDate getDateOfInit();
+    LocalDateTime getDateOfInit();
+    void setDateOfInit(LocalDateTime dateOfInit);
     void clearCollection();
     void updateProduct(int index, Product product);
     void removeById(int index);

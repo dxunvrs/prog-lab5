@@ -4,12 +4,15 @@ import core.CommandManager;
 import core.CollectionRepository;
 import core.CommandRegistry;
 import io.ConsoleReader;
+import io.FileManager;
+import io.FileStorage;
 
 public class Main {
     public static void main(String[] args) {
         CommandRegistry commandManager = new CommandManager();
         CollectionRepository collectionManager = new CollectionManager();
         ConsoleReader consoleReader = new ConsoleReader(commandManager);
+        FileStorage fileManager = new FileManager();
 
         commandManager.addCommand(new HelpCommand(commandManager));
         commandManager.addCommand(new InfoCommand(collectionManager));
@@ -25,7 +28,9 @@ public class Main {
         commandManager.addCommand(new SumOfPriceCommand(collectionManager));
         commandManager.addCommand(new AverageOfPriceCommand(collectionManager));
         commandManager.addCommand(new FilterStartsWithNameCommand(collectionManager));
+        commandManager.addCommand(new SaveCommand(collectionManager, fileManager));
 
+        fileManager.load(collectionManager, "test.csv");
         System.out.println("Ожидание ввода команды, для списка доступных команд - help");
         consoleReader.interactive();
     }

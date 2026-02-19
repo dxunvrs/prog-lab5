@@ -14,6 +14,7 @@ public class HistoryCommand extends Command {
 
     @Override
     protected void process() {
+        System.out.println("Последние 15 команд: ");
         Iterator<String> iterator = commandManager.getCommandsHistory();
         int i = 1;
         while (iterator.hasNext()) {

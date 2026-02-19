@@ -4,6 +4,10 @@ public class Coordinates {
     private Long x; //Значение поля должно быть больше -425, Поле не может быть null
     private int y;
 
+    public Coordinates() {
+
+    }
+
     public Coordinates(Long x, int y) {
         this.x = x;
         this.y = y;

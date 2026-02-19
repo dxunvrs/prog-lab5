@@ -16,11 +16,14 @@ public class FilterStartsWithNameCommand extends Command {
     @Override
     protected void process() {
         Iterator<Product> iterator = collectionManager.getIterator();
+        boolean hasMatch = false;
+        System.out.println("Продукты, имя которых начинается на " + tokens[1]);
         while (iterator.hasNext()) {
             Product product = iterator.next();
             if (!(product.getName().startsWith(tokens[1]))) {
                 continue;
             }
+            hasMatch = true;
             System.out.println("Продукт №" + product.getId());
             System.out.println("  Название: " + product.getName());
             System.out.println("  Координаты: (" + product.getCoordinates().getX() + ", " + product.getCoordinates().getY() + ")");
@@ -30,6 +33,9 @@ public class FilterStartsWithNameCommand extends Command {
             System.out.println("  Имя владельца: " + product.getOwner().getName());
             System.out.println("  Дата дня рождения владельца: " + product.getOwner().getBirthday());
             System.out.println("  Рост владельца: " + product.getOwner().getHeight());
+        }
+        if (!hasMatch) {
+            System.out.println("Совпадений не найдено");
         }
     }
 }

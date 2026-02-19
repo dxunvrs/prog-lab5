@@ -13,5 +13,6 @@ public class SortCommand extends Command {
     @Override
     protected void process() {
         collectionManager.sort();
+        System.out.println("Коллекция отсортирована в естественном порядке, введите show для просмотра");
     }
 }

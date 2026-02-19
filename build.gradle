@@ -2,8 +2,8 @@ plugins {
     id 'java'
 }
 
-group = 'org.example'
-version = '0.0.0.0'
+group = 'com.itmo.prog.lab5'
+version = '1.0'
 
 jar {
     manifest {
@@ -12,5 +12,11 @@ jar {
 }
 
 dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.20.0'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.20.0'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.20.0'
+}
 
+repositories {
+    mavenCentral()
 }

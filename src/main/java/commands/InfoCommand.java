@@ -12,8 +12,9 @@ public class InfoCommand extends Command {
 
     @Override
     protected void process() {
-        System.out.println("Тип: LinkedList");
-        System.out.println("Дата инициализации: " + collectionManager.getDateOfInit());
-        System.out.println("Количество элементов: " + collectionManager.getCollectionSize());
+        System.out.println("Информация о коллекции: ");
+        System.out.println("  Тип: LinkedList");
+        System.out.println("  Дата инициализации: " + collectionManager.getDateOfInit());
+        System.out.println("  Количество элементов: " + collectionManager.getCollectionSize());
     }
 }

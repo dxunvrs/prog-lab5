@@ -12,8 +12,9 @@ public class HelpCommand extends Command {
 
     @Override
     protected void process() {
+        System.out.println("Список команд и их описание: ");
         for (Command command : commandManager.getCommandsMap().values()) {
-            System.out.println(command.getDescription());
+            System.out.println("  " + command.getDescription());
         }
     }
 }

@@ -13,5 +13,6 @@ public class ShuffleCommand extends Command {
     @Override
     protected void process() {
         collectionManager.randomSort();
+        System.out.println("Коллекция перемешана, введите show для просмотра");
     }
 }
