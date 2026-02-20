@@ -28,7 +28,7 @@ public class UpdateCommand extends Command implements CollectionManagerDependant
             return;
         }
 
-        ProductForm form = new ProductForm(reader, Integer.parseInt(tokens[1]));
+        ProductForm form = new ProductForm(reader, Integer.parseInt(tokens[1]), reader.isScriptMode());
         collectionManager.updateProduct(index, form.getProduct(collectionManager.getProduct(index).getCreationDate()));
         System.out.println("Продукт обновлен");
     }

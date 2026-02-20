@@ -30,6 +30,7 @@ public class Main {
         commandManager.addCommand(new AverageOfPriceCommand());
         commandManager.addCommand(new FilterStartsWithNameCommand());
         commandManager.addCommand(new SaveCommand());
+        commandManager.addCommand(new ExecuteScriptCommand());
 
         if (args.length == 0) {
             System.out.println("Имя файла с коллекцией не указано, создана новая коллекция");

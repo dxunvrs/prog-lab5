@@ -19,7 +19,7 @@ public class AddCommand extends Command implements CollectionManagerDependant, R
 
     @Override
     protected void process() {
-        ProductForm form = new ProductForm(reader, getMaxId()+1);
+        ProductForm form = new ProductForm(reader, getMaxId()+1, reader.isScriptMode());
         collectionManager.addProduct(form.getProduct(null));
         System.out.println("Продукт добавлен");
     }

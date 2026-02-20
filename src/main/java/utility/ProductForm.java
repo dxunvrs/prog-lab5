@@ -13,8 +13,8 @@ import java.util.Objects;
 public class ProductForm extends Form {
     private final Integer id;
 
-    public ProductForm(UserInput reader, Integer id) {
-        super(reader);
+    public ProductForm(UserInput reader, Integer id, boolean scriptMode) {
+        super(reader, scriptMode);
         this.id = id;
     }
 
