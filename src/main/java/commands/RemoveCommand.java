@@ -1,14 +1,14 @@
 package commands;
 
+import commands.di.CollectionManagerDependant;
 import core.CollectionRepository;
 import exceptions.IdNotFoundException;
 
-public class RemoveCommand extends Command {
-    private final CollectionRepository collectionManager;
+public class RemoveCommand extends Command implements CollectionManagerDependant {
+    private CollectionRepository collectionManager;
 
-    public RemoveCommand(CollectionRepository collectionManager) {
+    public RemoveCommand() {
         super("remove_by_id", "remove_by_id - удалить элемент из коллекции по id", 1);
-        this.collectionManager = collectionManager;
     }
 
     @Override
@@ -26,5 +26,10 @@ public class RemoveCommand extends Command {
 
         collectionManager.removeProduct(index);
         System.out.println("Продукт удален");
+    }
+
+    @Override
+    public void setCollectionManager(CollectionRepository collectionManager) {
+        this.collectionManager = collectionManager;
     }
 }

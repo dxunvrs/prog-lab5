@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface CommandRegistry {
     Map<String, Command> getCommandsMap();
-    void addCommand(Command newCommand);
+    void addCommand(Command command);
     Iterator<String> getCommandsHistory();
     void addCommandToHistory(String commandName);
 }

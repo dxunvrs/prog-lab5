@@ -6,14 +6,11 @@ import core.CommandRegistry;
 import java.util.Scanner;
 
 public class ConsoleReader implements UserInput {
-    private final CommandRegistry commandManager;
+    private CommandRegistry commandManager;
     private final Scanner scanner = new Scanner(System.in);
 
-    public ConsoleReader(CommandRegistry commandManager) {
-        this.commandManager = commandManager;
-    }
-
-    public void interactive() {
+    @Override
+    public void interactive(CommandRegistry commandManager) {
         while (true) {
             System.out.print("> ");
             if (!scanner.hasNextLine()) {

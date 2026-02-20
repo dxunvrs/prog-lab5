@@ -1,18 +1,18 @@
 package commands;
 
+import commands.di.CollectionManagerDependant;
+import commands.di.ReaderDependant;
 import core.CollectionRepository;
 import exceptions.IdNotFoundException;
 import io.UserInput;
 import utility.ProductForm;
 
-public class UpdateCommand extends Command {
-    private final CollectionRepository collectionManager;
-    private final UserInput reader;
+public class UpdateCommand extends Command implements CollectionManagerDependant, ReaderDependant {
+    private CollectionRepository collectionManager;
+    private UserInput reader;
 
-    public UpdateCommand(CollectionRepository collectionManager, UserInput reader) {
+    public UpdateCommand() {
         super("update", "update id - обновить значение элемента по заданному id", 1);
-        this.collectionManager = collectionManager;
-        this.reader = reader;
     }
 
     @Override
@@ -31,5 +31,15 @@ public class UpdateCommand extends Command {
         ProductForm form = new ProductForm(reader, Integer.parseInt(tokens[1]));
         collectionManager.updateProduct(index, form.getProduct(collectionManager.getProduct(index).getCreationDate()));
         System.out.println("Продукт обновлен");
+    }
+
+    @Override
+    public void setCollectionManager(CollectionRepository collectionManager) {
+        this.collectionManager = collectionManager;
+    }
+
+    @Override
+    public void setReader(UserInput reader) {
+        this.reader = reader;
     }
 }

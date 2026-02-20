@@ -1,16 +1,16 @@
 package commands;
 
+import commands.di.CollectionManagerDependant;
 import core.CollectionRepository;
 import models.Product;
 
 import java.util.Iterator;
 
-public class AverageOfPriceCommand extends Command {
-    private final CollectionRepository collectionManager;
+public class AverageOfPriceCommand extends Command implements CollectionManagerDependant {
+    private CollectionRepository collectionManager;
 
-    public AverageOfPriceCommand(CollectionRepository collectionManager) {
+    public AverageOfPriceCommand() {
         super("average_of_price", "average_of_price - вывести среднее значение цены для всех элементов коллекции", 0);
-        this.collectionManager = collectionManager;
     }
 
     @Override
@@ -29,5 +29,10 @@ public class AverageOfPriceCommand extends Command {
             return 0f;
         }
         return (float) sum / collectionManager.getCollectionSize();
+    }
+
+    @Override
+    public void setCollectionManager(CollectionRepository collectionManager) {
+        this.collectionManager = collectionManager;
     }
 }

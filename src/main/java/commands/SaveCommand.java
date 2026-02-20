@@ -1,20 +1,31 @@
 package commands;
 
+import commands.di.CollectionManagerDependant;
+import commands.di.FileManagerDependant;
 import core.CollectionRepository;
 import io.FileStorage;
 
-public class SaveCommand extends Command {
-    private final FileStorage fileManager;
-    private final CollectionRepository collectionManager;
+public class SaveCommand extends Command implements CollectionManagerDependant, FileManagerDependant {
+    private CollectionRepository collectionManager;
+    private FileStorage fileManager;
 
-    public SaveCommand(CollectionRepository collectionManager, FileStorage fileManager) {
+
+    public SaveCommand() {
         super("save", "save - сохранение коллекции в файл", 0);
-        this.collectionManager = collectionManager;
-        this.fileManager = fileManager;
     }
 
     @Override
     protected void process() {
         fileManager.save(collectionManager.getIterator(), collectionManager.getDateOfInit());
+    }
+
+    @Override
+    public void setCollectionManager(CollectionRepository collectionManager) {
+        this.collectionManager = collectionManager;
+    }
+
+    @Override
+    public void setFileManager(FileStorage fileManager) {
+        this.fileManager = fileManager;
     }
 }

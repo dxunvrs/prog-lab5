@@ -1,13 +1,13 @@
 package commands;
 
+import commands.di.CommandManagerDependant;
 import core.CommandRegistry;
 
-public class HelpCommand extends Command {
-    private final CommandRegistry commandManager;
+public class HelpCommand extends Command implements CommandManagerDependant {
+    private CommandRegistry commandManager;
 
-    public HelpCommand(CommandRegistry commandManager) {
+    public HelpCommand() {
         super("help", "help - список доступных команд", 0);
-        this.commandManager = commandManager;
     }
 
     @Override
@@ -16,5 +16,10 @@ public class HelpCommand extends Command {
         for (Command command : commandManager.getCommandsMap().values()) {
             System.out.println("  " + command.getDescription());
         }
+    }
+
+    @Override
+    public void setCommandManager(CommandRegistry commandManager) {
+        this.commandManager = commandManager;
     }
 }

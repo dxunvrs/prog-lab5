@@ -1,15 +1,15 @@
 package commands;
 
+import commands.di.CommandManagerDependant;
 import core.CommandRegistry;
 
 import java.util.Iterator;
 
-public class HistoryCommand extends Command {
-    private final CommandRegistry commandManager;
+public class HistoryCommand extends Command implements CommandManagerDependant {
+    private CommandRegistry commandManager;
 
-    public HistoryCommand(CommandRegistry commandManager) {
+    public HistoryCommand() {
         super("history", "history - вывести последние 15 команд без аргументов", 0);
-        this.commandManager = commandManager;
     }
 
     @Override
@@ -20,5 +20,10 @@ public class HistoryCommand extends Command {
         while (iterator.hasNext()) {
             System.out.println(i++ + ". " + iterator.next());
         }
+    }
+
+    @Override
+    public void setCommandManager(CommandRegistry commandManager) {
+        this.commandManager = commandManager;
     }
 }

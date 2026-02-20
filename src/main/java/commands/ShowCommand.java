@@ -1,16 +1,16 @@
 package commands;
 
+import commands.di.CollectionManagerDependant;
 import core.CollectionRepository;
 import models.Product;
 
 import java.util.Iterator;
 
-public class ShowCommand extends Command {
-    private final CollectionRepository collectionManger;
+public class ShowCommand extends Command implements CollectionManagerDependant {
+    private CollectionRepository collectionManger;
 
-    public ShowCommand(CollectionRepository collectionManger) {
+    public ShowCommand() {
         super("show", "show - вывод элементов коллекции", 0);
-        this.collectionManger = collectionManger;
     }
 
     @Override
@@ -28,5 +28,10 @@ public class ShowCommand extends Command {
             System.out.println("  Дата дня рождения владельца: " + product.getOwner().getBirthday());
             System.out.println("  Рост владельца: " + product.getOwner().getHeight());
         }
+    }
+
+    @Override
+    public void setCollectionManager(CollectionRepository collectionManger) {
+        this.collectionManger = collectionManger;
     }
 }

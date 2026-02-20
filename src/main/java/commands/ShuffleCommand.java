@@ -1,18 +1,23 @@
 package commands;
 
+import commands.di.CollectionManagerDependant;
 import core.CollectionRepository;
 
-public class ShuffleCommand extends Command {
-    private final CollectionRepository collectionManager;
+public class ShuffleCommand extends Command implements CollectionManagerDependant {
+    private CollectionRepository collectionManager;
 
-    public ShuffleCommand(CollectionRepository collectionManager) {
+    public ShuffleCommand() {
         super("shuffle", "shuffle - перемешать коллекцию в случайном порядке", 0);
-        this.collectionManager = collectionManager;
     }
 
     @Override
     protected void process() {
         collectionManager.randomSort();
         System.out.println("Коллекция перемешана, введите show для просмотра");
+    }
+
+    @Override
+    public void setCollectionManager(CollectionRepository collectionManager) {
+        this.collectionManager = collectionManager;
     }
 }

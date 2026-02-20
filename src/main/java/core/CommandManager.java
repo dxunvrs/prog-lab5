@@ -1,16 +1,26 @@
 package core;
 
-import commands.Command;
+import commands.*;
+import commands.di.CollectionManagerDependant;
+import commands.di.CommandManagerDependant;
+import commands.di.FileManagerDependant;
+import commands.di.ReaderDependant;
+import io.FileStorage;
+import io.UserInput;
 
 import java.util.*;
 
 public class CommandManager implements CommandRegistry {
-    private final Map<String, Command> commands;
-    private final List<String> commandsHistory;
+    private final Map<String, Command> commands = new HashMap<>();
+    private final List<String> commandsHistory = new LinkedList<>();
+    private final CollectionRepository collectionManager;
+    private final UserInput reader;
+    private final FileStorage fileManager;
 
-    public CommandManager() {
-        commands = new HashMap<>();
-        commandsHistory = new LinkedList<String>();
+    public CommandManager(CollectionRepository collectionManager, UserInput reader, FileStorage fileManager) {
+        this.collectionManager = collectionManager;
+        this.reader = reader;
+        this.fileManager = fileManager;
     }
 
     @Override
@@ -32,7 +42,20 @@ public class CommandManager implements CommandRegistry {
     }
 
     @Override
-    public void addCommand(Command newCommand) {
-        commands.put(newCommand.getName(), newCommand);
+    public void addCommand(Command command) {
+        if (command instanceof CollectionManagerDependant) {
+            ((CollectionManagerDependant) command).setCollectionManager(collectionManager);
+        }
+        if (command instanceof CommandManagerDependant) {
+            ((CommandManagerDependant) command).setCommandManager(this);
+        }
+        if (command instanceof ReaderDependant) {
+            ((ReaderDependant) command).setReader(reader);
+        }
+        if (command instanceof FileManagerDependant) {
+            ((FileManagerDependant) command).setFileManager(fileManager);
+        }
+
+        commands.put(command.getName(), command);
     }
 }

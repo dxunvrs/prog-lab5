@@ -6,29 +6,30 @@ import core.CommandRegistry;
 import io.ConsoleReader;
 import io.FileManager;
 import io.FileStorage;
+import io.UserInput;
 
 public class Main {
     public static void main(String[] args) {
-        CommandRegistry commandManager = new CommandManager();
         CollectionRepository collectionManager = new CollectionManager();
-        ConsoleReader consoleReader = new ConsoleReader(commandManager);
+        UserInput consoleReader = new ConsoleReader();
         FileStorage fileManager = new FileManager();
+        CommandRegistry commandManager = new CommandManager(collectionManager, consoleReader, fileManager);
 
-        commandManager.addCommand(new HelpCommand(commandManager));
-        commandManager.addCommand(new InfoCommand(collectionManager));
+        commandManager.addCommand(new HelpCommand());
+        commandManager.addCommand(new InfoCommand());
         commandManager.addCommand(new ExitCommand());
-        commandManager.addCommand(new AddCommand(collectionManager, consoleReader));
-        commandManager.addCommand(new ClearCommand(collectionManager));
-        commandManager.addCommand(new ShowCommand(collectionManager));
-        commandManager.addCommand(new UpdateCommand(collectionManager, consoleReader));
-        commandManager.addCommand(new RemoveCommand(collectionManager));
-        commandManager.addCommand(new HistoryCommand(commandManager));
-        commandManager.addCommand(new SortCommand(collectionManager));
-        commandManager.addCommand(new ShuffleCommand(collectionManager));
-        commandManager.addCommand(new SumOfPriceCommand(collectionManager));
-        commandManager.addCommand(new AverageOfPriceCommand(collectionManager));
-        commandManager.addCommand(new FilterStartsWithNameCommand(collectionManager));
-        commandManager.addCommand(new SaveCommand(collectionManager, fileManager));
+        commandManager.addCommand(new AddCommand());
+        commandManager.addCommand(new ClearCommand());
+        commandManager.addCommand(new ShowCommand());
+        commandManager.addCommand(new UpdateCommand());
+        commandManager.addCommand(new RemoveCommand());
+        commandManager.addCommand(new HistoryCommand());
+        commandManager.addCommand(new SortCommand());
+        commandManager.addCommand(new ShuffleCommand());
+        commandManager.addCommand(new SumOfPriceCommand());
+        commandManager.addCommand(new AverageOfPriceCommand());
+        commandManager.addCommand(new FilterStartsWithNameCommand());
+        commandManager.addCommand(new SaveCommand());
 
         if (args.length == 0) {
             System.out.println("Имя файла с коллекцией не указано, создана новая коллекция");
@@ -39,6 +40,6 @@ public class Main {
         }
 
         System.out.println("Ожидание ввода команды, для списка доступных команд - help");
-        consoleReader.interactive();
+        consoleReader.interactive(commandManager);
     }
 }
