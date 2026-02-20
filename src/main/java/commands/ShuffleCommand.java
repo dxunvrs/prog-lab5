@@ -3,6 +3,9 @@ package commands;
 import commands.di.CollectionManagerDependant;
 import core.CollectionRepository;
 
+/**
+ * Команда для рандомной сортировки
+ */
 public class ShuffleCommand extends Command implements CollectionManagerDependant {
     private CollectionRepository collectionManager;
 

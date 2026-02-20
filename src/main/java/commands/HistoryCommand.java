@@ -5,6 +5,9 @@ import core.CommandRegistry;
 
 import java.util.Iterator;
 
+/**
+ * Команда для вывода последних 15 команд без аргументов
+ */
 public class HistoryCommand extends Command implements CommandManagerDependant {
     private CommandRegistry commandManager;
 

@@ -6,11 +6,14 @@ import models.Product;
 
 import java.util.Iterator;
 
+/**
+ * Команда для поиска элементов, название которых начинается с заданной подстроки
+ */
 public class FilterStartsWithNameCommand extends Command implements CollectionManagerDependant {
     private CollectionRepository collectionManager;
 
     public FilterStartsWithNameCommand() {
-        super("filter_starts_with_name", "filter_starts_with_name - вывести элементы, имя которых начинается с заданной подстроки", 1);
+        super("filter_starts_with_name", "filter_starts_with_name - вывести элементы, название которых начинается с заданной подстроки", 1);
     }
 
     @Override

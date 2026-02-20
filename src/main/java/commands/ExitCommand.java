@@ -1,5 +1,8 @@
 package commands;
 
+/**
+ * Команда для выхода
+ */
 public class ExitCommand extends Command {
     public ExitCommand() {
         super("exit", "exit - завершить программу (без сохранения в файл)", 0);

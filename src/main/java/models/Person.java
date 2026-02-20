@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.time.LocalDate;
 
+/**
+ * Модель для человека, данная по заданию
+ */
 @JsonPropertyOrder({"name", "birthday", "height"})
 public class Person {
     private String name; //Поле не может быть null, Строка не может быть пустой

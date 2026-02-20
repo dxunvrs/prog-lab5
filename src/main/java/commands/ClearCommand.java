@@ -3,6 +3,9 @@ package commands;
 import commands.di.CollectionManagerDependant;
 import core.CollectionRepository;
 
+/**
+ * Команда для очищения коллекции
+ */
 public class ClearCommand extends Command implements CollectionManagerDependant {
     private CollectionRepository collectionManager;
 

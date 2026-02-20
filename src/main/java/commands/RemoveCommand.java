@@ -4,6 +4,9 @@ import commands.di.CollectionManagerDependant;
 import core.CollectionRepository;
 import exceptions.IdNotFoundException;
 
+/**
+ * Команда для удаления элемента коллекции по id
+ */
 public class RemoveCommand extends Command implements CollectionManagerDependant {
     private CollectionRepository collectionManager;
 

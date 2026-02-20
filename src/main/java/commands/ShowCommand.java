@@ -6,6 +6,9 @@ import models.Product;
 
 import java.util.Iterator;
 
+/**
+ * Команда для отображения всех элементов коллекции
+ */
 public class ShowCommand extends Command implements CollectionManagerDependant {
     private CollectionRepository collectionManger;
 

@@ -5,6 +5,9 @@ import commands.di.FileManagerDependant;
 import core.CollectionRepository;
 import io.FileStorage;
 
+/**
+ * Команда для сохранения коллекции в файл, формат .csv
+ */
 public class SaveCommand extends Command implements CollectionManagerDependant, FileManagerDependant {
     private CollectionRepository collectionManager;
     private FileStorage fileManager;

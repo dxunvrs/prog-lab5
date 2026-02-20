@@ -1,9 +1,20 @@
 package commands;
 
+/**
+ * Базовый класс для команды
+ */
 public abstract class Command {
     private final String name;
     private final String description;
+
+    /**
+     * Число ожидаемых аргументов
+     */
     private final int expectArgs;
+
+    /**
+     * Полученные аргументы
+     */
     protected String[] tokens;
 
     public Command(String name, String description, int expectArgs) {
@@ -12,6 +23,11 @@ public abstract class Command {
         this.expectArgs = expectArgs;
     }
 
+    /**
+     * Публичный метод выполнения.
+     * Производит валидацию числа принятых аргументов
+     * @param tokens полученные аргументы
+     */
     public void execute(String[] tokens) {
         this.tokens = tokens;
         if (expectArgs == (tokens.length - 1)) {
@@ -21,6 +37,9 @@ public abstract class Command {
         }
     }
 
+    /**
+     * Настоящий метод выполнения команды
+     */
     protected abstract void process();
 
     public String getName() {

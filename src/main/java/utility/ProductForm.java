@@ -10,7 +10,13 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Класс для запроса конкретной формы - формы продукта
+ */
 public class ProductForm extends Form {
+    /**
+     * Сгенерированное id для добавления, либо существующее id для обновления
+     */
     private final Integer id;
 
     public ProductForm(UserInput reader, Integer id, boolean scriptMode) {
@@ -18,6 +24,10 @@ public class ProductForm extends Form {
         this.id = id;
     }
 
+    /**
+     * Метод получения продукта
+     * @param creationDate при добавлении на вход null и берется дата в настоящий момент времени, если элемент обновляется, то дата создания не меняется
+     */
     public Product getProduct(Date creationDate) {
         String name = ask(String.class, "название", value -> {
             if (value == null) {

@@ -3,6 +3,9 @@ package commands;
 import commands.di.CommandManagerDependant;
 import core.CommandRegistry;
 
+/**
+ * Команда для вывода списка доступных команд
+ */
 public class HelpCommand extends Command implements CommandManagerDependant {
     private CommandRegistry commandManager;
 

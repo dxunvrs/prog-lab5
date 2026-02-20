@@ -6,6 +6,9 @@ import models.Product;
 
 import java.util.Iterator;
 
+/**
+ * Команда для поиска средней цены для всех элементов коллекции
+ */
 public class AverageOfPriceCommand extends Command implements CollectionManagerDependant {
     private CollectionRepository collectionManager;
 

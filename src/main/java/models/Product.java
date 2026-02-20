@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 import java.util.Date;
 
+/**
+ * Модель для продукта, данная по заданию
+ */
 @JsonPropertyOrder({"id", "name", "coordinates", "creationDate", "price", "unitOfMeasure", "owner"})
 public class Product implements Comparable<Product> {
     private Integer id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически

@@ -7,6 +7,9 @@ import exceptions.IdNotFoundException;
 import io.UserInput;
 import utility.ProductForm;
 
+/**
+ * Команда для обновления элемента коллекции по заданному id
+ */
 public class UpdateCommand extends Command implements CollectionManagerDependant, ReaderDependant {
     private CollectionRepository collectionManager;
     private UserInput reader;

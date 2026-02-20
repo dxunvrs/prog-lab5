@@ -6,6 +6,9 @@ import models.Product;
 
 import java.util.Iterator;
 
+/**
+ * Команда для вывода суммы цен всех элементов коллекции
+ */
 public class SumOfPriceCommand extends Command implements CollectionManagerDependant {
     private CollectionRepository collectionManager;
 

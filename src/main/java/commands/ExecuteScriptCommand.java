@@ -13,15 +13,27 @@ import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Команда для исполнения скрипта
+ */
 public class ExecuteScriptCommand extends Command implements CommandManagerDependant, ReaderDependant {
     private CommandRegistry commandManager;
     private UserInput reader;
+
+    /**
+     * HashSet для хранения имен исполняемых файлов.
+     * Предотвращает возможный цикл
+     */
     private final Set<String> scriptStack = new HashSet<>();
 
     public ExecuteScriptCommand() {
         super("execute_script", "execute_script - считать и исполнить скрипт из файла", 1);
     }
 
+    /**
+     * Выполнение команды: проверка на рекурсию, замена потока System.in на новый и запуск интерактивного режима с него.
+     * В конце устанавливает исходный поток и обновляет {@link io.ConsoleReader}
+     */
     @Override
     protected void process() {
         String fileName = tokens[1];

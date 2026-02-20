@@ -10,8 +10,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.NoSuchElementException;
 
+/**
+ * Класс для формирования ввода значений пользователя, либо из скрипта
+ */
 public class Form {
     private final UserInput reader;
+    /**
+     * Режим работы
+     */
     private final boolean scriptMode;
 
     public Form(UserInput reader, boolean scriptMode) {
@@ -19,6 +25,14 @@ public class Form {
         this.scriptMode = scriptMode;
     }
 
+    /**
+     * Метод запроса одного значения, реализовано дженериком
+     * @param type тип значения
+     * @param name название запрашиваемой величины
+     * @param validator объект, реализующий валидатор для заданного типа
+     * @return Значение, удовлетворяющее типу и условиям валидатора. Ввод продолжится, пока не будет валидного значения
+     * @param <T> дженерик
+     */
     protected <T> T ask(Class<T> type, String name, Validator<T> validator) {
         T result;
         while (true) {
@@ -50,6 +64,15 @@ public class Form {
         return result;
     }
 
+    /**
+     * Метод преобразования {@link String} в заданный тип.
+     * Поддерживается: int, long, Int, Long, String, LocalDate, UnitOfMeasure
+     * @param type тип значения
+     * @param value величина
+     * @return Возвращает заданный тип, если этот тип поддерживается
+     * @param <T> дженерик
+     * @throws TypeNotFoundException исключение для разработчика
+     */
     private <T> T map(Class<T> type, String value) throws TypeNotFoundException {
         if (value == null || value.isEmpty()) {
             return null;

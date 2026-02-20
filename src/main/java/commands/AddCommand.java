@@ -9,6 +9,9 @@ import utility.ProductForm;
 
 import java.util.Iterator;
 
+/**
+ * Команда для добавления нового элемента
+ */
 public class AddCommand extends Command implements CollectionManagerDependant, ReaderDependant {
     private CollectionRepository collectionManager;
     private UserInput reader;
@@ -24,6 +27,10 @@ public class AddCommand extends Command implements CollectionManagerDependant, R
         System.out.println("Продукт добавлен");
     }
 
+    /**
+     * Метод для поиска максимального id среди всех продуктов.
+     * Гарантирует уникальность id
+     */
     private int getMaxId() {
         int id = 0;
         Iterator<Product> iterator = collectionManager.getIterator();

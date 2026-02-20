@@ -5,6 +5,9 @@ import core.CollectionRepository;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Команда для получения информации о коллекции (тип, дата создания, размер)
+ */
 public class InfoCommand extends Command implements CollectionManagerDependant {
     private CollectionRepository collectionManager;
 

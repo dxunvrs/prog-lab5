@@ -17,9 +17,17 @@ import java.time.format.DateTimeParseException;
 import java.util.Iterator;
 import java.util.Scanner;
 
+/**
+ * Класс для сохранения/загрузки коллекции из файла.
+ * Для сериализации/десериализации - Jackson
+ */
 public class FileManager implements FileStorage {
     private final CsvMapper mapper = new CsvMapper();
     private final CsvSchema schema = mapper.schemaFor(Product.class);
+
+    /**
+     * Стандартное имя файла
+     */
     private String fileName = "collection.csv";
 
     public FileManager() {
@@ -27,11 +35,17 @@ public class FileManager implements FileStorage {
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
+    /**
+     * Установка имени файла из аргументов запуска программы
+     */
     @Override
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
 
+    /**
+     * Метод загрузки коллекции из .csv файла. Используется {@link Scanner}
+     */
     @Override
     public void load(CollectionRepository collectionManager) {
         try (Scanner scanner = new Scanner(new File(fileName))) {
@@ -68,6 +82,11 @@ public class FileManager implements FileStorage {
         }
     }
 
+    /**
+     * Метод сохранения коллекции в .csv файл. Используется {@link BufferedWriter}
+     * @param iterator итератор коллекции для последовательного сохранения
+     * @param dateOfInit сохраняет также дату инициализации в первую строку файла
+     */
     @Override
     public void save(Iterator<Product> iterator, LocalDateTime dateOfInit) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {

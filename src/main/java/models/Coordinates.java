@@ -1,5 +1,8 @@
 package models;
 
+/**
+ * Модель для координат, данная по заданию
+ */
 public class Coordinates {
     private Long x; //Значение поля должно быть больше -425, Поле не может быть null
     private int y;

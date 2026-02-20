@@ -6,6 +6,9 @@ import models.Product;
 import java.time.LocalDateTime;
 import java.util.Iterator;
 
+/**
+ * Интерфейс для взаимодействия с {@link CollectionManager}
+ */
 public interface CollectionRepository {
     void sort();
     void randomSort();
