@@ -12,5 +12,6 @@ import java.util.Iterator;
 public interface FileStorage {
     void save(Iterator<Product> iterator, LocalDateTime dateOfInit);
     void load(CollectionRepository collectionManager);
+    String getFileName();
     void setFileName(String fileName);
 }

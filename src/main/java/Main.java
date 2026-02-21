@@ -3,6 +3,7 @@ import core.CollectionManager;
 import core.CommandManager;
 import core.CollectionRepository;
 import core.CommandRegistry;
+import exceptions.EndOfExecutionException;
 import io.ConsoleReader;
 import io.FileManager;
 import io.FileStorage;
@@ -41,6 +42,10 @@ public class Main {
         }
 
         System.out.println("Ожидание ввода команды, для списка доступных команд - help");
-        consoleReader.interactive(commandManager);
+        try {
+            consoleReader.interactive(commandManager);
+        } catch (EndOfExecutionException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

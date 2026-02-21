@@ -34,10 +34,4 @@ public class Person {
     public Long getHeight() {
         return height;
     }
-
-    public void update(Person person) {
-        name = person.getName();
-        birthday = person.getBirthday();
-        height = person.getHeight();
-    }
 }

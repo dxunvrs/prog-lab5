@@ -23,9 +23,4 @@ public class Coordinates {
     public int getY() {
         return y;
     }
-
-    public void update(Coordinates coordinates) {
-        x = coordinates.getX();
-        y = coordinates.getY();
-    }
 }

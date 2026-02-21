@@ -5,6 +5,8 @@ import exceptions.ScriptExecutionException;
 import exceptions.TypeNotFoundException;
 import io.UserInput;
 import models.UnitOfMeasure;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -14,6 +16,7 @@ import java.util.NoSuchElementException;
  * Класс для формирования ввода значений пользователя, либо из скрипта
  */
 public class Form {
+    private static final Logger logger = LoggerFactory.getLogger(Form.class);
     private final UserInput reader;
     /**
      * Режим работы
@@ -37,30 +40,38 @@ public class Form {
         T result;
         while (true) {
             try {
+                logger.info("У пользователя запрашивается {} типа {}", name, type.getSimpleName());
                 result = map(type, reader.readNextLine("Введите " + name + ": "));
                 if (validator.validate(result)) {
                     if (scriptMode) System.out.println(result);
                     break;
                 }
+                logger.error("Значение не прошло валидацию");
             } catch (EndOfInputException e) {
                 if (scriptMode) throw new ScriptExecutionException("Получен конец ввода, ожидались данные типа " + type.getSimpleName());
+                logger.error("Конец ввода", e);
                 System.out.println(e.getMessage());
                 System.exit(0);
             } catch (NoSuchElementException e) {
                 if (scriptMode) throw new ScriptExecutionException("Получен конец ввода, ожидались данные типа " + type.getSimpleName());
                 System.out.println("Конец ввода");
+                logger.error("Конец ввода", e);
             } catch (NumberFormatException e) {
                 if (scriptMode) throw new ScriptExecutionException("Ожидались данные типа " + type.getSimpleName());
                 System.out.println("Введите данные типа " + type.getSimpleName());
+                logger.error("Введены данные не типа {}", type.getSimpleName(),  e);
             } catch (IllegalArgumentException e) {
                 if (scriptMode) throw new ScriptExecutionException("Такой единицы измерения не существует");
                 System.out.println("Такой единицы измерения не существует");
+                logger.error("Введены данные не типа {}", type.getSimpleName(),  e);
             } catch (DateTimeParseException e) {
                 if (scriptMode) throw new ScriptExecutionException("Некорректная дата (надо yyyy-mm-dd)");
                 System.out.println("Введите корректную дату в формате yyyy-mm-dd");
+                logger.error("Введены данные не типа {}", type.getSimpleName(),  e);
             } catch (TypeNotFoundException e) {
                 if (scriptMode) throw new ScriptExecutionException("Тип не поддерживается");
                 System.out.println(e.getMessage());
+                logger.error("Тип не поддерживается", e);
             }
         }
         return result;

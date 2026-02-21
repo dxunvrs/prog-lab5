@@ -2,6 +2,8 @@ package core;
 
 import exceptions.IdNotFoundException;
 import models.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -10,6 +12,7 @@ import java.util.*;
  * Класс для управления коллекцией
  */
 public class CollectionManager implements CollectionRepository {
+    private static final Logger logger = LoggerFactory.getLogger(CollectionManager.class);
     private final List<Product> collection = new LinkedList<>();
     private LocalDateTime dateOfInit = LocalDateTime.now();
 
@@ -35,6 +38,7 @@ public class CollectionManager implements CollectionRepository {
     @Override
     public void addProduct(Product product) {
         collection.add(product);
+        logger.info("В коллекцию добавлен новый продукт {}", product);
     }
 
     /**
@@ -43,6 +47,7 @@ public class CollectionManager implements CollectionRepository {
     @Override
     public void removeProduct(int index) {
         collection.remove(index);
+        logger.info("Из коллекции удален элемент по индексу {}", index);
     }
 
     /**
@@ -51,6 +56,7 @@ public class CollectionManager implements CollectionRepository {
     @Override
     public void updateProduct(int index, Product product) {
         collection.set(index, product);
+        logger.info("Элемент под индексом {} обновлен", index);
     }
 
     /**
@@ -59,6 +65,7 @@ public class CollectionManager implements CollectionRepository {
     @Override
     public void clearCollection() {
         collection.clear();
+        logger.info("Коллекция очищена");
     }
 
     /**

@@ -1,9 +1,14 @@
 package commands;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import utility.Form;
+
 /**
  * Базовый класс для команды
  */
 public abstract class Command {
+    private static final Logger logger = LoggerFactory.getLogger(Command.class);
     private final String name;
     private final String description;
 
@@ -31,8 +36,11 @@ public abstract class Command {
     public void execute(String[] tokens) {
         this.tokens = tokens;
         if (expectArgs == (tokens.length - 1)) {
+            logger.info("Выполнение команды: {}", name);
             process();
+            logger.info("Команда {} выполнилась без ошибок", name);
         } else {
+            logger.error("Для команды {} передалось неверное количество аргументов", name);
             System.out.println("Ожидалось " + expectArgs + " аргументов, получено " + (tokens.length-1));
         }
     }

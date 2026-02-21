@@ -68,16 +68,6 @@ public class Product implements Comparable<Product> {
         return owner;
     }
 
-    public void update(Product product) {
-        id = product.getId();
-        name = product.getName();
-        coordinates = product.getCoordinates();
-        creationDate = product.getCreationDate();
-        price = product.getPrice();
-        unitOfMeasure = product.getUnitOfMeasure();
-        owner = product.getOwner();
-    }
-
     @Override
     public int compareTo(Product other) {
         return Integer.compare(this.id, other.getId());

@@ -3,6 +3,8 @@ package io;
 import commands.Command;
 import core.CommandRegistry;
 import exceptions.EndOfInputException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
 
@@ -10,8 +12,9 @@ import java.util.Scanner;
  * Класс для чтения ввода/скрипта
  */
 public class ConsoleReader implements UserInput {
-    private CommandRegistry commandManager;
+    private static final Logger logger = LoggerFactory.getLogger(ConsoleReader.class);
     private Scanner scanner;
+    private boolean isWorking = true;
 
     /**
      * Количество вложенных скриптов
@@ -25,7 +28,7 @@ public class ConsoleReader implements UserInput {
     @Override
     public void interactive(CommandRegistry commandManager) {
         scanner = new Scanner(System.in);
-        while (true) {
+        while (isWorking) {
             System.out.print("> ");
 
             if (!scanner.hasNextLine()) {
@@ -40,6 +43,7 @@ public class ConsoleReader implements UserInput {
                 command.execute(tokens);
                 commandManager.addCommandToHistory(command.getName());
             } else {
+                logger.error("Команда {} не найдена", tokens[0]);
                 System.out.println("Нет такой команды " + tokens[0]);
             }
         }
@@ -64,6 +68,7 @@ public class ConsoleReader implements UserInput {
      */
     @Override
     public void refreshInput() {
+        logger.info("Поток ввода обновился");
         this.scanner = new Scanner(System.in);
     }
 
@@ -81,6 +86,7 @@ public class ConsoleReader implements UserInput {
      */
     @Override
     public void addScriptCount() {
+        logger.info("Добавился вложенный скрипт");
         scriptCount++;
     }
 
@@ -89,6 +95,12 @@ public class ConsoleReader implements UserInput {
      */
     @Override
     public void subScriptCount() {
+        logger.info("Один вложенный скрипт завершился");
         scriptCount--;
+    }
+
+    @Override
+    public void stopProgram() {
+        isWorking = false;
     }
 }

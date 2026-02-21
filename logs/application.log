@@ -1,0 +1,137 @@
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Регистрация новой команды: help
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде help прокинут CommandManager
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Регистрация новой команды: info
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде info прокинут CollectionManager
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Регистрация новой команды: exit
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде exit прокинут ConsoleReader
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Регистрация новой команды: add
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде add прокинут CollectionManager
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде add прокинут ConsoleReader
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Регистрация новой команды: clear
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде clear прокинут CollectionManager
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Регистрация новой команды: show
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде show прокинут CollectionManager
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Регистрация новой команды: update
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде update прокинут CollectionManager
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде update прокинут ConsoleReader
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Регистрация новой команды: remove_by_id
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде remove_by_id прокинут CollectionManager
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Регистрация новой команды: history
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде history прокинут CommandManager
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Регистрация новой команды: sort
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде sort прокинут CollectionManager
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Регистрация новой команды: shuffle
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде shuffle прокинут CollectionManager
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Регистрация новой команды: sum_of_price
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде sum_of_price прокинут CollectionManager
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Регистрация новой команды: average_of_price
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде average_of_price прокинут CollectionManager
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Регистрация новой команды: filter_starts_with_name
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде filter_starts_with_name прокинут CollectionManager
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Регистрация новой команды: save
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде save прокинут CollectionManager
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде save прокинут FileManager
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Регистрация новой команды: execute_script
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде execute_script прокинут CommandManager
+2026-02-21 16:45:17 [main] INFO  core.CommandManager - Команде execute_script прокинут ConsoleReader
+2026-02-21 16:45:17 [main] INFO  core.CollectionManager - В коллекцию добавлен новый продукт models.Product@1f9f6368
+2026-02-21 16:45:17 [main] INFO  io.FileManager - Коллекция из файла test.csv успешно загружена
+2026-02-21 16:45:21 [main] INFO  commands.Command - Выполнение команды: exit
+2026-02-21 16:45:21 [main] INFO  commands.Command - Команда exit выполнилась без ошибок
+2026-02-21 16:45:21 [main] INFO  core.CommandManager - В историю команд записана новая команда exit
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Регистрация новой команды: help
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде help прокинут CommandManager
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Регистрация новой команды: info
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде info прокинут CollectionManager
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Регистрация новой команды: exit
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде exit прокинут ConsoleReader
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Регистрация новой команды: add
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде add прокинут CollectionManager
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде add прокинут ConsoleReader
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Регистрация новой команды: clear
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде clear прокинут CollectionManager
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Регистрация новой команды: show
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде show прокинут CollectionManager
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Регистрация новой команды: update
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде update прокинут CollectionManager
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде update прокинут ConsoleReader
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Регистрация новой команды: remove_by_id
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде remove_by_id прокинут CollectionManager
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Регистрация новой команды: history
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде history прокинут CommandManager
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Регистрация новой команды: sort
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде sort прокинут CollectionManager
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Регистрация новой команды: shuffle
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде shuffle прокинут CollectionManager
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Регистрация новой команды: sum_of_price
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде sum_of_price прокинут CollectionManager
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Регистрация новой команды: average_of_price
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде average_of_price прокинут CollectionManager
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Регистрация новой команды: filter_starts_with_name
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде filter_starts_with_name прокинут CollectionManager
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Регистрация новой команды: save
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде save прокинут CollectionManager
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде save прокинут FileManager
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Регистрация новой команды: execute_script
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде execute_script прокинут CommandManager
+2026-02-21 16:45:24 [main] INFO  core.CommandManager - Команде execute_script прокинут ConsoleReader
+2026-02-21 16:45:24 [main] INFO  core.CollectionManager - В коллекцию добавлен новый продукт models.Product@1f9f6368
+2026-02-21 16:45:24 [main] INFO  io.FileManager - Коллекция из файла test.csv успешно загружена
+2026-02-21 16:45:36 [main] INFO  commands.Command - Выполнение команды: execute_script
+2026-02-21 16:45:36 [main] INFO  commands.ExecuteScriptCommand - Начало выполнение скрипта
+2026-02-21 16:45:36 [main] INFO  io.ConsoleReader - Добавился вложенный скрипт
+2026-02-21 16:45:36 [main] INFO  commands.Command - Выполнение команды: info
+2026-02-21 16:45:36 [main] INFO  commands.Command - Команда info выполнилась без ошибок
+2026-02-21 16:45:36 [main] INFO  core.CommandManager - В историю команд записана новая команда info
+2026-02-21 16:45:36 [main] INFO  commands.Command - Выполнение команды: help
+2026-02-21 16:45:36 [main] INFO  commands.Command - Команда help выполнилась без ошибок
+2026-02-21 16:45:36 [main] INFO  core.CommandManager - В историю команд записана новая команда help
+2026-02-21 16:45:36 [main] INFO  commands.Command - Выполнение команды: exit
+2026-02-21 16:45:36 [main] INFO  commands.Command - Команда exit выполнилась без ошибок
+2026-02-21 16:45:36 [main] INFO  core.CommandManager - В историю команд записана новая команда exit
+2026-02-21 16:45:36 [main] INFO  io.ConsoleReader - Поток ввода обновился
+2026-02-21 16:45:36 [main] INFO  io.ConsoleReader - Один вложенный скрипт завершился
+2026-02-21 16:45:36 [main] INFO  commands.ExecuteScriptCommand - Скрипт завершен
+2026-02-21 16:45:36 [main] INFO  commands.Command - Команда execute_script выполнилась без ошибок
+2026-02-21 16:45:36 [main] INFO  core.CommandManager - В историю команд записана новая команда execute_script
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Регистрация новой команды: help
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде help прокинут CommandManager
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Регистрация новой команды: info
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде info прокинут CollectionManager
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Регистрация новой команды: exit
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде exit прокинут ConsoleReader
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Регистрация новой команды: add
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде add прокинут CollectionManager
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде add прокинут ConsoleReader
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Регистрация новой команды: clear
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде clear прокинут CollectionManager
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Регистрация новой команды: show
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде show прокинут CollectionManager
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Регистрация новой команды: update
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде update прокинут CollectionManager
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде update прокинут ConsoleReader
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Регистрация новой команды: remove_by_id
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде remove_by_id прокинут CollectionManager
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Регистрация новой команды: history
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде history прокинут CommandManager
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Регистрация новой команды: sort
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде sort прокинут CollectionManager
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Регистрация новой команды: shuffle
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде shuffle прокинут CollectionManager
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Регистрация новой команды: sum_of_price
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде sum_of_price прокинут CollectionManager
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Регистрация новой команды: average_of_price
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде average_of_price прокинут CollectionManager
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Регистрация новой команды: filter_starts_with_name
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде filter_starts_with_name прокинут CollectionManager
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Регистрация новой команды: save
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде save прокинут CollectionManager
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде save прокинут FileManager
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Регистрация новой команды: execute_script
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде execute_script прокинут CommandManager
+2026-02-21 16:45:59 [main] INFO  core.CommandManager - Команде execute_script прокинут ConsoleReader
+2026-02-21 16:45:59 [main] INFO  core.CollectionManager - В коллекцию добавлен новый продукт models.Product@1f9f6368
+2026-02-21 16:45:59 [main] INFO  io.FileManager - Коллекция из файла test.csv успешно загружена
+2026-02-21 16:46:03 [main] INFO  commands.Command - Выполнение команды: exit
+2026-02-21 16:46:03 [main] INFO  commands.Command - Команда exit выполнилась без ошибок
+2026-02-21 16:46:03 [main] INFO  core.CommandManager - В историю команд записана новая команда exit

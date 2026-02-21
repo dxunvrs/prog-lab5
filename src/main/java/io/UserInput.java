@@ -12,4 +12,6 @@ public interface UserInput {
     boolean isScriptMode();
     void addScriptCount();
     void subScriptCount();
+    void stopProgram();
 }
+
