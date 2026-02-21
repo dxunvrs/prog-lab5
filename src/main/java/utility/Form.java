@@ -34,16 +34,18 @@ public class Form {
      * @param <T> дженерик
      */
     protected <T> T ask(Class<T> type, String name, Validator<T> validator) {
-        T result;
+        T result = null;
         while (true) {
             try {
                 result = map(type, reader.readNextLine("Введите " + name + ": "));
                 if (validator.validate(result)) {
+                    if (scriptMode) System.out.println(result);
                     break;
                 }
             } catch (EndOfInputException e) {
                 if (scriptMode) throw new ScriptExecutionException("Получен конец ввода, ожидались данные типа " + type.getSimpleName());
                 System.out.println(e.getMessage());
+                break;
             } catch (NoSuchElementException e) {
                 if (scriptMode) throw new ScriptExecutionException("Получен конец ввода, ожидались данные типа " + type.getSimpleName());
                 System.out.println("Конец ввода");
