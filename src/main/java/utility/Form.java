@@ -34,7 +34,7 @@ public class Form {
      * @param <T> дженерик
      */
     protected <T> T ask(Class<T> type, String name, Validator<T> validator) {
-        T result = null;
+        T result;
         while (true) {
             try {
                 result = map(type, reader.readNextLine("Введите " + name + ": "));
@@ -45,7 +45,7 @@ public class Form {
             } catch (EndOfInputException e) {
                 if (scriptMode) throw new ScriptExecutionException("Получен конец ввода, ожидались данные типа " + type.getSimpleName());
                 System.out.println(e.getMessage());
-                break;
+                System.exit(0);
             } catch (NoSuchElementException e) {
                 if (scriptMode) throw new ScriptExecutionException("Получен конец ввода, ожидались данные типа " + type.getSimpleName());
                 System.out.println("Конец ввода");
@@ -96,9 +96,7 @@ public class Form {
             case "UnitOfMeasure" -> {
                 return type.cast(UnitOfMeasure.valueOf(value));
             }
-            default -> {
-                throw new TypeNotFoundException("Тип еще не поддерживается");
-            }
+            default -> throw new TypeNotFoundException("Тип еще не поддерживается");
         }
     }
 }

@@ -36,6 +36,7 @@ public class ConsoleReader implements UserInput {
             String[] tokens = line.split(" ");
             Command command = commandManager.getCommandsMap().get(tokens[0]);
             if (command != null) {
+                if (isScriptMode()) System.out.println(command.getName());
                 command.execute(tokens);
                 commandManager.addCommandToHistory(command.getName());
             } else {
