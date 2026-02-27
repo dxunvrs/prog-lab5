@@ -1,6 +1,5 @@
 package commands;
 
-import commands.di.CollectionManagerDependant;
 import core.CollectionRepository;
 import models.Product;
 
@@ -9,16 +8,17 @@ import java.util.Iterator;
 /**
  * Команда для поиска элементов, название которых начинается с заданной подстроки
  */
-public class FilterStartsWithNameCommand extends Command implements CollectionManagerDependant {
-    private CollectionRepository collectionManager;
+public class FilterStartsWithNameCommand extends Command {
+    @Inject
+    private CollectionRepository collectionRepository;
 
     public FilterStartsWithNameCommand() {
         super("filter_starts_with_name", "filter_starts_with_name - вывести элементы, название которых начинается с заданной подстроки", 1);
     }
 
     @Override
-    protected void process() {
-        Iterator<Product> iterator = collectionManager.getIterator();
+    public void execute(String[] tokens) {
+        Iterator<Product> iterator = collectionRepository.getIterator();
         boolean hasMatch = false;
         System.out.println("Продукты, имя которых начинается на " + tokens[1]);
         while (iterator.hasNext()) {
@@ -40,10 +40,5 @@ public class FilterStartsWithNameCommand extends Command implements CollectionMa
         if (!hasMatch) {
             System.out.println("Совпадений не найдено");
         }
-    }
-
-    @Override
-    public void setCollectionManager(CollectionRepository collectionManager) {
-        this.collectionManager = collectionManager;
     }
 }

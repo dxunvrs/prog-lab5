@@ -1,23 +1,21 @@
 package core;
 
-import commands.*;
-import commands.di.CollectionManagerDependant;
-import commands.di.CommandManagerDependant;
-import commands.di.FileManagerDependant;
-import commands.di.ReaderDependant;
-import io.ConsoleReader;
+import commands.Command;
+import commands.Inject;
+import exceptions.EndOfExecutionException;
 import io.FileStorage;
-import io.UserInput;
+import io.Reader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 /**
  * Менеджер для управления командами.
  * Задачи: регистрация команд, dependency injection в команды, хранение хэш-мапы доступных команд
  */
-public class CommandManager implements CommandRegistry {
+public class CommandManager implements CommandRegistry, CommandExecutor {
     private static final Logger logger = LoggerFactory.getLogger(CommandManager.class);
     /**
      * Хэш-мап для доступных команд. Быстрый поиск за O(1), невозможность повтора
@@ -30,13 +28,36 @@ public class CommandManager implements CommandRegistry {
     private final List<String> commandsHistory = new LinkedList<>();
 
     private final CollectionRepository collectionManager;
-    private final UserInput reader;
+    private final Reader reader;
     private final FileStorage fileManager;
 
-    public CommandManager(CollectionRepository collectionManager, UserInput reader, FileStorage fileManager) {
+    public CommandManager(CollectionRepository collectionManager, Reader reader, FileStorage fileManager) {
         this.collectionManager = collectionManager;
         this.reader = reader;
         this.fileManager = fileManager;
+        reader.setCommandExecutor(this);
+    }
+
+    @Override
+    public boolean execute(String line, boolean isScriptMode) {
+        String[] tokens = line.split(" ");
+        Command command = commands.get(tokens[0]);
+        if (command == null) {
+            System.out.println("Команда " + tokens[0] + " не найдена");
+            return true;
+        }
+        if (isScriptMode) System.out.println(command.getName()); // ввод названия команды в режиме скрипта
+        if (command.getExpectArgs() != tokens.length-1) {
+            System.out.println("Ожидалось " + command.getExpectArgs() + " аргументов, получено " + (tokens.length-1));
+            return true;
+        }
+        try {
+            command.execute(tokens);
+            return true;
+        } catch (EndOfExecutionException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 
     /**
@@ -71,28 +92,40 @@ public class CommandManager implements CommandRegistry {
     }
 
     /**
-     * Регистрация команды и прокидывание необходимых зависимостей
+     * Регистрация команды и внедрение необходимых зависимостей
      */
     @Override
     public void addCommand(Command command) {
         logger.info("Регистрация новой команды: {}", command.getName());
-        if (command instanceof CollectionManagerDependant) {
-            ((CollectionManagerDependant) command).setCollectionManager(collectionManager);
-            logger.info("Команде {} прокинут CollectionManager", command.getName());
-        }
-        if (command instanceof CommandManagerDependant) {
-            ((CommandManagerDependant) command).setCommandManager(this);
-            logger.info("Команде {} прокинут CommandManager", command.getName());
-        }
-        if (command instanceof ReaderDependant) {
-            ((ReaderDependant) command).setReader(reader);
-            logger.info("Команде {} прокинут ConsoleReader", command.getName());
-        }
-        if (command instanceof FileManagerDependant) {
-            ((FileManagerDependant) command).setFileManager(fileManager);
-            logger.info("Команде {} прокинут FileManager", command.getName());
-        }
+        Field[] fields = command.getClass().getDeclaredFields();
 
+        for (Field field: fields) {
+            if (!field.isAnnotationPresent(Inject.class)) {
+                return;
+            }
+            try {
+                field.setAccessible(true);
+                Object toInject = resolveDependency(field.getType());
+                if (toInject == null) {
+                    continue;
+                }
+                field.set(command, toInject);
+                logger.info("В команду {} внедрен {}", command.getName(), field.getType().getSimpleName());
+
+            } catch (IllegalAccessException e) {
+                logger.error("Не удалось внедрить зависимость в поле {}", field.getName(), e);
+            }
+        }
         commands.put(command.getName(), command);
+    }
+
+    private Object resolveDependency(Class<?> type) {
+        return switch (type.getSimpleName()) {
+            case "CollectionRepository" -> collectionManager;
+            case "CommandRegistry" -> this;
+            case "FileStorage" -> fileManager;
+            case "UserInput", "ExecuteContext" -> reader;
+            default -> null;
+        };
     }
 }

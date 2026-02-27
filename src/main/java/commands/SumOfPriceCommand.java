@@ -1,6 +1,5 @@
 package commands;
 
-import commands.di.CollectionManagerDependant;
 import core.CollectionRepository;
 import models.Product;
 
@@ -9,29 +8,25 @@ import java.util.Iterator;
 /**
  * Команда для вывода суммы цен всех элементов коллекции
  */
-public class SumOfPriceCommand extends Command implements CollectionManagerDependant {
-    private CollectionRepository collectionManager;
+public class SumOfPriceCommand extends Command {
+    @Inject
+    private CollectionRepository collectionRepository;
 
     public SumOfPriceCommand() {
         super("sum_of_price", "sum_of_price - вывести сумму цен всех элементов коллекции", 0);
     }
 
     @Override
-    protected void process() {
+    public void execute(String[] tokens) {
         System.out.println("Сумма цен всех элементов коллекции: " + sum());
     }
 
     private int sum() {
         int sum = 0;
-        Iterator<Product> iterator = collectionManager.getIterator();
+        Iterator<Product> iterator = collectionRepository.getIterator();
         while (iterator.hasNext()) {
             sum += iterator.next().getPrice();
         }
         return sum;
-    }
-
-    @Override
-    public void setCollectionManager(CollectionRepository collectionManager) {
-        this.collectionManager = collectionManager;
     }
 }

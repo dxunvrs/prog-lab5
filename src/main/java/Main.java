@@ -1,20 +1,15 @@
 import commands.*;
 import core.CollectionManager;
 import core.CommandManager;
-import core.CollectionRepository;
-import core.CommandRegistry;
-import exceptions.EndOfExecutionException;
-import io.ConsoleReader;
+import io.Reader;
 import io.FileManager;
-import io.FileStorage;
-import io.UserInput;
 
 public class Main {
     public static void main(String[] args) {
-        CollectionRepository collectionManager = new CollectionManager();
-        UserInput consoleReader = new ConsoleReader();
-        FileStorage fileManager = new FileManager();
-        CommandRegistry commandManager = new CommandManager(collectionManager, consoleReader, fileManager);
+        CollectionManager collectionManager = new CollectionManager();
+        Reader consoleReader = new Reader();
+        FileManager fileManager = new FileManager();
+        CommandManager commandManager = new CommandManager(collectionManager, consoleReader, fileManager);
 
         commandManager.addCommand(new HelpCommand());
         commandManager.addCommand(new InfoCommand());
@@ -42,10 +37,6 @@ public class Main {
         }
 
         System.out.println("Ожидание ввода команды, для списка доступных команд - help");
-        try {
-            consoleReader.interactive(commandManager);
-        } catch (EndOfExecutionException e) {
-            System.out.println(e.getMessage());
-        }
+        consoleReader.interactive();
     }
 }

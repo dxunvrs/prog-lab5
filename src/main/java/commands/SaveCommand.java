@@ -1,16 +1,17 @@
 package commands;
 
-import commands.di.CollectionManagerDependant;
-import commands.di.FileManagerDependant;
 import core.CollectionRepository;
 import io.FileStorage;
 
 /**
  * Команда для сохранения коллекции в файл, формат .csv
  */
-public class SaveCommand extends Command implements CollectionManagerDependant, FileManagerDependant {
-    private CollectionRepository collectionManager;
-    private FileStorage fileManager;
+public class SaveCommand extends Command {
+    @Inject
+    private CollectionRepository collectionRepository;
+
+    @Inject
+    private FileStorage fileStorage;
 
 
     public SaveCommand() {
@@ -18,17 +19,7 @@ public class SaveCommand extends Command implements CollectionManagerDependant, 
     }
 
     @Override
-    protected void process() {
-        fileManager.save(collectionManager.getIterator(), collectionManager.getDateOfInit());
-    }
-
-    @Override
-    public void setCollectionManager(CollectionRepository collectionManager) {
-        this.collectionManager = collectionManager;
-    }
-
-    @Override
-    public void setFileManager(FileStorage fileManager) {
-        this.fileManager = fileManager;
+    public void execute(String[] tokens) {
+        fileStorage.save(collectionRepository.getIterator(), collectionRepository.getDateOfInit());
     }
 }

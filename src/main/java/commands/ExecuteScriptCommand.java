@@ -1,10 +1,7 @@
 package commands;
 
-import commands.di.CommandManagerDependant;
-import commands.di.ReaderDependant;
-import core.CommandRegistry;
-import exceptions.EndOfExecutionException;
 import exceptions.ScriptExecutionException;
+import io.ExecuteContext;
 import io.UserInput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,10 +16,14 @@ import java.util.Set;
 /**
  * Команда для исполнения скрипта
  */
-public class ExecuteScriptCommand extends Command implements CommandManagerDependant, ReaderDependant {
+public class ExecuteScriptCommand extends Command {
     private static final Logger logger = LoggerFactory.getLogger(ExecuteScriptCommand.class);
-    private CommandRegistry commandManager;
-    private UserInput reader;
+
+    @Inject
+    private ExecuteContext executeContext;
+
+    @Inject
+    private UserInput userInput;
 
     /**
      * HashSet для хранения имен исполняемых файлов.
@@ -36,10 +37,10 @@ public class ExecuteScriptCommand extends Command implements CommandManagerDepen
 
     /**
      * Выполнение команды: проверка на рекурсию, замена потока System.in на новый и запуск интерактивного режима с него.
-     * В конце устанавливает исходный поток и обновляет {@link io.ConsoleReader}
+     * В конце устанавливает исходный поток и обновляет его в Reader
      */
     @Override
-    protected void process() {
+    public void execute(String[] tokens) {
         String fileName = tokens[1];
         if (scriptStack.contains(fileName)) {
             logger.error("В скрипте рекурсия");
@@ -53,9 +54,9 @@ public class ExecuteScriptCommand extends Command implements CommandManagerDepen
             System.setIn(fileIn);
             logger.info("Начало выполнение скрипта");
             System.out.println("Выполнение скрипта: ");
-            reader.addScriptCount();
-            reader.interactive(commandManager);
-        } catch (EndOfExecutionException | ScriptExecutionException e) {
+            executeContext.addScriptCount();
+            userInput.interactive();
+        } catch (ScriptExecutionException e) {
             System.out.println(e.getMessage());
             logger.error("Конец ввода", e);
         } catch (FileNotFoundException e) {
@@ -69,22 +70,12 @@ public class ExecuteScriptCommand extends Command implements CommandManagerDepen
             logger.error("Ошибка IO", e);
         } finally {
             System.setIn(originalIn);
-            reader.refreshInput();
-            reader.subScriptCount();
+            executeContext.refreshInput();
+            executeContext.subScriptCount();
 
             scriptStack.remove(fileName);
             logger.info("Скрипт завершен");
             System.out.println("Выполнение скрипта завершено");
         }
-    }
-
-    @Override
-    public void setCommandManager(CommandRegistry commandManager) {
-        this.commandManager = commandManager;
-    }
-
-    @Override
-    public void setReader(UserInput reader) {
-        this.reader = reader;
     }
 }

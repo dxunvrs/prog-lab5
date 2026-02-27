@@ -1,7 +1,6 @@
 package io;
 
-import commands.Command;
-import core.CommandRegistry;
+import core.CommandExecutor;
 import exceptions.EndOfInputException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +10,9 @@ import java.util.Scanner;
 /**
  * Класс для чтения ввода/скрипта
  */
-public class ConsoleReader implements UserInput {
-    private static final Logger logger = LoggerFactory.getLogger(ConsoleReader.class);
+public class Reader implements UserInput, ExecuteContext {
+    private static final Logger logger = LoggerFactory.getLogger(Reader.class);
+    private CommandExecutor commandExecutor;
     private Scanner scanner;
     private boolean isWorking = true;
 
@@ -23,10 +23,9 @@ public class ConsoleReader implements UserInput {
 
     /**
      * Запуск интерактивного чтения с System.in и выполнение команд
-     * @param commandManager менеджер команд для добавления в историю и возможного списка команд
      */
     @Override
-    public void interactive(CommandRegistry commandManager) {
+    public void interactive() {
         scanner = new Scanner(System.in);
         while (isWorking) {
             System.out.print("> ");
@@ -36,16 +35,7 @@ public class ConsoleReader implements UserInput {
                 return;
             }
             String line = scanner.nextLine().trim().replaceAll("\\s+", " ");
-            String[] tokens = line.split(" ");
-            Command command = commandManager.getCommandsMap().get(tokens[0]);
-            if (command != null) {
-                if (isScriptMode()) System.out.println(command.getName());
-                command.execute(tokens);
-                commandManager.addCommandToHistory(command.getName());
-            } else {
-                logger.error("Команда {} не найдена", tokens[0]);
-                System.out.println("Нет такой команды " + tokens[0]);
-            }
+            isWorking = commandExecutor.execute(line, isScriptMode());
         }
     }
 
@@ -100,7 +90,7 @@ public class ConsoleReader implements UserInput {
     }
 
     @Override
-    public void stopProgram() {
-        isWorking = false;
+    public void setCommandExecutor(CommandExecutor commandExecutor) {
+        this.commandExecutor = commandExecutor;
     }
 }

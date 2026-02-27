@@ -1,5 +1,6 @@
 package utility;
 
+import exceptions.EndOfExecutionException;
 import exceptions.EndOfInputException;
 import exceptions.ScriptExecutionException;
 import exceptions.TypeNotFoundException;
@@ -10,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.NoSuchElementException;
 
 /**
  * Класс для формирования ввода значений пользователя, либо из скрипта
@@ -49,13 +49,7 @@ public class Form {
                 logger.error("Значение не прошло валидацию");
             } catch (EndOfInputException e) {
                 if (scriptMode) throw new ScriptExecutionException("Получен конец ввода, ожидались данные типа " + type.getSimpleName());
-                logger.error("Конец ввода", e);
-                System.out.println(e.getMessage());
-                System.exit(0);
-            } catch (NoSuchElementException e) {
-                if (scriptMode) throw new ScriptExecutionException("Получен конец ввода, ожидались данные типа " + type.getSimpleName());
-                System.out.println("Конец ввода");
-                logger.error("Конец ввода", e);
+                throw new EndOfExecutionException("Конец ввода");
             } catch (NumberFormatException e) {
                 if (scriptMode) throw new ScriptExecutionException("Ожидались данные типа " + type.getSimpleName());
                 System.out.println("Введите данные типа " + type.getSimpleName());
@@ -91,23 +85,13 @@ public class Form {
             return null;
         }
 
-        switch (type.getSimpleName()) {
-            case "Integer", "int" -> {
-                return type.cast(Integer.parseInt(value));
-            }
-            case "Long", "long" -> {
-                return type.cast(Long.parseLong(value));
-            }
-            case "String" -> {
-                return type.cast(value);
-            }
-            case "LocalDate" -> {
-                return type.cast(LocalDate.parse(value));
-            }
-            case "UnitOfMeasure" -> {
-                return type.cast(UnitOfMeasure.valueOf(value));
-            }
+        return switch (type.getSimpleName()) {
+            case "Integer", "int" -> type.cast(Integer.parseInt(value));
+            case "Long", "long" -> type.cast(Long.parseLong(value));
+            case "String" -> type.cast(value);
+            case "LocalDate" -> type.cast(LocalDate.parse(value));
+            case "UnitOfMeasure" -> type.cast(UnitOfMeasure.valueOf(value));
             default -> throw new TypeNotFoundException("Тип еще не поддерживается");
-        }
+        };
     }
 }

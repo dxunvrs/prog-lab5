@@ -39,14 +39,6 @@ public class FileManager implements FileStorage {
     }
 
     /**
-     * Получение имени файла
-     */
-    @Override
-    public String getFileName() {
-        return fileName;
-    }
-
-    /**
      * Установка имени файла из аргументов запуска программы
      */
     @Override
@@ -75,7 +67,7 @@ public class FileManager implements FileStorage {
             }
             collectionManager.setDateOfInit(dateOfInit);
             logger.info("Коллекция из файла {} успешно загружена", fileName);
-            System.out.println("Коллекция загружена");
+            System.out.println("Коллекция из файла " + fileName + " успешно загружена");
         } catch (DateTimeParseException e) {
             logger.error("Не удалось распарсить дату", e);
             System.out.println("Неверный формат даты инициализации коллекции в файле, загрузка не удалась, создана новая коллекция");

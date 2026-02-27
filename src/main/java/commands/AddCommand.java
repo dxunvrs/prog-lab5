@@ -1,8 +1,7 @@
 package commands;
 
-import commands.di.CollectionManagerDependant;
-import commands.di.ReaderDependant;
 import core.CollectionRepository;
+import io.ExecuteContext;
 import io.UserInput;
 import models.Product;
 import utility.ProductForm;
@@ -12,18 +11,24 @@ import java.util.Iterator;
 /**
  * Команда для добавления нового элемента
  */
-public class AddCommand extends Command implements CollectionManagerDependant, ReaderDependant {
-    private CollectionRepository collectionManager;
-    private UserInput reader;
+public class AddCommand extends Command {
+    @Inject
+    private CollectionRepository collectionRepository;
+
+    @Inject
+    private UserInput userInput;
+
+    @Inject
+    private ExecuteContext executeContext;
 
     public AddCommand() {
         super("add", "add - добавление нового элемента", 0);
     }
 
     @Override
-    protected void process() {
-        ProductForm form = new ProductForm(reader, getMaxId()+1, reader.isScriptMode());
-        collectionManager.addProduct(form.getProduct(null));
+    public void execute(String[] tokens) {
+        ProductForm form = new ProductForm(userInput, getMaxId()+1, executeContext.isScriptMode());
+        collectionRepository.addProduct(form.getProduct(null));
         System.out.println("Продукт добавлен");
     }
 
@@ -33,20 +38,10 @@ public class AddCommand extends Command implements CollectionManagerDependant, R
      */
     private int getMaxId() {
         int id = 0;
-        Iterator<Product> iterator = collectionManager.getIterator();
+        Iterator<Product> iterator = collectionRepository.getIterator();
         while (iterator.hasNext()) {
             id = Math.max(id, iterator.next().getId());
         }
         return id;
-    }
-
-    @Override
-    public void setCollectionManager(CollectionRepository collectionManager) {
-        this.collectionManager = collectionManager;
-    }
-
-    @Override
-    public void setReader(UserInput reader) {
-        this.reader = reader;
     }
 }

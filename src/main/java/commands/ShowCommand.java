@@ -1,6 +1,5 @@
 package commands;
 
-import commands.di.CollectionManagerDependant;
 import core.CollectionRepository;
 import models.Product;
 
@@ -9,16 +8,17 @@ import java.util.Iterator;
 /**
  * Команда для отображения всех элементов коллекции
  */
-public class ShowCommand extends Command implements CollectionManagerDependant {
-    private CollectionRepository collectionManger;
+public class ShowCommand extends Command {
+    @Inject
+    private CollectionRepository collectionRepository;
 
     public ShowCommand() {
         super("show", "show - вывод элементов коллекции", 0);
     }
 
     @Override
-    protected void process() {
-        Iterator<Product> iterator = collectionManger.getIterator();
+    public void execute(String[] tokens) {
+        Iterator<Product> iterator = collectionRepository.getIterator();
         while (iterator.hasNext()) {
             Product product = iterator.next();
             System.out.println("Продукт №" + product.getId());
@@ -31,10 +31,5 @@ public class ShowCommand extends Command implements CollectionManagerDependant {
             System.out.println("  Дата дня рождения владельца: " + product.getOwner().getBirthday());
             System.out.println("  Рост владельца: " + product.getOwner().getHeight());
         }
-    }
-
-    @Override
-    public void setCollectionManager(CollectionRepository collectionManger) {
-        this.collectionManger = collectionManger;
     }
 }
