@@ -1,0 +1,22 @@
+2026-02-28 22:05:10.002 [main] DEBUG core.CommandManager - Начало выполнения команды execute_script
+2026-02-28 22:05:10.008 [main] INFO  commands.ExecuteScriptCommand - Начало выполнение скрипта
+2026-02-28 22:05:10.009 [main] DEBUG io.Reader - Добавился вложенный скрипт
+2026-02-28 22:05:10.009 [main] DEBUG core.CommandManager - Начало выполнения команды help
+2026-02-28 22:05:10.010 [main] INFO  core.CommandManager - Команда help успешно выполнилась
+2026-02-28 22:05:10.010 [main] INFO  core.CommandManager - Команда help добавлена в историю
+2026-02-28 22:05:10.010 [main] DEBUG core.CommandManager - Начало выполнения команды execute_script
+2026-02-28 22:05:10.010 [main] INFO  commands.ExecuteScriptCommand - Начало выполнение скрипта
+2026-02-28 22:05:10.011 [main] DEBUG io.Reader - Добавился вложенный скрипт
+2026-02-28 22:05:10.011 [main] INFO  io.Reader - Получен конец ввода
+2026-02-28 22:05:10.011 [main] INFO  commands.ExecuteScriptCommand - Скрипт завершен
+2026-02-28 22:05:10.011 [main] DEBUG io.Reader - Поток ввода обновился
+2026-02-28 22:05:10.011 [main] DEBUG io.Reader - Один вложенный скрипт завершился
+2026-02-28 22:05:10.011 [main] INFO  core.CommandManager - Команда execute_script успешно выполнилась
+2026-02-28 22:05:10.011 [main] INFO  core.CommandManager - Команда execute_script добавлена в историю
+2026-02-28 22:05:10.011 [main] INFO  io.Reader - Получен конец ввода
+2026-02-28 22:05:10.012 [main] INFO  commands.ExecuteScriptCommand - Скрипт завершен
+2026-02-28 22:05:10.012 [main] DEBUG io.Reader - Поток ввода обновился
+2026-02-28 22:05:10.012 [main] DEBUG io.Reader - Один вложенный скрипт завершился
+2026-02-28 22:05:10.012 [main] INFO  core.CommandManager - Команда execute_script успешно выполнилась
+2026-02-28 22:05:10.012 [main] INFO  core.CommandManager - Команда execute_script добавлена в историю
+2026-02-28 22:05:51.857 [main] INFO  io.Reader - Получен конец ввода

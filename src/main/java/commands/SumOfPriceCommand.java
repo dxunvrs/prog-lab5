@@ -1,9 +1,6 @@
 package commands;
 
 import core.CollectionRepository;
-import models.Product;
-
-import java.util.Iterator;
 
 /**
  * Команда для вывода суммы цен всех элементов коллекции

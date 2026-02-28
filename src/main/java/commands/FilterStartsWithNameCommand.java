@@ -1,9 +1,6 @@
 package commands;
 
 import core.CollectionRepository;
-import models.Product;
-
-import java.util.Iterator;
 
 /**
  * Команда для поиска элементов, название которых начинается с заданной подстроки

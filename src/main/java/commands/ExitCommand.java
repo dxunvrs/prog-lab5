@@ -1,7 +1,6 @@
 package commands;
 
 import exceptions.EndOfExecutionException;
-import io.UserInput;
 
 /**
  * Команда для выхода

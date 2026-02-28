@@ -56,26 +56,27 @@ public class ExecuteScriptCommand extends Command {
             System.out.println("Выполнение скрипта: ");
             executeContext.addScriptCount();
             userInput.interactive();
+
+            logger.info("Скрипт завершен");
+            System.out.println("Выполнение скрипта завершено");
         } catch (ScriptExecutionException e) {
-            System.out.println(e.getMessage());
             logger.error("Конец ввода", e);
+            System.out.println(e.getMessage());
         } catch (FileNotFoundException e) {
-            System.out.println("Файл не найден");
             logger.error("Ошибка: файл не найден", e);
+            System.out.println("Файл не найден");
         } catch (SecurityException e) {
-            System.out.println("Недостаточно прав");
             logger.error("Ошибка: недостаточно прав", e);
+            System.out.println("Недостаточно прав");
         } catch (IOException e) {
-            System.out.println("Ошибка IO");
             logger.error("Ошибка IO", e);
+            System.out.println("Ошибка IO");
         } finally {
             System.setIn(originalIn);
             executeContext.refreshInput();
             executeContext.subScriptCount();
 
             scriptStack.remove(fileName);
-            logger.info("Скрипт завершен");
-            System.out.println("Выполнение скрипта завершено");
         }
     }
 }

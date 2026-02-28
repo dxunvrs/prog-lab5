@@ -52,20 +52,20 @@ public class Form {
                 throw new EndOfExecutionException("Конец ввода");
             } catch (NumberFormatException e) {
                 if (scriptMode) throw new ScriptExecutionException("Ожидались данные типа " + type.getSimpleName());
-                System.out.println("Введите данные типа " + type.getSimpleName());
                 logger.error("Введены данные не типа {}", type.getSimpleName(),  e);
+                System.out.println("Введите данные типа " + type.getSimpleName());
             } catch (IllegalArgumentException e) {
                 if (scriptMode) throw new ScriptExecutionException("Такой единицы измерения не существует");
-                System.out.println("Такой единицы измерения не существует");
                 logger.error("Введены данные не типа {}", type.getSimpleName(),  e);
+                System.out.println("Такой единицы измерения не существует");
             } catch (DateTimeParseException e) {
                 if (scriptMode) throw new ScriptExecutionException("Некорректная дата (надо yyyy-mm-dd)");
-                System.out.println("Введите корректную дату в формате yyyy-mm-dd");
                 logger.error("Введены данные не типа {}", type.getSimpleName(),  e);
+                System.out.println("Введите корректную дату в формате yyyy-mm-dd");
             } catch (TypeNotFoundException e) {
                 if (scriptMode) throw new ScriptExecutionException("Тип не поддерживается");
-                System.out.println(e.getMessage());
                 logger.error("Тип не поддерживается", e);
+                System.out.println(e.getMessage());
             }
         }
         return result;

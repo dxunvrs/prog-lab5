@@ -26,5 +26,6 @@ public class UpdateCommand extends Command {
     public void execute(String[] tokens) {
         collectionRepository.updateProductById(Integer.parseInt(tokens[1]),
                 new ProductForm(userInput, executeContext.isScriptMode()));
+        System.out.println("Продукт обновлен");
     }
 }

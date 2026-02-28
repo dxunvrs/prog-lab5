@@ -1,7 +1,6 @@
 package commands;
 
 import core.CollectionRepository;
-import exceptions.IdNotFoundException;
 
 /**
  * Команда для удаления элемента коллекции по id
@@ -17,5 +16,6 @@ public class RemoveCommand extends Command {
     @Override
     public void execute(String[] tokens) {
         collectionRepository.removeProductById(Integer.parseInt(tokens[1]));
+        System.out.println("Продукт удален");
     }
 }

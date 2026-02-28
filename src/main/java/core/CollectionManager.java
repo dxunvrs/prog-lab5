@@ -21,12 +21,21 @@ public class CollectionManager implements CollectionRepository {
     private static final Logger logger = LoggerFactory.getLogger(CollectionManager.class);
     private final List<Product> collection = new LinkedList<>();
     private LocalDateTime dateOfInit = LocalDateTime.now();
+
+    /**
+     * Последнее использованное id для автогенерации следующего
+     */
     private int lastId = 0;
 
+    /**
+     * Инициализация коллекции
+     * @param dateOfInit время инициализации
+     */
     @Override
     public void initCollection(LocalDateTime dateOfInit) {
         this.dateOfInit = dateOfInit;
         lastId = collection.stream().mapToInt(Product::getId).max().orElse(0);
+        logger.info("Инициализация коллекции, последний id: {}, дата: {}", lastId, dateOfInit);
     }
 
     /**
@@ -35,6 +44,7 @@ public class CollectionManager implements CollectionRepository {
     @Override
     public void sort() {
         Collections.sort(collection);
+        logger.info("Коллекция отсортирована в естественном порядке");
     }
 
     /**
@@ -43,6 +53,7 @@ public class CollectionManager implements CollectionRepository {
     @Override
     public void randomSort() {
         Collections.shuffle(collection);
+        logger.info("Коллекция отсортирована в случайном порядке");
     }
 
     /**
@@ -56,12 +67,20 @@ public class CollectionManager implements CollectionRepository {
         logger.info("В коллекцию добавлен новый продукт {}", product);
     }
 
+    /**
+     * Удаление продукта по id
+     */
     @Override
     public void removeProductById(int id) {
         boolean removed = collection.removeIf(product -> product.getId()==id);
         if (!removed) throw new IdNotFoundException("Нет такого id");
+        logger.info("Из коллекции удален элемент с id {}", id);
     }
 
+    /**
+     * Обновление продукта по id
+     * @param productForm форма для запроса продукта
+     */
     @Override
     public void updateProductById(int id, ProductForm productForm) {
         Product updatedProduct = collection.stream()
@@ -70,7 +89,7 @@ public class CollectionManager implements CollectionRepository {
                         .orElseThrow(() -> new IdNotFoundException("Нет такого id"));
         Product product = productForm.getProduct();
         updatedProduct.update(product);
-        logger.info("Элемент с id {} обновлен", id);
+        logger.info("Элемент с id {} обновлен, новое значение {}", id, product);
     }
 
     /**
@@ -98,16 +117,26 @@ public class CollectionManager implements CollectionRepository {
         return dateOfInit;
     }
 
+    /**
+     * Получение суммы всех цен
+     */
     @Override
     public int getSumOfPrice() {
         return collection.stream().mapToInt(Product::getPrice).sum();
     }
 
+    /**
+     * Получение среднего значения всех цен
+     */
     @Override
     public double getAvgOfPrice() {
         return collection.stream().mapToInt(Product::getPrice).average().orElse(0.0);
     }
 
+    /**
+     * Получение отфильтрованных элементов коллекции в виде строки
+     * @param filter лямбда-функция фильтр
+     */
     @Override
     public String getFormattedCollection(Predicate<Product> filter) {
         if (collection.isEmpty()) return "Коллекция пуста";
@@ -119,6 +148,9 @@ public class CollectionManager implements CollectionRepository {
         return result;
     }
 
+    /**
+     * Сохранение коллекции
+     */
     @Override
     public void saveCollection(Consumer<Product> saveAction) {
         collection.forEach(saveAction);

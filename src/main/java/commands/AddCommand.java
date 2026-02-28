@@ -27,5 +27,6 @@ public class AddCommand extends Command {
         collectionRepository.addProduct(
                 new ProductForm(userInput, executeContext.isScriptMode()).getProduct()
         );
+        System.out.println("Продукт добавлен");
     }
 }

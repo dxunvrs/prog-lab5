@@ -14,17 +14,19 @@ public interface CollectionRepository {
     void sort();
     void randomSort();
 
-    int getSumOfPrice();
-    double getAvgOfPrice();
-
     void addProduct(Product product);
     void updateProductById(int id, ProductForm productForm);
     void removeProductById(int id);
     void clearCollection();
 
+    int getCollectionSize();
+    LocalDateTime getDateOfInit();
+
+    int getSumOfPrice();
+    double getAvgOfPrice();
+
+    String getFormattedCollection(Predicate<Product> filter);
+
     void initCollection(LocalDateTime dateOfInit);
     void saveCollection(Consumer<Product> saveAction);
-    LocalDateTime getDateOfInit();
-    int getCollectionSize();
-    String getFormattedCollection(Predicate<Product> filter);
 }

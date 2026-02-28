@@ -1,30 +1,44 @@
 <configuration>
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>OFF</level>
-        </filter>
-        <encoder>
-            <pattern>%d{HH:mm:ss} %-5level - %msg%n</pattern>
-        </encoder>
-    </appender>
+<appender name="ALL_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/all.log</file>
 
-    <appender name="ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/application.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+        <fileNamePattern>logs/archived/all-%d{yyyy-MM-dd_HH-mm}.%i.log</fileNamePattern>
 
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/archive/log-%d{yyyy-MM-dd}.log.gz</fileNamePattern>
-            <maxHistory>30</maxHistory>
-        </rollingPolicy>
+        <maxFileSize>5MB</maxFileSize>
 
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n%ex</pattern>
-        </encoder>
-    </appender>
+        <maxHistory>30</maxHistory>
 
-    <root level="info">
-        <appender-ref ref="STDOUT" />
-        <appender-ref ref="ROLLING_FILE" />
-    </root>
+        <totalSizeCap>100MB</totalSizeCap>
+    </rollingPolicy>
+
+    <encoder>
+        <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+</appender>
+
+<appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/errors.log</file>
+
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+        <level>WARN</level>
+    </filter>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+        <fileNamePattern>logs/archived/errors-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+        <maxFileSize>2MB</maxFileSize>
+        <maxHistory>10</maxHistory>
+    </rollingPolicy>
+
+    <encoder>
+        <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+</appender>
+
+<root level="DEBUG">
+    <appender-ref ref="ALL_FILE" />
+    <appender-ref ref="ERROR_FILE" />
+</root>
 
 </configuration>

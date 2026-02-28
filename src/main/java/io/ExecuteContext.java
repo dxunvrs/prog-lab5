@@ -2,6 +2,9 @@ package io;
 
 import core.CommandExecutor;
 
+/**
+ * Получение параметров работы программы
+ */
 public interface ExecuteContext {
     void refreshInput();
     boolean isScriptMode();

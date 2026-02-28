@@ -2,7 +2,6 @@ package commands;
 
 import core.CommandRegistry;
 
-import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**

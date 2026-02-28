@@ -13,7 +13,11 @@ import java.util.Scanner;
 public class Reader implements UserInput, ExecuteContext {
     private static final Logger logger = LoggerFactory.getLogger(Reader.class);
     private CommandExecutor commandExecutor;
-    private Scanner scanner;
+    private Scanner scanner = new Scanner(System.in);
+
+    /**
+     * Флаг работы программы
+     */
     private boolean isWorking = true;
 
     /**
@@ -22,7 +26,7 @@ public class Reader implements UserInput, ExecuteContext {
     private int scriptCount = 0;
 
     /**
-     * Запуск интерактивного чтения с System.in и выполнение команд
+     * Запуск интерактивного чтения с System.in и передача команд в CommandManager
      */
     @Override
     public void interactive() {
@@ -31,11 +35,15 @@ public class Reader implements UserInput, ExecuteContext {
             System.out.print("> ");
 
             if (!scanner.hasNextLine()) {
+                logger.info("Получен конец ввода");
                 System.out.println("Конец ввода");
                 return;
             }
             String line = scanner.nextLine().trim().replaceAll("\\s+", " ");
-            isWorking = commandExecutor.execute(line, isScriptMode());
+
+            if (!commandExecutor.execute(line, isScriptMode())) {
+                isWorking = false;
+            }
         }
     }
 
@@ -58,7 +66,7 @@ public class Reader implements UserInput, ExecuteContext {
      */
     @Override
     public void refreshInput() {
-        logger.info("Поток ввода обновился");
+        logger.debug("Поток ввода обновился");
         this.scanner = new Scanner(System.in);
     }
 
@@ -76,7 +84,7 @@ public class Reader implements UserInput, ExecuteContext {
      */
     @Override
     public void addScriptCount() {
-        logger.info("Добавился вложенный скрипт");
+        logger.debug("Добавился вложенный скрипт");
         scriptCount++;
     }
 
@@ -85,7 +93,7 @@ public class Reader implements UserInput, ExecuteContext {
      */
     @Override
     public void subScriptCount() {
-        logger.info("Один вложенный скрипт завершился");
+        logger.debug("Один вложенный скрипт завершился");
         scriptCount--;
     }
 

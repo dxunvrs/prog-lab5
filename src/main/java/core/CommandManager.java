@@ -40,30 +40,44 @@ public class CommandManager implements CommandRegistry, CommandExecutor {
         reader.setCommandExecutor(this);
     }
 
+    /**
+     * Метод первичной валидации команды, запуска ее выполнения и обработки ошибок исполнения
+     * @param line введенная строка
+     * @param isScriptMode режим работы
+     * @return true, если выполнение не требует остановки программы
+     */
     @Override
     public boolean execute(String line, boolean isScriptMode) {
         String[] tokens = line.split(" ");
         Command command = commands.get(tokens[0]);
         if (command == null) {
+            logger.warn("Пользователь ввел некорректную команду {}", tokens[0]);
             System.out.println("Команда " + tokens[0] + " не найдена");
             return true;
         }
         if (isScriptMode) System.out.println(command.getName()); // ввод названия команды в режиме скрипта
         if (command.getExpectArgs() != tokens.length-1) {
+            logger.warn("Пользователь ввел неверное количество аргументов {} для команды {}", tokens.length-1, command.getName());
             System.out.println("Ожидалось " + command.getExpectArgs() + " аргументов, получено " + (tokens.length-1));
             return true;
         }
         try {
+            logger.debug("Начало выполнения команды {}", command.getName());
             command.execute(tokens);
+            logger.info("Команда {} успешно выполнилась", command.getName());
             addCommandToHistory(command.getName());
+            logger.info("Команда {} добавлена в историю", command.getName());
             return true;
         } catch (IdNotFoundException e) {
+            logger.error("Пользователь ввел несуществующее id", e);
             System.out.println(e.getMessage());
             return true;
         } catch (NumberFormatException e) {
+            logger.error("Пользователь ввел неверный формат числа", e);
             System.out.println("Неверный формат числа");
             return true;
         } catch (EndOfExecutionException e) {
+            logger.info("Завершение программы через exit");
             System.out.println(e.getMessage());
             return false;
         }
@@ -76,7 +90,6 @@ public class CommandManager implements CommandRegistry, CommandExecutor {
      */
     private void addCommandToHistory(String commandName) {
         commandsHistory.add(commandName);
-        logger.info("В историю команд записана новая команда {}", commandName);
         if (commandsHistory.size() > 15) {
             commandsHistory.remove(0);
         }
@@ -84,7 +97,7 @@ public class CommandManager implements CommandRegistry, CommandExecutor {
 
     /**
      * Получение истории последних 15 команд
-     * @return Итератор коллекции истории команд
+     * @return Стрим коллекции истории команд
      */
     @Override
     public Stream<String> getCommandsHistory() {
@@ -104,12 +117,12 @@ public class CommandManager implements CommandRegistry, CommandExecutor {
      */
     @Override
     public void addCommand(Command command) {
-        logger.info("Регистрация новой команды: {}", command.getName());
+        logger.debug("Регистрация новой команды: {}", command.getName());
         Field[] fields = command.getClass().getDeclaredFields();
 
         for (Field field: fields) {
             if (!field.isAnnotationPresent(Inject.class)) {
-                return;
+                continue;
             }
             try {
                 field.setAccessible(true);
@@ -118,15 +131,19 @@ public class CommandManager implements CommandRegistry, CommandExecutor {
                     continue;
                 }
                 field.set(command, toInject);
-                logger.info("В команду {} внедрен {}", command.getName(), field.getType().getSimpleName());
+                logger.debug("В команду {} внедрен {}", command.getName(), field.getType().getSimpleName());
 
             } catch (IllegalAccessException e) {
                 logger.error("Не удалось внедрить зависимость в поле {}", field.getName(), e);
             }
         }
         commands.put(command.getName(), command);
+        logger.info("Команда {} зарегистрирована", command.getName());
     }
 
+    /**
+     * Решение зависимости
+     */
     private Object resolveDependency(Class<?> type) {
         return switch (type.getSimpleName()) {
             case "CollectionRepository" -> collectionManager;
