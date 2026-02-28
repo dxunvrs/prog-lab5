@@ -18,15 +18,6 @@ public class SumOfPriceCommand extends Command {
 
     @Override
     public void execute(String[] tokens) {
-        System.out.println("Сумма цен всех элементов коллекции: " + sum());
-    }
-
-    private int sum() {
-        int sum = 0;
-        Iterator<Product> iterator = collectionRepository.getIterator();
-        while (iterator.hasNext()) {
-            sum += iterator.next().getPrice();
-        }
-        return sum;
+        System.out.println("Сумма цен всех элементов коллекции: " + collectionRepository.getSumOfPrice());
     }
 }

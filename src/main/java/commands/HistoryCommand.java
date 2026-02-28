@@ -3,6 +3,7 @@ package commands;
 import core.CommandRegistry;
 
 import java.util.Iterator;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Команда для вывода последних 15 команд без аргументов
@@ -18,10 +19,7 @@ public class HistoryCommand extends Command {
     @Override
     public void execute(String[] tokens) {
         System.out.println("Последние 15 команд: ");
-        Iterator<String> iterator = commandRegistry.getCommandsHistory();
-        int i = 1;
-        while (iterator.hasNext()) {
-            System.out.println(i++ + ". " + iterator.next());
-        }
+        AtomicInteger index = new AtomicInteger(1);
+        commandRegistry.getCommandsHistory().map(command -> index.getAndIncrement() + ". " + command).forEach(System.out::println);
     }
 }

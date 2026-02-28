@@ -4,9 +4,15 @@ import exceptions.IdNotFoundException;
 import models.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utility.ProductForm;
 
 import java.time.LocalDateTime;
 import java.util.*;
+
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 
 /**
  * Класс для управления коллекцией
@@ -15,6 +21,13 @@ public class CollectionManager implements CollectionRepository {
     private static final Logger logger = LoggerFactory.getLogger(CollectionManager.class);
     private final List<Product> collection = new LinkedList<>();
     private LocalDateTime dateOfInit = LocalDateTime.now();
+    private int lastId = 0;
+
+    @Override
+    public void initCollection(LocalDateTime dateOfInit) {
+        this.dateOfInit = dateOfInit;
+        lastId = collection.stream().mapToInt(Product::getId).max().orElse(0);
+    }
 
     /**
      * Сортировка в естественном порядке, прописана в {@link Product}, который реализует Comparable
@@ -37,26 +50,27 @@ public class CollectionManager implements CollectionRepository {
      */
     @Override
     public void addProduct(Product product) {
+        product.setId(++lastId);
+        product.setCreationDate(new Date());
         collection.add(product);
         logger.info("В коллекцию добавлен новый продукт {}", product);
     }
 
-    /**
-     * Удаление продукта по индексу
-     */
     @Override
-    public void removeProduct(int index) {
-        collection.remove(index);
-        logger.info("Из коллекции удален элемент по индексу {}", index);
+    public void removeProductById(int id) {
+        boolean removed = collection.removeIf(product -> product.getId()==id);
+        if (!removed) throw new IdNotFoundException("Нет такого id");
     }
 
-    /**
-     * Обновление продукта по индексу
-     */
     @Override
-    public void updateProduct(int index, Product product) {
-        collection.set(index, product);
-        logger.info("Элемент под индексом {} обновлен", index);
+    public void updateProductById(int id, ProductForm productForm) {
+        Product updatedProduct = collection.stream()
+                        .filter(product -> product.getId() == id)
+                        .findFirst()
+                        .orElseThrow(() -> new IdNotFoundException("Нет такого id"));
+        Product product = productForm.getProduct();
+        updatedProduct.update(product);
+        logger.info("Элемент с id {} обновлен", id);
     }
 
     /**
@@ -66,40 +80,6 @@ public class CollectionManager implements CollectionRepository {
     public void clearCollection() {
         collection.clear();
         logger.info("Коллекция очищена");
-    }
-
-    /**
-     * Поиск индекса по id продукта. O(n)
-     * @return Возвращает индекс, если он был найден
-     * @throws IdNotFoundException ошибка поиска, если id не найден
-     */
-    @Override
-    public int findIndexById(int id) throws IdNotFoundException {
-        int index = 0;
-        for (Product product: collection) {
-            if (id == product.getId()) {
-                return index;
-            }
-            index++;
-        }
-        throw new IdNotFoundException("Такого id нет");
-    }
-
-    /**
-     * Получение продукта по индексу
-     */
-    @Override
-    public Product getProduct(int index) {
-        return collection.get(index);
-    }
-
-    /**
-     * Получение итератора
-     * @return Защищенный от удаления итератор коллекции
-     */
-    @Override
-    public Iterator<Product> getIterator() {
-        return Collections.unmodifiableCollection(collection).iterator();
     }
 
     /**
@@ -118,11 +98,29 @@ public class CollectionManager implements CollectionRepository {
         return dateOfInit;
     }
 
-    /**
-     * Устанавливает дату инициализации при загрузке уже существующей коллекции
-     */
     @Override
-    public void setDateOfInit(LocalDateTime dateOfInit) {
-        this.dateOfInit = dateOfInit;
+    public int getSumOfPrice() {
+        return collection.stream().mapToInt(Product::getPrice).sum();
+    }
+
+    @Override
+    public double getAvgOfPrice() {
+        return collection.stream().mapToInt(Product::getPrice).average().orElse(0.0);
+    }
+
+    @Override
+    public String getFormattedCollection(Predicate<Product> filter) {
+        if (collection.isEmpty()) return "Коллекция пуста";
+
+        String result = collection.stream()
+                .filter(filter).map(Product::toFormattedString).collect(Collectors.joining("\n"));
+
+        if (result.isEmpty()) return "Совпадений не найдено";
+        return result;
+    }
+
+    @Override
+    public void saveCollection(Consumer<Product> saveAction) {
+        collection.forEach(saveAction);
     }
 }

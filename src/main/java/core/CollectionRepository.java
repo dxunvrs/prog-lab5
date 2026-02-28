@@ -1,10 +1,11 @@
 package core;
 
-import exceptions.IdNotFoundException;
 import models.Product;
+import utility.ProductForm;
 
 import java.time.LocalDateTime;
-import java.util.Iterator;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 /**
  * Интерфейс для взаимодействия с {@link CollectionManager}
@@ -12,14 +13,18 @@ import java.util.Iterator;
 public interface CollectionRepository {
     void sort();
     void randomSort();
+
+    int getSumOfPrice();
+    double getAvgOfPrice();
+
     void addProduct(Product product);
-    void removeProduct(int index);
-    void updateProduct(int index, Product product);
+    void updateProductById(int id, ProductForm productForm);
+    void removeProductById(int id);
     void clearCollection();
-    int findIndexById(int id) throws IdNotFoundException;
-    Product getProduct(int index);
-    Iterator<Product> getIterator();
-    int getCollectionSize();
+
+    void initCollection(LocalDateTime dateOfInit);
+    void saveCollection(Consumer<Product> saveAction);
     LocalDateTime getDateOfInit();
-    void setDateOfInit(LocalDateTime dateOfInit);
+    int getCollectionSize();
+    String getFormattedCollection(Predicate<Product> filter);
 }

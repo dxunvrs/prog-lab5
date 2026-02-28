@@ -3,6 +3,7 @@ package core;
 import commands.Command;
 import commands.Inject;
 import exceptions.EndOfExecutionException;
+import exceptions.IdNotFoundException;
 import io.FileStorage;
 import io.Reader;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Менеджер для управления командами.
@@ -53,6 +55,13 @@ public class CommandManager implements CommandRegistry, CommandExecutor {
         }
         try {
             command.execute(tokens);
+            addCommandToHistory(command.getName());
+            return true;
+        } catch (IdNotFoundException e) {
+            System.out.println(e.getMessage());
+            return true;
+        } catch (NumberFormatException e) {
+            System.out.println("Неверный формат числа");
             return true;
         } catch (EndOfExecutionException e) {
             System.out.println(e.getMessage());
@@ -61,26 +70,25 @@ public class CommandManager implements CommandRegistry, CommandExecutor {
     }
 
     /**
-     * Получение истории последних 15 команд
-     * @return Итератор коллекции истории команд
-     */
-    @Override
-    public Iterator<String> getCommandsHistory() {
-        return Collections.unmodifiableCollection(commandsHistory).iterator();
-    }
-
-    /**
      * Добавление выполненной команды в историю
      * Если размер превышает 15, то первый элемент удаляется
      * @param commandName имя команды
      */
-    @Override
-    public void addCommandToHistory(String commandName) {
+    private void addCommandToHistory(String commandName) {
         commandsHistory.add(commandName);
         logger.info("В историю команд записана новая команда {}", commandName);
         if (commandsHistory.size() > 15) {
             commandsHistory.remove(0);
         }
+    }
+
+    /**
+     * Получение истории последних 15 команд
+     * @return Итератор коллекции истории команд
+     */
+    @Override
+    public Stream<String> getCommandsHistory() {
+        return commandsHistory.stream();
     }
 
     /**

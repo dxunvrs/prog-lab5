@@ -1,7 +1,6 @@
 package commands;
 
 import core.CollectionRepository;
-import exceptions.IdNotFoundException;
 import io.ExecuteContext;
 import io.UserInput;
 import utility.ProductForm;
@@ -25,19 +24,7 @@ public class UpdateCommand extends Command {
 
     @Override
     public void execute(String[] tokens) {
-        int index;
-        try {
-            index = collectionRepository.findIndexById(Integer.parseInt(tokens[1]));
-        } catch (NumberFormatException e) {
-            System.out.println("Неверный формат id");
-            return;
-        } catch (IdNotFoundException e) {
-            System.out.println(e.getMessage());
-            return;
-        }
-
-        ProductForm form = new ProductForm(userInput, Integer.parseInt(tokens[1]), executeContext.isScriptMode());
-        collectionRepository.updateProduct(index, form.getProduct(collectionRepository.getProduct(index).getCreationDate()));
-        System.out.println("Продукт обновлен");
+        collectionRepository.updateProductById(Integer.parseInt(tokens[1]),
+                new ProductForm(userInput, executeContext.isScriptMode()));
     }
 }

@@ -16,18 +16,6 @@ public class RemoveCommand extends Command {
 
     @Override
     public void execute(String[] tokens) {
-        int index;
-        try {
-            index = collectionRepository.findIndexById(Integer.parseInt(tokens[1]));
-        } catch (NumberFormatException e) {
-            System.out.println("Неверный формат id");
-            return;
-        } catch (IdNotFoundException e) {
-            System.out.println(e.getMessage());
-            return;
-        }
-
-        collectionRepository.removeProduct(index);
-        System.out.println("Продукт удален");
+        collectionRepository.removeProductById(Integer.parseInt(tokens[1]));
     }
 }

@@ -2,8 +2,8 @@ package core;
 
 import commands.Command;
 
-import java.util.Iterator;
 import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * Интерфейс для взаимодействия с {@link CommandManager}
@@ -11,6 +11,5 @@ import java.util.Map;
 public interface CommandRegistry {
     Map<String, Command> getCommandsMap();
     void addCommand(Command command);
-    Iterator<String> getCommandsHistory();
-    void addCommandToHistory(String commandName);
+    Stream<String> getCommandsHistory();
 }

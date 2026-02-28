@@ -20,6 +20,6 @@ public class SaveCommand extends Command {
 
     @Override
     public void execute(String[] tokens) {
-        fileStorage.save(collectionRepository.getIterator(), collectionRepository.getDateOfInit());
+        fileStorage.save(collectionRepository);
     }
 }

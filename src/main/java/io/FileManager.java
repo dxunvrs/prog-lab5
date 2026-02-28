@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.Iterator;
 import java.util.Scanner;
 
 /**
@@ -50,22 +49,21 @@ public class FileManager implements FileStorage {
      * Метод загрузки коллекции из .csv файла. Используется {@link Scanner}
      */
     @Override
-    public void load(CollectionRepository collectionManager) {
+    public void load(CollectionRepository collectionRepository) {
         try (Scanner scanner = new Scanner(new File(fileName))) {
             LocalDateTime dateOfInit = null;
             if (scanner.hasNextLine()) {
                 dateOfInit = LocalDateTime.parse(scanner.nextLine());
             }
-//            if (scanner.hasNextLine()) {
-//                scanner.nextLine();
-//            }
+
             while (scanner.hasNextLine()) {
                 String dateLine = scanner.nextLine();
                 if (dateLine.trim().isEmpty()) continue;
                 Product product = mapper.readerFor(Product.class).with(schema).readValue(dateLine);
-                collectionManager.addProduct(product);
+                collectionRepository.addProduct(product);
             }
-            collectionManager.setDateOfInit(dateOfInit);
+
+            collectionRepository.initCollection(dateOfInit);
             logger.info("Коллекция из файла {} успешно загружена", fileName);
             System.out.println("Коллекция из файла " + fileName + " успешно загружена");
         } catch (DateTimeParseException e) {
@@ -78,7 +76,7 @@ public class FileManager implements FileStorage {
             logger.error("Не удалось распарсить данный тип", e);
             System.out.println("Неверный формат данных, загрузка не удалась, создана новая коллекция");
         } catch (DatabindException e) {
-            logger.error("Ошибка маппинга полей");
+            logger.error("Ошибка маппинга полей", e);
             System.out.println("Ошибка маппинга полей, загрузка не удалась, создана новая коллекция");
         } catch (FileNotFoundException e) {
             logger.error("Ошибка загрузки: файл не найден", e);
@@ -95,21 +93,23 @@ public class FileManager implements FileStorage {
 
     /**
      * Метод сохранения коллекции в .csv файл. Используется {@link BufferedWriter}
-     * @param iterator итератор коллекции для последовательного сохранения
-     * @param dateOfInit сохраняет также дату инициализации в первую строку файла
+     * @param collectionRepository менеджер коллекции
      */
     @Override
-    public void save(Iterator<Product> iterator, LocalDateTime dateOfInit) {
+    public void save(CollectionRepository collectionRepository) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            writer.write(dateOfInit.toString());
+            writer.write(collectionRepository.getDateOfInit().toString());
             writer.newLine();
-//            writer.write(mapper.writer(schema.withHeader()).writeValueAsString(null).trim());
-//            writer.newLine();
-            while (iterator.hasNext()) {
-                String line = mapper.writer(schema.withoutHeader()).writeValueAsString(iterator.next()).trim();
-                writer.write(line);
-                writer.newLine();
-            }
+
+            collectionRepository.saveCollection(i -> {
+                try {
+                    String line = mapper.writer(schema.withoutHeader()).writeValueAsString(i).trim();
+                    writer.write(line);
+                    writer.newLine();
+                } catch (IOException e) {
+                    throw new UncheckedIOException(e);
+                }
+            });
             logger.info("Коллекция успешно сохранена в файл: {}", fileName);
             System.out.println("Коллекция успешно сохранена в файл " + fileName);
         } catch (FileNotFoundException e) {

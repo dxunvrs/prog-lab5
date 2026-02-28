@@ -18,19 +18,6 @@ public class AverageOfPriceCommand extends Command {
 
     @Override
     public void execute(String[] tokens) {
-        System.out.printf("Среднее значение цены для всех элементов коллекции: %.2f" + "\n", avg());
-    }
-
-    private float avg() {
-        int sum = 0;
-        Iterator<Product> iterator = collectionRepository.getIterator();
-        while (iterator.hasNext()) {
-            sum += iterator.next().getPrice();
-        }
-
-        if (collectionRepository.getCollectionSize() == 0) {
-            return 0f;
-        }
-        return (float) sum / collectionRepository.getCollectionSize();
+        System.out.printf("Среднее значение цены для всех элементов коллекции: %.2f" + "\n", collectionRepository.getAvgOfPrice());
     }
 }
