@@ -1,15 +1,16 @@
 import commands.*;
 import core.CollectionManager;
 import core.CommandManager;
-import io.Reader;
+import io.InputReader;
+
 import io.FileManager;
 
 public class Main {
     public static void main(String[] args) {
         CollectionManager collectionManager = new CollectionManager();
-        Reader consoleReader = new Reader();
+        InputReader reader = new InputReader();
         FileManager fileManager = new FileManager();
-        CommandManager commandManager = new CommandManager(collectionManager, consoleReader, fileManager);
+        CommandManager commandManager = new CommandManager(collectionManager, reader, fileManager);
 
         commandManager.addCommand(new HelpCommand());
         commandManager.addCommand(new InfoCommand());
@@ -37,6 +38,6 @@ public class Main {
         }
 
         System.out.println("Ожидание ввода команды, для списка доступных команд - help");
-        consoleReader.interactive();
+        reader.interactive();
     }
 }

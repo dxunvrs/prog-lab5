@@ -1,0 +1,4 @@
+2026-02-28 21:27:55.837 [main] WARN  core.CommandManager - Пользователь ввел некорректную команду execute_script
+2026-02-28 22:09:04.129 [main] WARN  core.CommandManager - Пользователь ввел некорректную команду sfg
+2026-02-28 22:09:41.947 [main] WARN  core.CommandManager - Пользователь ввел некорректную команду sfg
+2026-02-28 22:09:41.948 [main] ERROR commands.ExecuteScriptCommand - В скрипте рекурсия

@@ -1,9 +1,7 @@
 package io;
 
-import core.CommandExecutor;
-
 /**
- * Интерфейс для взаимодействия с {@link Reader}
+ * Интерфейс для взаимодействия с Reader
  */
 public interface UserInput {
     String readNextLine(String prompt);

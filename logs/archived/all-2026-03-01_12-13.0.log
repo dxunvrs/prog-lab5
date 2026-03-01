@@ -1,0 +1,8 @@
+2026-03-01 12:13:03.225 [main] WARN  core.CommandManager - Пользователь ввел некорректную команду adf
+2026-03-01 12:13:06.540 [main] DEBUG core.CommandManager - Начало выполнения команды exit
+2026-03-01 12:13:06.541 [main] INFO  core.CommandManager - Завершение программы
+exceptions.ExitException: Завершение программы...
+	at commands.ExitCommand.execute(ExitCommand.java:15)
+	at core.CommandManager.execute(CommandManager.java:69)
+	at io.InputReader.interactive(InputReader.java:82)
+	at Main.main(Main.java:42)

@@ -1,6 +1,6 @@
 package commands;
 
-import exceptions.EndOfExecutionException;
+import exceptions.ExitException;
 
 /**
  * Команда для выхода
@@ -12,6 +12,6 @@ public class ExitCommand extends Command {
 
     @Override
     public void execute(String[] tokens) {
-        throw new EndOfExecutionException("Завершение программы...");
+        throw new ExitException("Завершение программы...");
     }
 }

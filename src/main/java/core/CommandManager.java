@@ -3,9 +3,12 @@ package core;
 import commands.Command;
 import commands.Inject;
 import exceptions.EndOfExecutionException;
+import exceptions.ExitException;
 import exceptions.IdNotFoundException;
+import exceptions.ScriptExecutionException;
 import io.FileStorage;
-import io.Reader;
+import io.InputReader;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,10 +33,10 @@ public class CommandManager implements CommandRegistry, CommandExecutor {
     private final List<String> commandsHistory = new LinkedList<>();
 
     private final CollectionRepository collectionManager;
-    private final Reader reader;
+    private final InputReader reader;
     private final FileStorage fileManager;
 
-    public CommandManager(CollectionRepository collectionManager, Reader reader, FileStorage fileManager) {
+    public CommandManager(CollectionRepository collectionManager, InputReader reader, FileStorage fileManager) {
         this.collectionManager = collectionManager;
         this.reader = reader;
         this.fileManager = fileManager;
@@ -76,8 +79,12 @@ public class CommandManager implements CommandRegistry, CommandExecutor {
             logger.error("Пользователь ввел неверный формат числа", e);
             System.out.println("Неверный формат числа");
             return true;
-        } catch (EndOfExecutionException e) {
-            logger.info("Завершение программы через exit");
+        } catch (ScriptExecutionException e) {
+            logger.error("Ошибка выполнения скрипта", e);
+            System.out.println(e.getMessage());
+            return true;
+        } catch (EndOfExecutionException | ExitException e) {
+            logger.info("Завершение программы", e);
             System.out.println(e.getMessage());
             return false;
         }
