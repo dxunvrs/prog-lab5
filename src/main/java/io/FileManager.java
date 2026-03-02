@@ -8,7 +8,7 @@ import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvReadException;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import core.CollectionRepository;
+import core.CollectionManager;
 import models.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ import java.util.Scanner;
  * Класс для сохранения/загрузки коллекции из файла.
  * Для сериализации/десериализации - Jackson
  */
-public class FileManager implements FileStorage {
+public class FileManager {
     private static final Logger logger = LoggerFactory.getLogger(FileManager.class);
     private final CsvMapper mapper = new CsvMapper();
     private final CsvSchema schema = mapper.schemaFor(Product.class);
@@ -40,7 +40,6 @@ public class FileManager implements FileStorage {
     /**
      * Установка имени файла из аргументов запуска программы
      */
-    @Override
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
@@ -48,8 +47,7 @@ public class FileManager implements FileStorage {
     /**
      * Метод загрузки коллекции из .csv файла. Используется {@link Scanner}
      */
-    @Override
-    public void load(CollectionRepository collectionRepository) {
+    public void load(CollectionManager collectionRepository) {
         try (Scanner scanner = new Scanner(new File(fileName))) {
             LocalDateTime dateOfInit = null;
             if (scanner.hasNextLine()) {
@@ -95,8 +93,7 @@ public class FileManager implements FileStorage {
      * Метод сохранения коллекции в .csv файл. Используется {@link BufferedWriter}
      * @param collectionRepository менеджер коллекции
      */
-    @Override
-    public void save(CollectionRepository collectionRepository) {
+    public void save(CollectionManager collectionRepository) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             writer.write(collectionRepository.getDateOfInit().toString());
             writer.newLine();

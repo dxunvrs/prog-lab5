@@ -1,17 +1,17 @@
 package commands;
 
-import core.CollectionRepository;
-import io.FileStorage;
+import core.CollectionManager;
+import io.FileManager;
 
 /**
  * Команда для сохранения коллекции в файл, формат .csv
  */
 public class SaveCommand extends Command {
     @Inject
-    private CollectionRepository collectionRepository;
+    private CollectionManager collectionManager;
 
     @Inject
-    private FileStorage fileStorage;
+    private FileManager fileManager;
 
 
     public SaveCommand() {
@@ -20,6 +20,6 @@ public class SaveCommand extends Command {
 
     @Override
     public void execute(String[] tokens) {
-        fileStorage.save(collectionRepository);
+        fileManager.save(collectionManager);
     }
 }

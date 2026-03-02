@@ -1,13 +1,13 @@
 package commands;
 
-import core.CollectionRepository;
+import core.CollectionManager;
 
 /**
  * Команда для поиска элементов, название которых начинается с заданной подстроки
  */
 public class FilterStartsWithNameCommand extends Command {
     @Inject
-    private CollectionRepository collectionRepository;
+    private CollectionManager collectionManager;
 
     public FilterStartsWithNameCommand() {
         super("filter_starts_with_name", "filter_starts_with_name - вывести элементы, название которых начинается с заданной подстроки", 1);
@@ -15,6 +15,6 @@ public class FilterStartsWithNameCommand extends Command {
 
     @Override
     public void execute(String[] tokens) {
-        System.out.println(collectionRepository.getFormattedCollection(product -> product.getName().startsWith(tokens[1])));
+        System.out.println(collectionManager.getFormattedCollection(product -> product.getName().startsWith(tokens[1])));
     }
 }

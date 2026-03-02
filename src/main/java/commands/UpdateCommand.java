@@ -1,8 +1,7 @@
 package commands;
 
-import core.CollectionRepository;
-import io.ExecuteContext;
-import io.UserInput;
+import core.CollectionManager;
+import io.InputReader;
 import utility.ProductForm;
 
 /**
@@ -10,13 +9,10 @@ import utility.ProductForm;
  */
 public class UpdateCommand extends Command {
     @Inject
-    private CollectionRepository collectionRepository;
+    private CollectionManager collectionManager;
 
     @Inject
-    private UserInput userInput;
-
-    @Inject
-    private ExecuteContext executeContext;
+    private InputReader inputReader;
 
     public UpdateCommand() {
         super("update", "update id - обновить значение элемента по заданному id", 1);
@@ -24,8 +20,8 @@ public class UpdateCommand extends Command {
 
     @Override
     public void execute(String[] tokens) {
-        collectionRepository.updateProductById(Integer.parseInt(tokens[1]),
-                new ProductForm(userInput, executeContext.isScriptMode()));
+        collectionManager.updateProductById(Integer.parseInt(tokens[1]),
+                new ProductForm(inputReader, inputReader.isScriptMode()));
         System.out.println("Продукт обновлен");
     }
 }

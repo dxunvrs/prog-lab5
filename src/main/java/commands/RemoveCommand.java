@@ -1,13 +1,13 @@
 package commands;
 
-import core.CollectionRepository;
+import core.CollectionManager;
 
 /**
  * Команда для удаления элемента коллекции по id
  */
 public class RemoveCommand extends Command {
     @Inject
-    private CollectionRepository collectionRepository;
+    private CollectionManager collectionManager;
 
     public RemoveCommand() {
         super("remove_by_id", "remove_by_id - удалить элемент из коллекции по id", 1);
@@ -15,7 +15,7 @@ public class RemoveCommand extends Command {
 
     @Override
     public void execute(String[] tokens) {
-        collectionRepository.removeProductById(Integer.parseInt(tokens[1]));
+        collectionManager.removeProductById(Integer.parseInt(tokens[1]));
         System.out.println("Продукт удален");
     }
 }

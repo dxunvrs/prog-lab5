@@ -1,13 +1,13 @@
 package commands;
 
-import core.CommandRegistry;
+import core.CommandManager;
 
 /**
  * Команда для вывода списка доступных команд
  */
 public class HelpCommand extends Command {
     @Inject
-    private CommandRegistry commandRegistry;
+    private CommandManager commandManager;
 
     public HelpCommand() {
         super("help", "help - список доступных команд", 0);
@@ -16,7 +16,7 @@ public class HelpCommand extends Command {
     @Override
     public void execute(String[] tokens) {
         System.out.println("Список команд и их описание: ");
-        for (Command command : commandRegistry.getCommandsMap().values()) {
+        for (Command command : commandManager.getCommandsMap().values()) {
             System.out.println("  " + command.getDescription());
         }
     }

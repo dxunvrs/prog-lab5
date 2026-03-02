@@ -1,7 +1,7 @@
 package commands;
 
 import exceptions.ScriptExecutionException;
-import io.ExecuteContext;
+import io.InputReader;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import java.io.IOException;
  */
 public class ExecuteScriptCommand extends Command {
     @Inject
-    private ExecuteContext executeContext;
+    private InputReader inputReader;
 
     public ExecuteScriptCommand() {
         super("execute_script", "execute_script - считать и исполнить скрипт из файла", 1);
@@ -20,7 +20,7 @@ public class ExecuteScriptCommand extends Command {
     @Override
     public void execute(String[] tokens) {
         try {
-            executeContext.enqueueScript(tokens[1]);
+            inputReader.enqueueScript(tokens[1]);
         } catch (IOException e) {
             throw new ScriptExecutionException("Ошибка чтения " + e.getMessage());
         }

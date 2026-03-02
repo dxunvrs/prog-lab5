@@ -1,13 +1,13 @@
 package commands;
 
-import core.CollectionRepository;
+import core.CollectionManager;
 
 /**
  * Команда для поиска средней цены для всех элементов коллекции
  */
 public class AverageOfPriceCommand extends Command {
     @Inject
-    private CollectionRepository collectionRepository;
+    private CollectionManager collectionManager;
 
     public AverageOfPriceCommand() {
         super("average_of_price", "average_of_price - вывести среднее значение цены для всех элементов коллекции", 0);
@@ -15,6 +15,6 @@ public class AverageOfPriceCommand extends Command {
 
     @Override
     public void execute(String[] tokens) {
-        System.out.printf("Среднее значение цены для всех элементов коллекции: %.2f" + "\n", collectionRepository.getAvgOfPrice());
+        System.out.printf("Среднее значение цены для всех элементов коллекции: %.2f" + "\n", collectionManager.getAvgOfPrice());
     }
 }

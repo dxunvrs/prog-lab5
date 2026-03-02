@@ -6,7 +6,7 @@ import exceptions.EndOfExecutionException;
 import exceptions.ExitException;
 import exceptions.IdNotFoundException;
 import exceptions.ScriptExecutionException;
-import io.FileStorage;
+import io.FileManager;
 import io.InputReader;
 
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ import java.util.stream.Stream;
  * Менеджер для управления командами.
  * Задачи: регистрация команд, dependency injection в команды, хранение хэш-мапы доступных команд
  */
-public class CommandManager implements CommandRegistry, CommandExecutor {
+public class CommandManager {
     private static final Logger logger = LoggerFactory.getLogger(CommandManager.class);
     /**
      * Хэш-мап для доступных команд. Быстрый поиск за O(1), невозможность повтора
@@ -32,25 +32,22 @@ public class CommandManager implements CommandRegistry, CommandExecutor {
      */
     private final List<String> commandsHistory = new LinkedList<>();
 
-    private final CollectionRepository collectionManager;
+    private final CollectionManager collectionManager;
     private final InputReader reader;
-    private final FileStorage fileManager;
+    private final FileManager fileManager;
 
-    public CommandManager(CollectionRepository collectionManager, InputReader reader, FileStorage fileManager) {
+    public CommandManager(CollectionManager collectionManager, InputReader reader, FileManager fileManager) {
         this.collectionManager = collectionManager;
         this.reader = reader;
         this.fileManager = fileManager;
-        reader.setCommandExecutor(this);
     }
 
     /**
      * Метод первичной валидации команды, запуска ее выполнения и обработки ошибок исполнения
      * @param line введенная строка
-     * @param isScriptMode режим работы
      * @return true, если выполнение не требует остановки программы
      */
-    @Override
-    public boolean execute(String line, boolean isScriptMode) {
+    public boolean executeCommand(String line) {
         String[] tokens = line.split(" ");
         Command command = commands.get(tokens[0]);
         if (command == null) {
@@ -58,7 +55,7 @@ public class CommandManager implements CommandRegistry, CommandExecutor {
             System.out.println("Команда " + tokens[0] + " не найдена");
             return true;
         }
-        if (isScriptMode) System.out.println(command.getName()); // ввод названия команды в режиме скрипта
+
         if (command.getExpectArgs() != tokens.length-1) {
             logger.warn("Пользователь ввел неверное количество аргументов {} для команды {}", tokens.length-1, command.getName());
             System.out.println("Ожидалось " + command.getExpectArgs() + " аргументов, получено " + (tokens.length-1));
@@ -106,7 +103,6 @@ public class CommandManager implements CommandRegistry, CommandExecutor {
      * Получение истории последних 15 команд
      * @return Стрим коллекции истории команд
      */
-    @Override
     public Stream<String> getCommandsHistory() {
         return commandsHistory.stream();
     }
@@ -114,7 +110,6 @@ public class CommandManager implements CommandRegistry, CommandExecutor {
     /**
      * Получение хэш-мапы доступных команд
      */
-    @Override
     public Map<String, Command> getCommandsMap() {
         return commands;
     }
@@ -122,7 +117,6 @@ public class CommandManager implements CommandRegistry, CommandExecutor {
     /**
      * Регистрация команды и внедрение необходимых зависимостей
      */
-    @Override
     public void addCommand(Command command) {
         logger.debug("Регистрация новой команды: {}", command.getName());
         Field[] fields = command.getClass().getDeclaredFields();
@@ -153,10 +147,10 @@ public class CommandManager implements CommandRegistry, CommandExecutor {
      */
     private Object resolveDependency(Class<?> type) {
         return switch (type.getSimpleName()) {
-            case "CollectionRepository" -> collectionManager;
-            case "CommandRegistry" -> this;
-            case "FileStorage" -> fileManager;
-            case "UserInput", "ExecuteContext" -> reader;
+            case "CollectionManager" -> collectionManager;
+            case "CommandManager" -> this;
+            case "FileManager" -> fileManager;
+            case "InputReader" -> reader;
             default -> null;
         };
     }

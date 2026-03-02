@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 /**
  * Класс для управления коллекцией
  */
-public class CollectionManager implements CollectionRepository {
+public class CollectionManager {
     private static final Logger logger = LoggerFactory.getLogger(CollectionManager.class);
     private final List<Product> collection = new LinkedList<>();
     private LocalDateTime dateOfInit = LocalDateTime.now();
@@ -31,7 +31,6 @@ public class CollectionManager implements CollectionRepository {
      * Инициализация коллекции
      * @param dateOfInit время инициализации
      */
-    @Override
     public void initCollection(LocalDateTime dateOfInit) {
         this.dateOfInit = dateOfInit;
         lastId = collection.stream().mapToInt(Product::getId).max().orElse(0);
@@ -41,7 +40,6 @@ public class CollectionManager implements CollectionRepository {
     /**
      * Сортировка в естественном порядке, прописана в {@link Product}, который реализует Comparable
      */
-    @Override
     public void sort() {
         Collections.sort(collection);
         logger.info("Коллекция отсортирована в естественном порядке");
@@ -50,7 +48,6 @@ public class CollectionManager implements CollectionRepository {
     /**
      * Рандомная сортировка
      */
-    @Override
     public void randomSort() {
         Collections.shuffle(collection);
         logger.info("Коллекция отсортирована в случайном порядке");
@@ -59,7 +56,6 @@ public class CollectionManager implements CollectionRepository {
     /**
      * Добавление заданного продукта
      */
-    @Override
     public void addProduct(Product product) {
         product.setId(++lastId);
         product.setCreationDate(new Date());
@@ -70,7 +66,6 @@ public class CollectionManager implements CollectionRepository {
     /**
      * Удаление продукта по id
      */
-    @Override
     public void removeProductById(int id) {
         boolean removed = collection.removeIf(product -> product.getId()==id);
         if (!removed) throw new IdNotFoundException("Нет такого id");
@@ -81,7 +76,6 @@ public class CollectionManager implements CollectionRepository {
      * Обновление продукта по id
      * @param productForm форма для запроса продукта
      */
-    @Override
     public void updateProductById(int id, ProductForm productForm) {
         Product updatedProduct = collection.stream()
                         .filter(product -> product.getId() == id)
@@ -95,7 +89,6 @@ public class CollectionManager implements CollectionRepository {
     /**
      * Очистка коллекции
      */
-    @Override
     public void clearCollection() {
         collection.clear();
         logger.info("Коллекция очищена");
@@ -104,7 +97,6 @@ public class CollectionManager implements CollectionRepository {
     /**
      * Получение размера коллекции
      */
-    @Override
     public int getCollectionSize() {
         return collection.size();
     }
@@ -112,7 +104,6 @@ public class CollectionManager implements CollectionRepository {
     /**
      * Получение даты инициализации коллекции
      */
-    @Override
     public LocalDateTime getDateOfInit() {
         return dateOfInit;
     }
@@ -120,7 +111,6 @@ public class CollectionManager implements CollectionRepository {
     /**
      * Получение суммы всех цен
      */
-    @Override
     public int getSumOfPrice() {
         return collection.stream().mapToInt(Product::getPrice).sum();
     }
@@ -128,7 +118,6 @@ public class CollectionManager implements CollectionRepository {
     /**
      * Получение среднего значения всех цен
      */
-    @Override
     public double getAvgOfPrice() {
         return collection.stream().mapToInt(Product::getPrice).average().orElse(0.0);
     }
@@ -137,7 +126,6 @@ public class CollectionManager implements CollectionRepository {
      * Получение отфильтрованных элементов коллекции в виде строки
      * @param filter лямбда-функция фильтр
      */
-    @Override
     public String getFormattedCollection(Predicate<Product> filter) {
         if (collection.isEmpty()) return "Коллекция пуста";
 
@@ -151,7 +139,6 @@ public class CollectionManager implements CollectionRepository {
     /**
      * Сохранение коллекции
      */
-    @Override
     public void saveCollection(Consumer<Product> saveAction) {
         collection.forEach(saveAction);
     }

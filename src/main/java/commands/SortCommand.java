@@ -1,13 +1,13 @@
 package commands;
 
-import core.CollectionRepository;
+import core.CollectionManager;
 
 /**
  * Команда для естественной сортировки
  */
 public class SortCommand extends Command {
     @Inject
-    private CollectionRepository collectionRepository;
+    private CollectionManager collectionManager;
 
     public SortCommand() {
         super("sort", "sort - сортировка коллекции в естественном порядке (по id)", 0);
@@ -15,7 +15,7 @@ public class SortCommand extends Command {
 
     @Override
     public void execute(String[] tokens) {
-        collectionRepository.sort();
+        collectionManager.sort();
         System.out.println("Коллекция отсортирована в естественном порядке, введите show для просмотра");
     }
 }

@@ -1,13 +1,13 @@
 package commands;
 
-import core.CollectionRepository;
+import core.CollectionManager;
 
 /**
  * Команда для рандомной сортировки
  */
 public class ShuffleCommand extends Command {
     @Inject
-    private CollectionRepository collectionRepository;
+    private CollectionManager collectionManager;
 
     public ShuffleCommand() {
         super("shuffle", "shuffle - перемешать коллекцию в случайном порядке", 0);
@@ -15,7 +15,7 @@ public class ShuffleCommand extends Command {
 
     @Override
     public void execute(String[] tokens) {
-        collectionRepository.randomSort();
+        collectionManager.randomSort();
         System.out.println("Коллекция перемешана, введите show для просмотра");
     }
 }

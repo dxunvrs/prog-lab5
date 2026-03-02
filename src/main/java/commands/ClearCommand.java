@@ -1,13 +1,13 @@
 package commands;
 
-import core.CollectionRepository;
+import core.CollectionManager;
 
 /**
  * Команда для очищения коллекции
  */
 public class ClearCommand extends Command {
     @Inject
-    private CollectionRepository collectionRepository;
+    private CollectionManager collectionManager;
 
     public ClearCommand() {
         super("clear", "clear - очистить коллекцию", 0);
@@ -15,7 +15,7 @@ public class ClearCommand extends Command {
 
     @Override
     public void execute(String[] tokens) {
-        collectionRepository.clearCollection();
+        collectionManager.clearCollection();
         System.out.println("Коллекция очищена");
     }
 }

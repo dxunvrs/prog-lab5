@@ -1,0 +1,39 @@
+2026-03-01 12:20:01.100 [main] DEBUG core.CommandManager - Начало выполнения команды execute_script
+2026-03-01 12:20:01.107 [main] INFO  io.InputReader - В очередь добавлен новый скрипт sample
+2026-03-01 12:20:01.108 [main] INFO  core.CommandManager - Команда execute_script успешно выполнилась
+2026-03-01 12:20:01.108 [main] INFO  core.CommandManager - Команда execute_script добавлена в историю
+2026-03-01 12:20:01.108 [main] DEBUG core.CommandManager - Начало выполнения команды info
+2026-03-01 12:20:01.109 [main] INFO  core.CommandManager - Команда info успешно выполнилась
+2026-03-01 12:20:01.109 [main] INFO  core.CommandManager - Команда info добавлена в историю
+2026-03-01 12:20:01.109 [main] DEBUG core.CommandManager - Начало выполнения команды help
+2026-03-01 12:20:01.110 [main] INFO  core.CommandManager - Команда help успешно выполнилась
+2026-03-01 12:20:01.110 [main] INFO  core.CommandManager - Команда help добавлена в историю
+2026-03-01 12:20:01.110 [main] DEBUG core.CommandManager - Начало выполнения команды execute_script
+2026-03-01 12:20:01.111 [main] INFO  io.InputReader - В очередь добавлен новый скрипт test
+2026-03-01 12:20:01.111 [main] INFO  core.CommandManager - Команда execute_script успешно выполнилась
+2026-03-01 12:20:01.111 [main] INFO  core.CommandManager - Команда execute_script добавлена в историю
+2026-03-01 12:20:01.112 [main] DEBUG core.CommandManager - Начало выполнения команды show
+2026-03-01 12:20:01.126 [main] INFO  core.CommandManager - Команда show успешно выполнилась
+2026-03-01 12:20:01.126 [main] INFO  core.CommandManager - Команда show добавлена в историю
+2026-03-01 12:20:01.126 [main] WARN  core.CommandManager - Пользователь ввел некорректную команду sfg
+2026-03-01 12:20:01.127 [main] DEBUG core.CommandManager - Начало выполнения команды add
+2026-03-01 12:20:01.128 [main] INFO  utility.Form - У пользователя запрашивается название типа String
+2026-03-01 12:20:01.129 [main] INFO  utility.Form - У пользователя запрашивается координату по X типа Long
+2026-03-01 12:20:01.130 [main] ERROR core.CommandManager - Ошибка выполнения скрипта
+exceptions.ScriptExecutionException: Ожидались данные типа Long
+	at utility.Form.ask(Form.java:54)
+	at utility.ProductForm.getProduct(ProductForm.java:31)
+	at commands.AddCommand.execute(AddCommand.java:28)
+	at core.CommandManager.execute(CommandManager.java:69)
+	at io.InputReader.interactive(InputReader.java:86)
+	at Main.main(Main.java:42)
+2026-03-01 12:20:01.132 [main] DEBUG core.CommandManager - Начало выполнения команды help
+2026-03-01 12:20:01.132 [main] INFO  core.CommandManager - Команда help успешно выполнилась
+2026-03-01 12:20:01.132 [main] INFO  core.CommandManager - Команда help добавлена в историю
+2026-03-01 12:20:01.133 [main] DEBUG core.CommandManager - Начало выполнения команды exit
+2026-03-01 12:20:01.133 [main] INFO  core.CommandManager - Завершение программы
+exceptions.ExitException: Завершение программы...
+	at commands.ExitCommand.execute(ExitCommand.java:15)
+	at core.CommandManager.execute(CommandManager.java:69)
+	at io.InputReader.interactive(InputReader.java:86)
+	at Main.main(Main.java:42)

@@ -4,7 +4,7 @@ import exceptions.EndOfExecutionException;
 import exceptions.EndOfInputException;
 import exceptions.ScriptExecutionException;
 import exceptions.TypeNotFoundException;
-import io.UserInput;
+import io.InputReader;
 import models.UnitOfMeasure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,13 +17,13 @@ import java.time.format.DateTimeParseException;
  */
 public class Form {
     private static final Logger logger = LoggerFactory.getLogger(Form.class);
-    private final UserInput reader;
+    private final InputReader reader;
     /**
      * Режим работы
      */
     private final boolean scriptMode;
 
-    public Form(UserInput reader, boolean scriptMode) {
+    public Form(InputReader reader, boolean scriptMode) {
         this.reader = reader;
         this.scriptMode = scriptMode;
     }

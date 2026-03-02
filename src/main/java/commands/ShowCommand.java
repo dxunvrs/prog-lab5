@@ -1,13 +1,13 @@
 package commands;
 
-import core.CollectionRepository;
+import core.CollectionManager;
 
 /**
  * Команда для отображения всех элементов коллекции
  */
 public class ShowCommand extends Command {
     @Inject
-    private CollectionRepository collectionRepository;
+    private CollectionManager collectionManager;
 
     public ShowCommand() {
         super("show", "show - вывод элементов коллекции", 0);
@@ -15,6 +15,6 @@ public class ShowCommand extends Command {
 
     @Override
     public void execute(String[] tokens) {
-        System.out.println(collectionRepository.getFormattedCollection(product -> true));
+        System.out.println(collectionManager.getFormattedCollection(product -> true));
     }
 }

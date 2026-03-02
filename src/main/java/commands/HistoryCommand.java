@@ -1,6 +1,6 @@
 package commands;
 
-import core.CommandRegistry;
+import core.CommandManager;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class HistoryCommand extends Command {
     @Inject
-    private CommandRegistry commandRegistry;
+    private CommandManager commandManager;
 
     public HistoryCommand() {
         super("history", "history - вывести последние 15 команд без аргументов", 0);
@@ -19,6 +19,6 @@ public class HistoryCommand extends Command {
     public void execute(String[] tokens) {
         System.out.println("Последние 15 команд: ");
         AtomicInteger index = new AtomicInteger(1);
-        commandRegistry.getCommandsHistory().map(command -> index.getAndIncrement() + ". " + command).forEach(System.out::println);
+        commandManager.getCommandsHistory().map(command -> index.getAndIncrement() + ". " + command).forEach(System.out::println);
     }
 }

@@ -1,6 +1,6 @@
 package utility;
 
-import io.UserInput;
+import io.InputReader;
 import models.Coordinates;
 import models.Person;
 import models.Product;
@@ -12,7 +12,7 @@ import java.time.LocalDate;
  * Класс для запроса конкретной формы - формы продукта
  */
 public class ProductForm extends Form {
-    public ProductForm(UserInput reader, boolean scriptMode) {
+    public ProductForm(InputReader reader, boolean scriptMode) {
         super(reader, scriptMode);
     }
 

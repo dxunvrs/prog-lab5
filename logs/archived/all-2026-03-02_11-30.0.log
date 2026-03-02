@@ -1,0 +1,93 @@
+2026-03-02 11:30:10.465 [main] INFO  core.CollectionManager - В коллекцию добавлен новый продукт models.Product@e3b3b2f
+2026-03-02 11:30:10.475 [main] INFO  core.CollectionManager - Инициализация коллекции, последний id: 1, дата: 2026-02-19T22:56:27.094039103
+2026-03-02 11:30:10.475 [main] INFO  io.FileManager - Коллекция из файла test.csv успешно загружена
+2026-03-02 11:30:10.476 [main] DEBUG core.CommandManager - Регистрация новой команды: help
+2026-03-02 11:30:10.477 [main] DEBUG core.CommandManager - В команду help внедрен CommandRegistry
+2026-03-02 11:30:10.478 [main] INFO  core.CommandManager - Команда help зарегистрирована
+2026-03-02 11:30:10.478 [main] DEBUG core.CommandManager - Регистрация новой команды: info
+2026-03-02 11:30:10.478 [main] DEBUG core.CommandManager - В команду info внедрен CollectionRepository
+2026-03-02 11:30:10.478 [main] INFO  core.CommandManager - Команда info зарегистрирована
+2026-03-02 11:30:10.478 [main] DEBUG core.CommandManager - Регистрация новой команды: exit
+2026-03-02 11:30:10.478 [main] INFO  core.CommandManager - Команда exit зарегистрирована
+2026-03-02 11:30:10.478 [main] DEBUG core.CommandManager - Регистрация новой команды: add
+2026-03-02 11:30:10.478 [main] DEBUG core.CommandManager - В команду add внедрен CollectionRepository
+2026-03-02 11:30:10.479 [main] DEBUG core.CommandManager - В команду add внедрен UserInput
+2026-03-02 11:30:10.479 [main] DEBUG core.CommandManager - В команду add внедрен ExecuteContext
+2026-03-02 11:30:10.479 [main] INFO  core.CommandManager - Команда add зарегистрирована
+2026-03-02 11:30:10.479 [main] DEBUG core.CommandManager - Регистрация новой команды: clear
+2026-03-02 11:30:10.479 [main] DEBUG core.CommandManager - В команду clear внедрен CollectionRepository
+2026-03-02 11:30:10.480 [main] INFO  core.CommandManager - Команда clear зарегистрирована
+2026-03-02 11:30:10.480 [main] DEBUG core.CommandManager - Регистрация новой команды: show
+2026-03-02 11:30:10.480 [main] DEBUG core.CommandManager - В команду show внедрен CollectionRepository
+2026-03-02 11:30:10.480 [main] INFO  core.CommandManager - Команда show зарегистрирована
+2026-03-02 11:30:10.480 [main] DEBUG core.CommandManager - Регистрация новой команды: update
+2026-03-02 11:30:10.480 [main] DEBUG core.CommandManager - В команду update внедрен CollectionRepository
+2026-03-02 11:30:10.480 [main] DEBUG core.CommandManager - В команду update внедрен UserInput
+2026-03-02 11:30:10.480 [main] DEBUG core.CommandManager - В команду update внедрен ExecuteContext
+2026-03-02 11:30:10.481 [main] INFO  core.CommandManager - Команда update зарегистрирована
+2026-03-02 11:30:10.481 [main] DEBUG core.CommandManager - Регистрация новой команды: remove_by_id
+2026-03-02 11:30:10.481 [main] DEBUG core.CommandManager - В команду remove_by_id внедрен CollectionRepository
+2026-03-02 11:30:10.481 [main] INFO  core.CommandManager - Команда remove_by_id зарегистрирована
+2026-03-02 11:30:10.481 [main] DEBUG core.CommandManager - Регистрация новой команды: history
+2026-03-02 11:30:10.481 [main] DEBUG core.CommandManager - В команду history внедрен CommandRegistry
+2026-03-02 11:30:10.481 [main] INFO  core.CommandManager - Команда history зарегистрирована
+2026-03-02 11:30:10.481 [main] DEBUG core.CommandManager - Регистрация новой команды: sort
+2026-03-02 11:30:10.481 [main] DEBUG core.CommandManager - В команду sort внедрен CollectionRepository
+2026-03-02 11:30:10.482 [main] INFO  core.CommandManager - Команда sort зарегистрирована
+2026-03-02 11:30:10.482 [main] DEBUG core.CommandManager - Регистрация новой команды: shuffle
+2026-03-02 11:30:10.482 [main] DEBUG core.CommandManager - В команду shuffle внедрен CollectionRepository
+2026-03-02 11:30:10.482 [main] INFO  core.CommandManager - Команда shuffle зарегистрирована
+2026-03-02 11:30:10.482 [main] DEBUG core.CommandManager - Регистрация новой команды: sum_of_price
+2026-03-02 11:30:10.482 [main] DEBUG core.CommandManager - В команду sum_of_price внедрен CollectionRepository
+2026-03-02 11:30:10.482 [main] INFO  core.CommandManager - Команда sum_of_price зарегистрирована
+2026-03-02 11:30:10.482 [main] DEBUG core.CommandManager - Регистрация новой команды: average_of_price
+2026-03-02 11:30:10.483 [main] DEBUG core.CommandManager - В команду average_of_price внедрен CollectionRepository
+2026-03-02 11:30:10.483 [main] INFO  core.CommandManager - Команда average_of_price зарегистрирована
+2026-03-02 11:30:10.484 [main] DEBUG core.CommandManager - Регистрация новой команды: filter_starts_with_name
+2026-03-02 11:30:10.484 [main] DEBUG core.CommandManager - В команду filter_starts_with_name внедрен CollectionRepository
+2026-03-02 11:30:10.484 [main] INFO  core.CommandManager - Команда filter_starts_with_name зарегистрирована
+2026-03-02 11:30:10.484 [main] DEBUG core.CommandManager - Регистрация новой команды: save
+2026-03-02 11:30:10.484 [main] DEBUG core.CommandManager - В команду save внедрен CollectionRepository
+2026-03-02 11:30:10.484 [main] DEBUG core.CommandManager - В команду save внедрен FileStorage
+2026-03-02 11:30:10.484 [main] INFO  core.CommandManager - Команда save зарегистрирована
+2026-03-02 11:30:10.484 [main] DEBUG core.CommandManager - Регистрация новой команды: execute_script
+2026-03-02 11:30:10.485 [main] DEBUG core.CommandManager - В команду execute_script внедрен ExecuteContext
+2026-03-02 11:30:10.485 [main] INFO  core.CommandManager - Команда execute_script зарегистрирована
+2026-03-02 11:30:18.630 [main] DEBUG core.CommandManager - Начало выполнения команды execute_script
+2026-03-02 11:30:18.631 [main] INFO  io.InputReader - В очередь добавлен новый скрипт sample
+2026-03-02 11:30:18.632 [main] INFO  core.CommandManager - Команда execute_script успешно выполнилась
+2026-03-02 11:30:18.632 [main] INFO  core.CommandManager - Команда execute_script добавлена в историю
+2026-03-02 11:30:18.632 [main] DEBUG core.CommandManager - Начало выполнения команды info
+2026-03-02 11:30:18.633 [main] INFO  core.CommandManager - Команда info успешно выполнилась
+2026-03-02 11:30:18.633 [main] INFO  core.CommandManager - Команда info добавлена в историю
+2026-03-02 11:30:18.633 [main] DEBUG core.CommandManager - Начало выполнения команды help
+2026-03-02 11:30:18.634 [main] INFO  core.CommandManager - Команда help успешно выполнилась
+2026-03-02 11:30:18.634 [main] INFO  core.CommandManager - Команда help добавлена в историю
+2026-03-02 11:30:18.634 [main] DEBUG core.CommandManager - Начало выполнения команды execute_script
+2026-03-02 11:30:18.635 [main] INFO  io.InputReader - В очередь добавлен новый скрипт test
+2026-03-02 11:30:18.635 [main] INFO  core.CommandManager - Команда execute_script успешно выполнилась
+2026-03-02 11:30:18.635 [main] INFO  core.CommandManager - Команда execute_script добавлена в историю
+2026-03-02 11:30:18.636 [main] DEBUG core.CommandManager - Начало выполнения команды show
+2026-03-02 11:30:18.649 [main] INFO  core.CommandManager - Команда show успешно выполнилась
+2026-03-02 11:30:18.649 [main] INFO  core.CommandManager - Команда show добавлена в историю
+2026-03-02 11:30:18.649 [main] WARN  core.CommandManager - Пользователь ввел некорректную команду sfg
+2026-03-02 11:30:18.650 [main] DEBUG core.CommandManager - Начало выполнения команды add
+2026-03-02 11:30:18.652 [main] INFO  utility.Form - У пользователя запрашивается название типа String
+2026-03-02 11:30:18.653 [main] INFO  utility.Form - У пользователя запрашивается координату по X типа Long
+2026-03-02 11:30:18.654 [main] ERROR core.CommandManager - Ошибка выполнения скрипта
+exceptions.ScriptExecutionException: Ожидались данные типа Long
+	at utility.Form.ask(Form.java:54)
+	at utility.ProductForm.getProduct(ProductForm.java:31)
+	at commands.AddCommand.execute(AddCommand.java:28)
+	at core.CommandManager.executeCommand(CommandManager.java:68)
+	at core.ConsoleApp.interactive(ConsoleApp.java:30)
+	at Main.main(Main.java:6)
+2026-03-02 11:30:18.656 [main] INFO  io.InputReader - Скрипт test завершен, возвращение к предыдущему источнику
+2026-03-02 11:30:18.656 [main] WARN  core.CommandManager - Пользователь ввел некорректную команду hello
+2026-03-02 11:30:18.657 [main] DEBUG core.CommandManager - Начало выполнения команды exit
+2026-03-02 11:30:18.657 [main] INFO  core.CommandManager - Завершение программы
+exceptions.ExitException: Завершение программы...
+	at commands.ExitCommand.execute(ExitCommand.java:15)
+	at core.CommandManager.executeCommand(CommandManager.java:68)
+	at core.ConsoleApp.interactive(ConsoleApp.java:30)
+	at Main.main(Main.java:6)
