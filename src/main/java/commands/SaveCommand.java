@@ -2,6 +2,7 @@ package commands;
 
 import core.CollectionManager;
 import io.FileManager;
+import utility.ExecutionResponse;
 
 /**
  * Команда для сохранения коллекции в файл, формат .csv
@@ -19,7 +20,8 @@ public class SaveCommand extends Command {
     }
 
     @Override
-    public void execute(String[] tokens) {
+    public ExecutionResponse execute(String[] tokens) {
         fileManager.save(collectionManager);
+        return new ExecutionResponse("Коллекция успешно сохранена в файл " + fileManager.getFileName(), false);
     }
 }

@@ -1,6 +1,7 @@
 package commands;
 
 import core.CollectionManager;
+import utility.ExecutionResponse;
 
 /**
  * Команда для рандомной сортировки
@@ -14,8 +15,8 @@ public class ShuffleCommand extends Command {
     }
 
     @Override
-    public void execute(String[] tokens) {
+    public ExecutionResponse execute(String[] tokens) {
         collectionManager.randomSort();
-        System.out.println("Коллекция перемешана, введите show для просмотра");
+        return new ExecutionResponse("Коллекция перемешана, введите show для просмотра", false);
     }
 }

@@ -1,6 +1,7 @@
 package commands;
 
 import core.CollectionManager;
+import utility.ExecutionResponse;
 
 /**
  * Команда для вывода суммы цен всех элементов коллекции
@@ -14,7 +15,7 @@ public class SumOfPriceCommand extends Command {
     }
 
     @Override
-    public void execute(String[] tokens) {
-        System.out.println("Сумма цен всех элементов коллекции: " + collectionManager.getSumOfPrice());
+    public ExecutionResponse execute(String[] tokens) {
+        return new ExecutionResponse("Сумма цен всех элементов коллекции: " + collectionManager.getSumOfPrice(), false);
     }
 }

@@ -1,6 +1,7 @@
 package commands;
 
 import core.CollectionManager;
+import utility.ExecutionResponse;
 
 /**
  * Команда для естественной сортировки
@@ -14,8 +15,8 @@ public class SortCommand extends Command {
     }
 
     @Override
-    public void execute(String[] tokens) {
+    public ExecutionResponse execute(String[] tokens) {
         collectionManager.sort();
-        System.out.println("Коллекция отсортирована в естественном порядке, введите show для просмотра");
+        return new ExecutionResponse("Коллекция отсортирована в естественном порядке, введите show для просмотра", false);
     }
 }

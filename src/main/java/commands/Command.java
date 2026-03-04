@@ -1,5 +1,7 @@
 package commands;
 
+import utility.ExecutionResponse;
+
 /**
  * Базовый класс для команды
  */
@@ -20,8 +22,10 @@ public abstract class Command {
 
     /**
      * Метод выполнения команды
+     *
+     * @return Ответ, состоящий из сообщения выполнения и флага для выхода
      */
-    public abstract void execute(String[] tokens);
+    public abstract ExecutionResponse execute(String[] tokens);
 
     public String getName() {
         return name;

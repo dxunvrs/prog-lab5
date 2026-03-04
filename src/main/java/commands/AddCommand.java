@@ -2,6 +2,7 @@ package commands;
 
 import core.CollectionManager;
 import io.InputReader;
+import utility.ExecutionResponse;
 import utility.ProductForm;
 
 /**
@@ -19,10 +20,10 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(String[] tokens) {
+    public ExecutionResponse execute(String[] tokens) {
         collectionManager.addProduct(
                 new ProductForm(inputReader, inputReader.isScriptMode()).getProduct()
         );
-        System.out.println("Продукт добавлен");
+        return new ExecutionResponse("Продукт добавлен", false);
     }
 }

@@ -3,18 +3,20 @@ package core;
 import commands.Command;
 import commands.Inject;
 import exceptions.EndOfExecutionException;
-import exceptions.ExitException;
 import exceptions.IdNotFoundException;
+import exceptions.SaveException;
 import exceptions.ScriptExecutionException;
 import io.FileManager;
 import io.InputReader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utility.ExecutionResponse;
 
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.stream.Stream;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
  * Менеджер для управления командами.
@@ -63,27 +65,32 @@ public class CommandManager {
         }
         try {
             logger.debug("Начало выполнения команды {}", command.getName());
-            command.execute(tokens);
-            logger.info("Команда {} успешно выполнилась", command.getName());
+
+            ExecutionResponse executionResponse = command.execute(tokens);
+
+            System.out.println(executionResponse.message());
+            logger.debug("Команда {} успешно выполнилась", command.getName());
+            logger.info("Сообщение команды: {}", executionResponse.message());
             addCommandToHistory(command.getName());
-            logger.info("Команда {} добавлена в историю", command.getName());
-            return true;
+            logger.debug("Команда {} добавлена в историю", command.getName());
+
+            return !executionResponse.shouldExit();
         } catch (IdNotFoundException e) {
-            logger.error("Пользователь ввел несуществующее id", e);
+            logger.error("Пользователь ввел некорректное id", e);
             System.out.println(e.getMessage());
-            return true;
-        } catch (NumberFormatException e) {
-            logger.error("Пользователь ввел неверный формат числа", e);
-            System.out.println("Неверный формат числа");
             return true;
         } catch (ScriptExecutionException e) {
             logger.error("Ошибка выполнения скрипта", e);
             System.out.println(e.getMessage());
             return true;
-        } catch (EndOfExecutionException | ExitException e) {
+        } catch (EndOfExecutionException e) {
             logger.info("Завершение программы", e);
             System.out.println(e.getMessage());
             return false;
+        } catch (SaveException e) {
+            logger.error("Ошибка выполнения команды save", e);
+            System.out.println(e.getMessage());
+            return true;
         }
     }
 
@@ -100,18 +107,22 @@ public class CommandManager {
     }
 
     /**
-     * Получение истории последних 15 команд
-     * @return Стрим коллекции истории команд
+     * Получение отформатированного списка команд
      */
-    public Stream<String> getCommandsHistory() {
-        return commandsHistory.stream();
+    public String getFormattedCommandsList() {
+        String result = commands.values().stream()
+                .map(Command::getDescription).map(s -> "  " + s).collect(Collectors.joining("\n"));
+        return "Список команд и их описание:" + "\n" + result;
     }
 
     /**
-     * Получение хэш-мапы доступных команд
+     * Получение отформатированной истории команд
      */
-    public Map<String, Command> getCommandsMap() {
-        return commands;
+    public String getFormattedHistory() {
+        AtomicInteger index = new AtomicInteger(1);
+        String result = commandsHistory.stream().map(command -> "  " + index.getAndIncrement() + ". " + command)
+                .collect(Collectors.joining("\n"));
+        return "Последние 15 команд:" + "\n" + result;
     }
 
     /**

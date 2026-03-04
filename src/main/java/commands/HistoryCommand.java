@@ -1,6 +1,7 @@
 package commands;
 
 import core.CommandManager;
+import utility.ExecutionResponse;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -16,9 +17,7 @@ public class HistoryCommand extends Command {
     }
 
     @Override
-    public void execute(String[] tokens) {
-        System.out.println("Последние 15 команд: ");
-        AtomicInteger index = new AtomicInteger(1);
-        commandManager.getCommandsHistory().map(command -> index.getAndIncrement() + ". " + command).forEach(System.out::println);
+    public ExecutionResponse execute(String[] tokens) {
+        return new ExecutionResponse(commandManager.getFormattedHistory(), false);
     }
 }

@@ -1,6 +1,7 @@
 package commands;
 
 import core.CollectionManager;
+import utility.ExecutionResponse;
 
 /**
  * Команда для очищения коллекции
@@ -14,8 +15,8 @@ public class ClearCommand extends Command {
     }
 
     @Override
-    public void execute(String[] tokens) {
+    public ExecutionResponse execute(String[] tokens) {
         collectionManager.clearCollection();
-        System.out.println("Коллекция очищена");
+        return new ExecutionResponse("Коллекция очищена", false);
     }
 }

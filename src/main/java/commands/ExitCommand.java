@@ -1,6 +1,6 @@
 package commands;
 
-import exceptions.ExitException;
+import utility.ExecutionResponse;
 
 /**
  * Команда для выхода
@@ -11,7 +11,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(String[] tokens) {
-        throw new ExitException("Завершение программы...");
+    public ExecutionResponse execute(String[] tokens) {
+        return new ExecutionResponse("Завершение программы...", true);
     }
 }

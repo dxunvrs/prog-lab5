@@ -1,6 +1,7 @@
 package commands;
 
 import core.CollectionManager;
+import utility.ExecutionResponse;
 
 /**
  * Команда для отображения всех элементов коллекции
@@ -14,7 +15,7 @@ public class ShowCommand extends Command {
     }
 
     @Override
-    public void execute(String[] tokens) {
-        System.out.println(collectionManager.getFormattedCollection(product -> true));
+    public ExecutionResponse execute(String[] tokens) {
+        return new ExecutionResponse(collectionManager.getFormattedCollection(product -> true), false);
     }
 }

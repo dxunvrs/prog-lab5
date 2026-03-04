@@ -1,6 +1,7 @@
 package commands;
 
 import core.CollectionManager;
+import utility.ExecutionResponse;
 
 /**
  * Команда для удаления элемента коллекции по id
@@ -14,8 +15,8 @@ public class RemoveCommand extends Command {
     }
 
     @Override
-    public void execute(String[] tokens) {
-        collectionManager.removeProductById(Integer.parseInt(tokens[1]));
-        System.out.println("Продукт удален");
+    public ExecutionResponse execute(String[] tokens) {
+        collectionManager.removeProductById(tokens[1]);
+        return new ExecutionResponse("Продукт с id=" + tokens[1] + " удален", false);
     }
 }

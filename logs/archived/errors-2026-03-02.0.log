@@ -1,0 +1,55 @@
+2026-03-02 11:29:30.227 [main] WARN  core.CommandManager - Пользователь ввел некорректную команду sfg
+2026-03-02 11:29:30.232 [main] ERROR core.CommandManager - Ошибка выполнения скрипта
+exceptions.ScriptExecutionException: Ожидались данные типа Long
+	at utility.Form.ask(Form.java:54)
+	at utility.ProductForm.getProduct(ProductForm.java:31)
+	at commands.AddCommand.execute(AddCommand.java:28)
+	at core.CommandManager.executeCommand(CommandManager.java:68)
+	at core.ConsoleApp.interactive(ConsoleApp.java:30)
+	at Main.main(Main.java:6)
+2026-03-02 11:30:18.649 [main] WARN  core.CommandManager - Пользователь ввел некорректную команду sfg
+2026-03-02 11:30:18.654 [main] ERROR core.CommandManager - Ошибка выполнения скрипта
+exceptions.ScriptExecutionException: Ожидались данные типа Long
+	at utility.Form.ask(Form.java:54)
+	at utility.ProductForm.getProduct(ProductForm.java:31)
+	at commands.AddCommand.execute(AddCommand.java:28)
+	at core.CommandManager.executeCommand(CommandManager.java:68)
+	at core.ConsoleApp.interactive(ConsoleApp.java:30)
+	at Main.main(Main.java:6)
+2026-03-02 11:30:18.656 [main] WARN  core.CommandManager - Пользователь ввел некорректную команду hello
+2026-03-02 11:32:48.402 [main] WARN  core.CommandManager - Пользователь ввел некорректную команду daf
+2026-03-02 11:33:42.698 [main] WARN  core.CommandManager - Пользователь ввел некорректную команду sfg
+2026-03-02 11:33:42.701 [main] ERROR core.CommandManager - Ошибка выполнения скрипта
+exceptions.ScriptExecutionException: Ожидались данные типа Long
+	at utility.Form.ask(Form.java:54)
+	at utility.ProductForm.getProduct(ProductForm.java:31)
+	at commands.AddCommand.execute(AddCommand.java:28)
+	at core.CommandManager.executeCommand(CommandManager.java:68)
+	at core.ConsoleApp.interactive(ConsoleApp.java:32)
+	at Main.main(Main.java:6)
+2026-03-02 11:33:42.704 [main] WARN  core.CommandManager - Пользователь ввел некорректную команду hello
+2026-03-02 11:41:03.782 [main] WARN  core.CommandManager - Пользователь ввел некорректную команду sfg
+2026-03-02 11:42:41.643 [main] WARN  core.CommandManager - Пользователь ввел некорректную команду sfg
+2026-03-02 11:42:41.647 [main] ERROR core.CommandManager - Ошибка выполнения скрипта
+exceptions.ScriptExecutionException: Ожидались данные типа Long
+	at utility.Form.ask(Form.java:54)
+	at utility.ProductForm.getProduct(ProductForm.java:31)
+	at commands.AddCommand.execute(AddCommand.java:28)
+	at core.CommandManager.executeCommand(CommandManager.java:66)
+	at core.ConsoleApp.interactive(ConsoleApp.java:32)
+	at Main.main(Main.java:6)
+2026-03-02 11:42:41.649 [main] WARN  core.CommandManager - Пользователь ввел некорректную команду hello
+2026-03-02 11:59:52.332 [main] WARN  core.CommandManager - Пользователь ввел некорректную команду руддщ4
+2026-03-02 11:59:53.696 [main] WARN  core.CommandManager - Пользователь ввел некорректную команду hello
+2026-03-02 11:59:57.622 [main] ERROR utility.Form - Введены данные не типа Long
+java.lang.NumberFormatException: For input string: "q34"
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
+	at java.base/java.lang.Long.parseLong(Long.java:711)
+	at java.base/java.lang.Long.parseLong(Long.java:836)
+	at utility.Form.map(Form.java:90)
+	at utility.Form.ask(Form.java:44)
+	at utility.ProductForm.getProduct(ProductForm.java:31)
+	at commands.AddCommand.execute(AddCommand.java:24)
+	at core.CommandManager.executeCommand(CommandManager.java:66)
+	at core.ConsoleApp.interactive(ConsoleApp.java:32)
+	at Main.main(Main.java:6)

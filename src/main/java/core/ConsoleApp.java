@@ -5,6 +5,9 @@ import exceptions.EndOfInputException;
 import io.FileManager;
 import io.InputReader;
 
+/**
+ * Класс с циклом для работы программы
+ */
 public class ConsoleApp {
     private final CollectionManager collectionManager = new CollectionManager();
     private final InputReader inputReader = new InputReader();
@@ -18,6 +21,9 @@ public class ConsoleApp {
         registerAllCommands();
     }
 
+    /**
+     * Запуск интерактивного режима
+     */
     public void interactive() {
         System.out.println("Ожидание ввода команды, для списка доступных команд - help");
         while (isWorking) {
@@ -39,6 +45,9 @@ public class ConsoleApp {
         }
     }
 
+    /**
+     * Проверка аргументов запуска программы
+     */
     private void checkArgs(String[] args) {
         if (args.length == 0) {
             System.out.println("Имя файла с коллекцией не указано, создана новая коллекция");
@@ -49,6 +58,9 @@ public class ConsoleApp {
         }
     }
 
+    /**
+     * Регистрация команд
+     */
     private void registerAllCommands() {
         commandManager.addCommand(new HelpCommand());
         commandManager.addCommand(new InfoCommand());

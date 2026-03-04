@@ -1,6 +1,7 @@
 package commands;
 
 import core.CollectionManager;
+import utility.ExecutionResponse;
 
 /**
  * Команда для поиска элементов, название которых начинается с заданной подстроки
@@ -14,7 +15,10 @@ public class FilterStartsWithNameCommand extends Command {
     }
 
     @Override
-    public void execute(String[] tokens) {
-        System.out.println(collectionManager.getFormattedCollection(product -> product.getName().startsWith(tokens[1])));
+    public ExecutionResponse execute(String[] tokens) {
+        return new ExecutionResponse(
+          collectionManager.getFormattedCollection(product -> product.getName().startsWith(tokens[1])),
+          false
+        );
     }
 }

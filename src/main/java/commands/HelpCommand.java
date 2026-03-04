@@ -1,6 +1,7 @@
 package commands;
 
 import core.CommandManager;
+import utility.ExecutionResponse;
 
 /**
  * Команда для вывода списка доступных команд
@@ -14,10 +15,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public void execute(String[] tokens) {
-        System.out.println("Список команд и их описание: ");
-        for (Command command : commandManager.getCommandsMap().values()) {
-            System.out.println("  " + command.getDescription());
-        }
+    public ExecutionResponse execute(String[] tokens) {
+        return new ExecutionResponse(commandManager.getFormattedCommandsList(), false);
     }
 }
