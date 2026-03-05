@@ -1,6 +1,7 @@
 package commands;
 
 import core.CollectionManager;
+import exceptions.IdNotFoundException;
 import io.InputReader;
 import utility.ExecutionResponse;
 import utility.ProductForm;
@@ -21,7 +22,12 @@ public class UpdateCommand extends Command {
 
     @Override
     public ExecutionResponse execute(String[] tokens) {
-        collectionManager.updateProductById(Integer.parseInt(tokens[1]), new ProductForm(inputReader, inputReader.isScriptMode()).getProduct());
+        try {
+            collectionManager.updateProductById(Integer.parseInt(tokens[1]), new ProductForm(inputReader).getProduct());
+        } catch (NumberFormatException e) {
+            throw new IdNotFoundException("Неверный формат id");
+        }
+
         return new ExecutionResponse("Продукт с id=" + tokens[1] + " обновлен", false);
     }
 }

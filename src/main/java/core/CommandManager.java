@@ -3,9 +3,6 @@ package core;
 import commands.Command;
 import commands.Inject;
 import exceptions.EndOfExecutionException;
-import exceptions.IdNotFoundException;
-import exceptions.SaveException;
-import exceptions.ScriptExecutionException;
 import io.FileManager;
 import io.InputReader;
 
@@ -20,7 +17,7 @@ import java.util.stream.Collectors;
 
 /**
  * Менеджер для управления командами.
- * Задачи: регистрация команд, dependency injection в команды, хранение хэш-мапы доступных команд
+ * Задачи: регистрация команд, dependency injection в команды, хранение хэш-мапы доступных команд, запуск команд
  */
 public class CommandManager {
     private static final Logger logger = LoggerFactory.getLogger(CommandManager.class);
@@ -75,27 +72,25 @@ public class CommandManager {
             logger.debug("Команда {} добавлена в историю", command.getName());
 
             return !executionResponse.shouldExit();
-        } catch (IdNotFoundException e) {
-            logger.error("Пользователь ввел некорректное id", e);
-            System.out.println(e.getMessage());
-            return true;
-        } catch (NumberFormatException e) {
-            logger.error("Пользователь ввел некорректное id", e);
-            System.out.println("Некорректный формат id");
-            return true;
-        } catch (ScriptExecutionException e) {
-            logger.error("Ошибка выполнения скрипта", e);
-            System.out.println(e.getMessage());
-            return true;
-        } catch (SaveException e) {
-            logger.error("Ошибка выполнения команды save", e);
-            System.out.println(e.getMessage());
-            return true;
         } catch (EndOfExecutionException e) {
             logger.info("Завершение программы", e);
             System.out.println(e.getMessage());
             return false;
+        } catch (Exception e) {
+            return notifyError(e.getMessage(), e);
         }
+    }
+
+    /**
+     * Метод для уведомления о некритичной ошибке
+     * @param message сообщение ошибки
+     * @param e класс ошибки
+     * @return true для продолжения работы
+     */
+    private boolean notifyError(String message, Exception e) {
+        logger.error(message, e);
+        System.out.println(e.getMessage());
+        return true;
     }
 
     /**

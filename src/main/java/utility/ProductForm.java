@@ -12,8 +12,8 @@ import java.time.LocalDate;
  * Класс для запроса конкретной формы - формы продукта
  */
 public class ProductForm extends Form {
-    public ProductForm(InputReader reader, boolean scriptMode) {
-        super(reader, scriptMode);
+    public ProductForm(InputReader reader) {
+        super(reader);
     }
 
     /**

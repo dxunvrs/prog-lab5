@@ -22,7 +22,7 @@ public class AddCommand extends Command {
     @Override
     public ExecutionResponse execute(String[] tokens) {
         collectionManager.addProduct(
-                new ProductForm(inputReader, inputReader.isScriptMode()).getProduct()
+                new ProductForm(inputReader).getProduct()
         );
         return new ExecutionResponse("Продукт добавлен", false);
     }
