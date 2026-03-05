@@ -69,7 +69,7 @@ public class CommandManager {
             ExecutionResponse executionResponse = command.execute(tokens);
 
             System.out.println(executionResponse.message());
-            logger.debug("Команда {} успешно выполнилась", command.getName());
+
             logger.info("Сообщение команды: {}", executionResponse.message());
             addCommandToHistory(command.getName());
             logger.debug("Команда {} добавлена в историю", command.getName());
@@ -79,18 +79,22 @@ public class CommandManager {
             logger.error("Пользователь ввел некорректное id", e);
             System.out.println(e.getMessage());
             return true;
+        } catch (NumberFormatException e) {
+            logger.error("Пользователь ввел некорректное id", e);
+            System.out.println("Некорректный формат id");
+            return true;
         } catch (ScriptExecutionException e) {
             logger.error("Ошибка выполнения скрипта", e);
+            System.out.println(e.getMessage());
+            return true;
+        } catch (SaveException e) {
+            logger.error("Ошибка выполнения команды save", e);
             System.out.println(e.getMessage());
             return true;
         } catch (EndOfExecutionException e) {
             logger.info("Завершение программы", e);
             System.out.println(e.getMessage());
             return false;
-        } catch (SaveException e) {
-            logger.error("Ошибка выполнения команды save", e);
-            System.out.println(e.getMessage());
-            return true;
         }
     }
 

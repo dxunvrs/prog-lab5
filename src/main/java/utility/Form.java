@@ -47,21 +47,26 @@ public class Form {
                     break;
                 }
                 logger.error("Значение не прошло валидацию");
+
             } catch (EndOfInputException e) {
                 if (scriptMode) throw new ScriptExecutionException("Получен конец ввода, ожидались данные типа " + type.getSimpleName());
                 throw new EndOfExecutionException("Конец ввода");
+
             } catch (NumberFormatException e) {
                 if (scriptMode) throw new ScriptExecutionException("Ожидались данные типа " + type.getSimpleName());
                 logger.error("Введены данные не типа {}", type.getSimpleName(),  e);
                 System.out.println("Введите данные типа " + type.getSimpleName());
+
             } catch (IllegalArgumentException e) {
                 if (scriptMode) throw new ScriptExecutionException("Такой единицы измерения не существует");
                 logger.error("Введены данные не типа {}", type.getSimpleName(),  e);
                 System.out.println("Такой единицы измерения не существует");
+
             } catch (DateTimeParseException e) {
                 if (scriptMode) throw new ScriptExecutionException("Некорректная дата (надо yyyy-mm-dd)");
                 logger.error("Введены данные не типа {}", type.getSimpleName(),  e);
                 System.out.println("Введите корректную дату в формате yyyy-mm-dd");
+
             } catch (TypeNotFoundException e) {
                 if (scriptMode) throw new ScriptExecutionException("Тип не поддерживается");
                 logger.error("Тип не поддерживается", e);
@@ -90,7 +95,7 @@ public class Form {
             case "Long", "long" -> type.cast(Long.parseLong(value));
             case "String" -> type.cast(value);
             case "LocalDate" -> type.cast(LocalDate.parse(value));
-            case "UnitOfMeasure" -> type.cast(UnitOfMeasure.valueOf(value));
+            case "UnitOfMeasure" -> type.cast(UnitOfMeasure.valueOf(value.toUpperCase()));
             default -> throw new TypeNotFoundException("Тип еще не поддерживается");
         };
     }

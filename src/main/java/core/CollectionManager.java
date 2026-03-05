@@ -4,7 +4,6 @@ import exceptions.IdNotFoundException;
 import models.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import utility.ProductForm;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -67,34 +66,22 @@ public class CollectionManager {
     /**
      * Удаление продукта по id
      */
-    public void removeProductById(String value) {
-        try {
-            int id = Integer.parseInt(value);
-            boolean removed = collection.removeIf(product -> product.getId()==id);
-            if (!removed) throw new IdNotFoundException("Нет такого id");
-            logger.info("Из коллекции удален элемент с id {}", id);
-        } catch (NumberFormatException e) {
-            throw new IdNotFoundException("Неверный формат id");
-        }
+    public void removeProductById(int id) {
+        boolean removed = collection.removeIf(product -> product.getId()==id);
+        if (!removed) throw new IdNotFoundException("Нет такого id");
+        logger.info("Из коллекции удален элемент с id {}", id);
     }
 
     /**
      * Обновление продукта по id
-     * @param productForm форма для запроса продукта
      */
-    public void updateProductById(String value, ProductForm productForm) {
-        try {
-            int id = Integer.parseInt(value);
-            Product updatedProduct = collection.stream()
-                    .filter(product -> product.getId() == id)
-                    .findFirst()
-                    .orElseThrow(() -> new IdNotFoundException("Нет такого id"));
-            Product product = productForm.getProduct();
-            updatedProduct.update(product);
-            logger.info("Элемент с id {} обновлен, новое значение {}", id, product);
-        } catch (NumberFormatException e) {
-            throw new IdNotFoundException("Неверный формат id");
-        }
+    public void updateProductById(int id, Product newProduct) {
+        Product updatedProduct = collection.stream()
+                .filter(product -> product.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new IdNotFoundException("Нет такого id"));
+        updatedProduct.update(newProduct);
+        logger.info("Элемент с id {} обновлен, новое значение {}", id, newProduct);
     }
 
     /**
@@ -149,7 +136,11 @@ public class CollectionManager {
                   Тип: %s
                   Дата инициализации: %s
                   Количество элементов: %s""".formatted(collection.getClass().getSimpleName(),
-                dateOfInit.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), collection.size());
+                dateOfInit.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), getCollectionSize());
+    }
+
+    public int getCollectionSize() {
+        return collection.size();
     }
 
     /**

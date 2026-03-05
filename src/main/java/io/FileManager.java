@@ -69,18 +69,23 @@ public class FileManager {
             collectionRepository.initCollection(dateOfInit);
             logger.info("Коллекция из файла {} успешно загружена", fileName);
             System.out.println("Коллекция из файла " + fileName + " успешно загружена");
+
         } catch (DateTimeParseException e) {
             logger.error("Не удалось распарсить дату", e);
             System.out.println("Неверный формат даты инициализации коллекции в файле, загрузка не удалась, создана новая коллекция");
+
         } catch (CsvReadException | JsonParseException e) {
             logger.error("Не удалось распарсить файл", e);
             System.out.println("Структура CSV не распознана, загрузка не удалась, создана новая коллекция");
+
         } catch (InvalidFormatException e) {
             logger.error("Не удалось распарсить данный тип", e);
             System.out.println("Неверный формат данных, загрузка не удалась, создана новая коллекция");
+
         } catch (DatabindException e) {
             logger.error("Ошибка маппинга полей", e);
             System.out.println("Ошибка маппинга полей, загрузка не удалась, создана новая коллекция");
+
         } catch (IOException e) {
             logger.error("Ошибка загрузки", e);
             System.out.println("Ошибка загрузки: " + e.getMessage());
@@ -90,14 +95,14 @@ public class FileManager {
 
     /**
      * Метод сохранения коллекции в .csv файл. Используется {@link BufferedWriter}
-     * @param collectionRepository менеджер коллекции
+     * @param collectionManager менеджер коллекции
      */
-    public void save(CollectionManager collectionRepository) {
+    public void save(CollectionManager collectionManager) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            writer.write(collectionRepository.getDateOfInit().toString());
+            writer.write(collectionManager.getDateOfInit().toString());
             writer.newLine();
 
-            collectionRepository.saveCollection(i -> {
+            collectionManager.saveCollection(i -> {
                 try {
                     String line = mapper.writer(schema.withoutHeader()).writeValueAsString(i).trim();
                     writer.write(line);

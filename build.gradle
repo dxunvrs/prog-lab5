@@ -13,17 +13,18 @@ jar {
 }
 
 dependencies {
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.20.0'
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.20.0'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.20.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:latest.release'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-csv:latest.release'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:latest.release'
     implementation 'org.slf4j:slf4j-api:2.0.17'
-    implementation 'ch.qos.logback:logback-classic:1.5.18'
+    implementation 'ch.qos.logback:logback-classic:latest.release'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.12.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.12.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.+'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.+'
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
 
-    testImplementation 'org.mockito:mockito-core:5.5.0'
-    testImplementation 'org.mockito:mockito-junit-jupiter:5.5.0'
+    testImplementation 'org.mockito:mockito-core:5.+'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.+'
 
 }
 

@@ -16,7 +16,7 @@ public class RemoveCommand extends Command {
 
     @Override
     public ExecutionResponse execute(String[] tokens) {
-        collectionManager.removeProductById(tokens[1]);
+        collectionManager.removeProductById(Integer.parseInt(tokens[1]));
         return new ExecutionResponse("Продукт с id=" + tokens[1] + " удален", false);
     }
 }

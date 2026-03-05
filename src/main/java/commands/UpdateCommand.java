@@ -21,8 +21,7 @@ public class UpdateCommand extends Command {
 
     @Override
     public ExecutionResponse execute(String[] tokens) {
-        collectionManager.updateProductById(tokens[1],
-                new ProductForm(inputReader, inputReader.isScriptMode()));
+        collectionManager.updateProductById(Integer.parseInt(tokens[1]), new ProductForm(inputReader, inputReader.isScriptMode()).getProduct());
         return new ExecutionResponse("Продукт с id=" + tokens[1] + " обновлен", false);
     }
 }
