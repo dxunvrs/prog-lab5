@@ -2,7 +2,7 @@ package core;
 
 import commands.Command;
 import commands.Inject;
-import exceptions.EndOfExecutionException;
+import exceptions.*;
 import io.FileManager;
 import io.InputReader;
 
@@ -54,7 +54,6 @@ public class CommandManager {
             System.out.println("Команда " + tokens[0] + " не найдена");
             return true;
         }
-
         if (command.getExpectArgs() != tokens.length-1) {
             logger.warn("Пользователь ввел неверное количество аргументов {} для команды {}", tokens.length-1, command.getName());
             System.out.println("Ожидалось " + command.getExpectArgs() + " аргументов, получено " + (tokens.length-1));
@@ -72,23 +71,22 @@ public class CommandManager {
             logger.debug("Команда {} добавлена в историю", command.getName());
 
             return !executionResponse.shouldExit();
+        } catch (InvalidIdException | IdNotFoundException | SaveException | ScriptExecutionException e) {
+            return notifyError(e);
         } catch (EndOfExecutionException e) {
             logger.info("Завершение программы", e);
             System.out.println(e.getMessage());
             return false;
-        } catch (Exception e) {
-            return notifyError(e.getMessage(), e);
         }
     }
 
     /**
      * Метод для уведомления о некритичной ошибке
-     * @param message сообщение ошибки
      * @param e класс ошибки
      * @return true для продолжения работы
      */
-    private boolean notifyError(String message, Exception e) {
-        logger.error(message, e);
+    private boolean notifyError(Exception e) {
+        logger.error(e.getMessage(), e);
         System.out.println(e.getMessage());
         return true;
     }

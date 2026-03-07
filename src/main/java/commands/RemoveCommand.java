@@ -2,6 +2,7 @@ package commands;
 
 import core.CollectionManager;
 import exceptions.IdNotFoundException;
+import exceptions.InvalidIdException;
 import utility.ExecutionResponse;
 
 /**
@@ -20,7 +21,7 @@ public class RemoveCommand extends Command {
         try {
             collectionManager.removeProductById(Integer.parseInt(tokens[1]));
         } catch (NumberFormatException e) {
-            throw new IdNotFoundException("Неверный формат id");
+            throw new InvalidIdException("Неверный формат id");
         }
 
         return new ExecutionResponse("Продукт с id=" + tokens[1] + " удален", false);

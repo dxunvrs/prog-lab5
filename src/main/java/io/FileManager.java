@@ -52,7 +52,7 @@ public class FileManager {
     /**
      * Метод загрузки коллекции из .csv файла. Используется {@link Scanner}
      */
-    public void load(CollectionManager collectionRepository) {
+    public void load(CollectionManager collectionManager) {
         try (Scanner scanner = new Scanner(new File(fileName))) {
             LocalDateTime dateOfInit = null;
             if (scanner.hasNextLine()) {
@@ -63,10 +63,10 @@ public class FileManager {
                 String dateLine = scanner.nextLine();
                 if (dateLine.trim().isEmpty()) continue;
                 Product product = mapper.readerFor(Product.class).with(schema).readValue(dateLine);
-                collectionRepository.addProduct(product);
+                collectionManager.addProduct(product);
             }
 
-            collectionRepository.initCollection(dateOfInit);
+            collectionManager.initCollection(dateOfInit);
             logger.info("Коллекция из файла {} успешно загружена", fileName);
             System.out.println("Коллекция из файла " + fileName + " успешно загружена");
 

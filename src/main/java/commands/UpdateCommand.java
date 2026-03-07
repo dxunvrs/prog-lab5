@@ -2,6 +2,7 @@ package commands;
 
 import core.CollectionManager;
 import exceptions.IdNotFoundException;
+import exceptions.InvalidIdException;
 import io.InputReader;
 import utility.ExecutionResponse;
 import utility.ProductForm;
@@ -25,7 +26,7 @@ public class UpdateCommand extends Command {
         try {
             collectionManager.updateProductById(Integer.parseInt(tokens[1]), new ProductForm(inputReader).getProduct());
         } catch (NumberFormatException e) {
-            throw new IdNotFoundException("Неверный формат id");
+            throw new InvalidIdException("Неверный формат id");
         }
 
         return new ExecutionResponse("Продукт с id=" + tokens[1] + " обновлен", false);
