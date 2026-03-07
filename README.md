@@ -69,4 +69,4 @@ public enum UnitOfMeasure {
 }
 ```
 ## Диаграмма классов разработанной программы
-![](uml.svg)
+![](uml.png)
