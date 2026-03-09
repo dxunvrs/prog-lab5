@@ -139,6 +139,9 @@ public class CollectionManager {
                 dateOfInit.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), getCollectionSize());
     }
 
+    /**
+     * Получение размера коллекции
+     */
     public int getCollectionSize() {
         return collection.size();
     }
